@@ -1,11 +1,11 @@
 'use strict';
 const express = require('express');
-const router = express.Router();
 const { uuid } = require('uuidv4');
 
 const cosmos = require('../util/cosmos')
 
-router.get('/', async function (_, res) {
+const insecureRouter = express.Router();
+insecureRouter.get('/', async function (_, res) {
     console.log('Running List Recipes');
 
     try {
@@ -18,7 +18,8 @@ router.get('/', async function (_, res) {
     }
 });
 
-router.post('/create', async function (req, res) {
+const secureRouter = express.Router();
+secureRouter.post('/create', async function (req, res) {
     console.log('Running Create Recipe');
 
     try {
@@ -67,4 +68,5 @@ router.post('/create', async function (req, res) {
     }
 })
 
-module.exports = router;
+exports.insecure = insecureRouter;
+exports.secure = secureRouter;

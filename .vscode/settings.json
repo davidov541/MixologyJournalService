@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/71ec9d2a-82a1-4c55-85ad-4d5a856d5008/resourceGroups/MixologyJournal/providers/Microsoft.Web/sites/MixologyJournal",
+    "appService.deploySubpath": ""
 }

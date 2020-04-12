@@ -1,9 +1,16 @@
 'use strict';
 var express = require('express');
-var router = express.Router();
+var insecureRouter = express.Router();
 
-router.get('/', function (_, res) {
+insecureRouter.get('/', function (_, res) {
     res.send("Hello World")
 });
 
-module.exports = router;
+var secureRouter = express.Router();
+
+secureRouter.get('/', function (_, res) {
+    res.send("Hello World")
+});
+
+exports.insecure = insecureRouter;
+exports.secure = secureRouter;

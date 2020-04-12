@@ -17,21 +17,26 @@ app.use(logger(config.env));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use('/insecure/', routes.insecure);
+app.use('/insecure/users', users.insecure);
+app.use('/insecure/recipes', recipes.insecure);
+app.use('/insecure/ingredients', ingredients.insecure);
+app.use('/insecure/units', units.insecure);
+app.use('/static', express.static('static'))
+
 app.use(function (req, res, next) {
     const authHeader = req.headers.authorization
-    if (authHeader || config.env == 'dev' || req.url.startsWith('/static')) {
+    if (authHeader || config.env == 'dev') {
         next()
     } else {
         res.status(401).send('Unauthorized')
     }
 })
-
-app.use('/', routes);
-app.use('/users', users);
-app.use('/recipes', recipes);
-app.use('/ingredients', ingredients);
-app.use('/units', units);
-app.use('/static', express.static('static'))
+app.use('/secure', routes.secure);
+app.use('/secure/users', users.secure);
+app.use('/secure/recipes', recipes.secure);
+app.use('/secure/ingredients', ingredients.secure);
+app.use('/secure/units', units.secure);
 
 // catch 404 and forward to error handler
 app.use(function (_, __, next) {
