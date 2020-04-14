@@ -10,7 +10,21 @@ insecureRouter.get('/', async function (_, res) {
 
     try {
         const info = await cosmos.getEntriesOfKind('recipe', ['name', 'steps'])
-        info.forEach(i => i.steps = JSON.parse(i.steps))
+        const infoPromises = info.map(async i => {
+            i.steps = JSON.parse(i.steps)
+            const usages = await cosmos.getConnectedEntriesOfKind(i.id, 'ingredientUsage', [])
+            const usagesPromises = usages.map(async u => {
+                const ingred = {}
+                const unit = (await cosmos.getConnectedEntriesOfKind(u.id, 'unit', ['name'], ['unitAmount']))[0]
+                ingred.unit = unit.vertex.name;
+                ingred.amount = unit.edge.unitAmount;
+                const ingredient = (await cosmos.getConnectedEntriesOfKind(u.id, 'ingredient', ['name']))[0]
+                ingred.ingredient = ingredient.vertex.name;
+                return ingred;
+            })
+            i.ingredients = await Promise.all(usagesPromises);
+        })
+        await Promise.all(infoPromises)
         res.send(info);
     } catch (err) {
         res.status(500).send("Error found: " + err);

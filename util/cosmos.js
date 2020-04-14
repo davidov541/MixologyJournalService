@@ -30,6 +30,28 @@ async function getEntriesOfKind(kind, properties) {
     })
 }
 
+async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties = []) {
+    const command = "g.V(id).outE().inV().hasLabel(label).path()"
+    await client.open();
+    const result = await client.submit(command, {
+        id: id,
+        label: label
+    })
+    await client.close();
+    return result._items.map(i => {
+        const edge = i.objects[1]
+        const vertex = i.objects[2]
+        var result = {
+            id: vertex.id
+        }
+        result.vertex = {}
+        result.edge = {}
+        vertexProperties.forEach(p => result.vertex[p] = vertex.properties[p][0].value)
+        edgeProperties.forEach(p => result.edge[p] = edge.properties[p])
+        return result;
+    })
+}
+
 async function createEntryOfKind(kind, id, properties, edges) {
     var command = "g.addV(label).property('id', id).property('partition_key', partition_key)"
     Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
@@ -59,3 +81,4 @@ async function createEdge(source, target, relationship, properties) {
 
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.createEntryOfKind = createEntryOfKind;
+exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
