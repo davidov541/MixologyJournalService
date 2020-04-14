@@ -13,15 +13,7 @@ insecureRouter.get('/', async function (_, res) {
         const infoPromises = info.map(async i => {
             i.steps = JSON.parse(i.steps)
             const usages = await cosmos.getConnectedEntriesOfKind(i.id, 'ingredientUsage', [])
-            const usagesPromises = usages.map(async u => {
-                const ingred = {}
-                const unit = (await cosmos.getConnectedEntriesOfKind(u.id, 'unit', ['name'], ['unitAmount']))[0]
-                ingred.unit = unit.vertex.name;
-                ingred.amount = unit.edge.unitAmount;
-                const ingredient = (await cosmos.getConnectedEntriesOfKind(u.id, 'ingredient', ['name']))[0]
-                ingred.ingredient = ingredient.vertex.name;
-                return ingred;
-            })
+            const usagesPromises = usages.map(processIngredientUsages)
             i.ingredients = await Promise.all(usagesPromises);
         })
         await Promise.all(infoPromises)
@@ -31,6 +23,16 @@ insecureRouter.get('/', async function (_, res) {
         console.log(err)
     }
 });
+
+async function processIngredientUsages(usage) {
+    const ingred = {}
+    const unit = (await cosmos.getConnectedEntriesOfKind(usage.id, 'unit', ['name'], ['unitAmount']))[0]
+    ingred.unit = unit.vertex.name;
+    ingred.amount = unit.edge.unitAmount;
+    const ingredient = (await cosmos.getConnectedEntriesOfKind(usage.id, 'ingredient', ['name']))[0]
+    ingred.ingredient = ingredient.vertex.name;
+    return ingred;
+}
 
 const secureRouter = express.Router();
 secureRouter.post('/create', async function (req, res) {
