@@ -63,7 +63,7 @@ async function createEntryOfKind(kind, id, properties, edges) {
     })
     console.log("Result Vertex: %s\n", JSON.stringify(result));
 
-    const edgePromises = edges.map(async e => createEdge(id, e.id, e.relationship, e.properties))
+    const edgePromises = edges.map(async e => await createEdge(id, e.id, e.relationship, e.properties))
     await Promise.all(edgePromises)
 
     await client.close();
