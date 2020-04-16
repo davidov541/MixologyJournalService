@@ -19,8 +19,19 @@ insecureRouter.get('/', async function (req, res) {
 });
 
 const secureRouter = express.Router();
-secureRouter.post('/create', async function (req, res) {
+secureRouter.get('/create', async function (req, res) {
     console.log('Running Create Unit');
+    console.log('Start request');
+    console.log(req.body);
+    console.log('---')
+    console.log(req.originalUrl);
+    console.log('---');
+    console.log(req.rawHeaders);
+    console.log('---');
+    console.log(req.method);
+    console.log('---');
+    console.log(req.is('application/json'));
+    console.log('End request');
 
     const info = {
         name: req.body.name

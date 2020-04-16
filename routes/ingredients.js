@@ -5,7 +5,7 @@ const { uuid } = require('uuidv4');
 const cosmos = require('../util/cosmos')
 
 const insecureRouter = express.Router();
-insecureRouter.get('/', async function (req, res) {
+insecureRouter.get('/', async function (_, res) {
     console.log('Running List Ingredients');
 
     try {
@@ -18,7 +18,7 @@ insecureRouter.get('/', async function (req, res) {
 });
 
 const secureRouter = express.Router();
-secureRouter.post('/create', async function (req, res) {
+secureRouter.post('/create/', async function (req, res) {
     console.log('Running Create Ingredient');
 
     const info = {

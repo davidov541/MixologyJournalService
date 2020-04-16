@@ -3,19 +3,18 @@ const debug = require('debug');
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const config = require('./config/config')
+const config = require('./config/config');
+
+const azureMobileApps = require('azure-mobile-apps');
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
 const recipes = require('./routes/recipes');
-const ingredients = require('./routes/ingredients')
+const ingredients = require('./routes/ingredients');
 const units = require('./routes/units');
 
-const app = express();
-
 app.use(logger(config.env));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.raw());
 
 app.use('/insecure/', routes.insecure);
 app.use('/insecure/users', users.insecure);
@@ -32,6 +31,7 @@ app.use(function (req, res, next) {
         res.status(401).send('Unauthorized')
     }
 })
+
 app.use('/secure', routes.secure);
 app.use('/secure/users', users.secure);
 app.use('/secure/recipes', recipes.secure);

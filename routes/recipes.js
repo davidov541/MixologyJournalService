@@ -46,7 +46,7 @@ async function processIngredientUsages(usage) {
 }
 
 const secureRouter = express.Router();
-secureRouter.post('/create', async function (req, res) {
+secureRouter.post('/create/', async function (req, res) {
     console.log('Running Create Recipe');
 
     try {
