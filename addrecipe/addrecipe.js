@@ -26,9 +26,7 @@ module.exports = async function (context, req) {
                 }
             }
             const ingredientUsageEdges = [ingredientEdge, unitEdge]
-            context.log("Ingredient ID " + id + " starting")
             await cosmos.createEntryOfKind('ingredientUsage', id, info, ingredientUsageEdges);
-            context.log("Ingredient ID " + id + " completed")
             return {
                 id: id,
                 relationship: "uses",
@@ -36,18 +34,14 @@ module.exports = async function (context, req) {
             };
         })
 
-        context.log("Waiting on all ingredient IDs")
         const ingredientIDs = await Promise.all(ingredientIDPromises)
-        context.log("All ingredient IDs accounted for: " + JSON.stringify(ingredientIDs))
 
         const info = {
             name: req.body.name,
             steps: JSON.stringify(req.body.steps)
         }
         const recipeID = uuid()
-        context.log("Starting creation of recipe vertex")
         await cosmos.createEntryOfKind('recipe', recipeID, info, ingredientIDs)
-        context.log("Recipe vertex created")
         info.id = recipeID
         info.steps = JSON.parse(info.steps)
         context.res = {

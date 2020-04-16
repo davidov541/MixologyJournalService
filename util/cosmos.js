@@ -3,18 +3,21 @@ const config = require("../config/config");
 
 const authenticator = new Gremlin.driver.auth.PlainTextSaslAuthenticator(`/dbs/${config.database}/colls/${config.collection}`, config.primaryKey)
 
-const client = new Gremlin.driver.Client(
-    config.endpoint,
-    {
-        authenticator,
-        traversalsource: "g",
-        rejectUnauthorized: true,
-        mimeType: "application/vnd.gremlin-v2.0+json"
-    }
-);
+function createClient() {
+    return new Gremlin.driver.Client(
+        config.endpoint,
+        {
+            authenticator,
+            traversalsource: "g",
+            rejectUnauthorized: true,
+            mimeType: "application/vnd.gremlin-v2.0+json"
+        }
+    );
+}
 
 async function getEntriesOfKind(kind, properties) {
     const command = "g.V().hasLabel(label)"
+    const client = createClient()
     await client.open();
     const result = await client.submit(command, {
         label: kind
@@ -32,6 +35,7 @@ async function getEntriesOfKind(kind, properties) {
 
 async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties = []) {
     const command = "g.V(id).outE().inV().hasLabel(label).path()"
+    const client = createClient()
     await client.open();
     const result = await client.submit(command, {
         id: id,
@@ -55,6 +59,7 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
 async function createEntryOfKind(kind, id, properties, edges) {
     var command = "g.addV(label).property('id', id).property('partition_key', partition_key)"
     Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
+    const client = createClient()
     await client.open();
     const result = await client.submit(command, {
         label: kind,
@@ -72,11 +77,13 @@ async function createEntryOfKind(kind, id, properties, edges) {
 async function createEdge(source, target, relationship, properties) {
     var command = "g.V(source).addE(relationship).to(g.V(target))";
     Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
+    const client = createClient()
     await client.submit(command, {
         source: source,
         relationship: relationship,
         target: target
     })
+    client.close();
 }
 
 exports.getEntriesOfKind = getEntriesOfKind;
