@@ -11,12 +11,19 @@ module.exports = async function (context, req) {
     const id = uuid()
     
     try {
-        await cosmos.createEntryOfKind('ingredient', id, info, [])
-        info.id = id
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: info
-        };
+        if (!req.headers.hasOwnProperty('x-ms-client-principal-id')) {
+            context.res = {
+                status: 401,
+                body: "Must be authorized to use this API."
+            }
+        } else {
+            await cosmos.createEntryOfKind('ingredient', id, info, [])
+            info.id = id
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                body: info
+            };
+        }
     } catch (err) {
         console.log(err)
         context.res = {

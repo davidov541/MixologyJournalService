@@ -6,48 +6,55 @@ module.exports = async function (context, req) {
     context.log('POST /secure/recipes');
     
     try {
-        const ingredients = req.body.ingredients
-        var ingredientUsage = 1;
-        const ingredientIDPromises = ingredients.map(async i => {
-            const info = {
-                name: `${req.body.name} Ingredient Usage #${ingredientUsage++}`
-            };
-            const id = uuid();
-            const ingredientEdge = {
-                id: i.ingredientID,
-                relationship: "of",
-                properties: {}
+        if (!req.headers.hasOwnProperty('x-ms-client-principal-id')) {
+            context.res = {
+                status: 401,
+                body: "Must be authorized to use this API."
             }
-            const unitEdge = {
-                id: i.unitID,
-                relationship: "amount",
-                properties: {
-                    unitAmount: i.unitAmount
+        } else {
+            const ingredients = req.body.ingredients
+            var ingredientUsage = 1;
+            const ingredientIDPromises = ingredients.map(async i => {
+                const info = {
+                    name: `${req.body.name} Ingredient Usage #${ingredientUsage++}`
+                };
+                const id = uuid();
+                const ingredientEdge = {
+                    id: i.ingredientID,
+                    relationship: "of",
+                    properties: {}
                 }
+                const unitEdge = {
+                    id: i.unitID,
+                    relationship: "amount",
+                    properties: {
+                        unitAmount: i.unitAmount
+                    }
+                }
+                const ingredientUsageEdges = [ingredientEdge, unitEdge]
+                await cosmos.createEntryOfKind('ingredientUsage', id, info, ingredientUsageEdges);
+                return {
+                    id: id,
+                    relationship: "uses",
+                    properties: {}
+                };
+            })
+    
+            const ingredientIDs = await Promise.all(ingredientIDPromises)
+    
+            const info = {
+                name: req.body.name,
+                steps: JSON.stringify(req.body.steps)
             }
-            const ingredientUsageEdges = [ingredientEdge, unitEdge]
-            await cosmos.createEntryOfKind('ingredientUsage', id, info, ingredientUsageEdges);
-            return {
-                id: id,
-                relationship: "uses",
-                properties: {}
-            };
-        })
-
-        const ingredientIDs = await Promise.all(ingredientIDPromises)
-
-        const info = {
-            name: req.body.name,
-            steps: JSON.stringify(req.body.steps)
+            const recipeID = uuid()
+            await cosmos.createEntryOfKind('recipe', recipeID, info, ingredientIDs)
+            info.id = recipeID
+            info.steps = JSON.parse(info.steps)
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                body: info
+            };    
         }
-        const recipeID = uuid()
-        await cosmos.createEntryOfKind('recipe', recipeID, info, ingredientIDs)
-        info.id = recipeID
-        info.steps = JSON.parse(info.steps)
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: info
-        };
     } catch (err) {
         console.log(err)
         context.res = {
