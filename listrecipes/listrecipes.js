@@ -31,7 +31,9 @@ async function processRecipe(recipe) {
 async function processIngredientUsages(usage) {
     const ingred = {}
     const unit = (await cosmos.getConnectedEntriesOfKind(usage.id, 'unit', ['name'], ['unitAmount']))[0]
-    ingred.unit = unit.vertex.name;
+    ingred.unit = {}
+    ingred.unit.name = unit.vertex.name;
+    ingred.unit.id = unit.id;
     ingred.amount = unit.edge.unitAmount;
     const ingredient = (await cosmos.getConnectedEntriesOfKind(usage.id, 'ingredient', ['name']))[0]
     ingred.ingredient = {}
