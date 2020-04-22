@@ -34,6 +34,7 @@ async function processIngredientUsages(usage) {
     ingred.unit = unit.vertex.name;
     ingred.amount = unit.edge.unitAmount;
     const ingredient = (await cosmos.getConnectedEntriesOfKind(usage.id, 'ingredient', ['name']))[0]
-    ingred.ingredient = ingredient.vertex.name;
+    ingred.ingredientname = ingredient.vertex.name;
+    ingred.ingredientid = ingredient.id;
     return ingred;
 }
