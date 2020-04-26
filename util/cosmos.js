@@ -89,3 +89,4 @@ async function createEdge(source, target, relationship, properties) {
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
+exports.createEdge = createEdge;

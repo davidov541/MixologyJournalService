@@ -50,6 +50,11 @@ module.exports = async function (context, req) {
             await cosmos.createEntryOfKind('recipe', recipeID, info, ingredientIDs)
             info.id = recipeID
             info.steps = JSON.parse(info.steps)
+
+            const rootID = 'ef5375ad-6d92-4571-a999-999aa494ff13';
+            await cosmos.createEdge(rootID, recipeID, 'created', {});
+            await cosmos.createEdge(recipeID, rootID, 'created by', {});
+
             context.res = {
                 // status: 200, /* Defaults to 200 */
                 body: info
