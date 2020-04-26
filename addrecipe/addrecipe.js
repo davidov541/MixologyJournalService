@@ -4,7 +4,6 @@ const cosmos = require('../util/cosmos')
 
 module.exports = async function (context, req) {
     context.log('POST /secure/recipes');
-    context.log('Body: ' + JSON.stringify(req.body));
 
     try {
         if (!req.headers.hasOwnProperty('x-ms-client-principal-id')) {
