@@ -4,7 +4,8 @@ const cosmos = require('../util/cosmos')
 
 module.exports = async function (context, req) {
     context.log('POST /secure/recipes');
-    
+    context.log('Body: ' + JSON.stringify(req.body));
+
     try {
         if (!req.headers.hasOwnProperty('x-ms-client-principal-id')) {
             context.res = {
@@ -20,15 +21,15 @@ module.exports = async function (context, req) {
                 };
                 const id = uuid();
                 const ingredientEdge = {
-                    id: i.ingredientID,
+                    id: i.ingredient.id,
                     relationship: "of",
                     properties: {}
                 }
                 const unitEdge = {
-                    id: i.unitID,
+                    id: i.unit.id,
                     relationship: "amount",
                     properties: {
-                        unitAmount: i.unitAmount
+                        unitAmount: i.amount
                     }
                 }
                 const ingredientUsageEdges = [ingredientEdge, unitEdge]
