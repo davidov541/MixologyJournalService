@@ -23,7 +23,7 @@ module.exports = async function (context, req) {
             var ingredientUsage = 1;
             const ingredientIDPromises = ingredients.map(async i => {
                 const info = {
-                    name: `${req.body.name} Ingredient Usage #${ingredientUsage++}`
+                    name: `${req.body.name} Instance Ingredient Usage #${ingredientUsage++}`
                 };
                 const id = uuid();
                 const ingredientEdge = {
@@ -50,7 +50,7 @@ module.exports = async function (context, req) {
             const ingredientIDs = await Promise.all(ingredientIDPromises)
     
             const info = {
-                name: req.body.name,
+                name: "Drink - " + req.body.name,
                 steps: JSON.stringify(req.body.steps)
             }
             const drinkID = uuid()
