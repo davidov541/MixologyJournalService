@@ -5,16 +5,23 @@ const cosmos = require('../util/cosmos')
 module.exports = async function (context, req) {
     context.log('POST /secure/units');
 
+    const secret = process.env.APP_SECRET;
+
     const info = {
         name: req.body.name
     }
     const id = uuid()
     
     try {
-        if (!req.headers.hasOwnProperty('x-ms-client-principal-id')) {
+        if (!req.headers.hasOwnProperty('app-secret')) {
             context.res = {
                 status: 401,
                 body: "Must be authorized to use this API."
+            }
+        } else if (req.headers['app-secret'] != secret) {
+            context.res = {
+                status: 401,
+                body: "Invalid credentials."
             }
         } else {
             await cosmos.createEntryOfKind('unit', id, info, [])
