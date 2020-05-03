@@ -6,7 +6,6 @@ async function processDrink(drink) {
     const usagesPromises = usages.map(processIngredientUsages)
     drink.ingredients = await Promise.all(usagesPromises);
     const sourceRecipes = await cosmos.getConnectedEntriesOfKind(drink.id, 'recipe', [])
-    console.log("Source Recipes List = " + JSON.stringify(sourceRecipes));
     drink.sourceRecipeID = sourceRecipes[0].id;
     return drink;
 }

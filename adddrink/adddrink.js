@@ -52,12 +52,12 @@ module.exports = async function (context, req) {
     
             const info = {
                 name: "Drink - " + req.body.name,
+                // Need steps to be a string for the create entry call.
                 steps: JSON.stringify(req.body.steps)
             }
             const drinkID = uuid()
             await cosmos.createEntryOfKind('drink', drinkID, info, ingredientIDs)
             info.id = drinkID
-            info.steps = JSON.parse(info.steps)
 
             const recipeID = req.body.sourceRecipeID
             cosmos.createEdge(drinkID, recipeID, 'derived from', {});
@@ -67,9 +67,11 @@ module.exports = async function (context, req) {
             await cosmos.createEdge(rootID, drinkID, 'created', {});
             await cosmos.createEdge(drinkID, rootID, 'created by', {});
 
+            const finalResult = await entityConversion.processDrink(info);
+
             context.res = {
                 // status: 200, /* Defaults to 200 */
-                body: info
+                body: finalResult
             };    
         }
     } catch (err) {
