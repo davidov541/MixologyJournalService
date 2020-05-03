@@ -22,7 +22,7 @@ async function getEntriesOfKind(kind, properties) {
     const result = await client.submit(command, {
         label: kind
     })
-    console.log("RUs used: " + result.attributes["x-ms-request-charge"])
+    console.log("GetEntriesOfKind; kind = " + kind + ";properties = " + JSON.stringify(properties) + ";RUs used: " + result.attributes["x-ms-request-charge"])
     await client.close();
     return result._items.map(i => {
         var result = {
@@ -41,7 +41,11 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
         id: id,
         label: label
     })
-    console.log("RUs used: " + result.attributes["x-ms-request-charge"])
+    console.log("getConnectedEntriesOfKind; id = " + id + 
+    ";label = " + label + 
+    ";vertexProperties = " + JSON.stringify(vertexProperties) + 
+    ";edgeProperties = " + JSON.stringify(edgeProperties) + 
+    ";RUs used: " + result.attributes["x-ms-request-charge"])
     await client.close();
     return result._items.map(i => {
         const edge = i.objects[1]
@@ -67,7 +71,11 @@ async function createEntryOfKind(kind, id, properties, edges) {
         id: id,
         partition_key: id
     })
-    console.log("RUs used: " + result.attributes["x-ms-request-charge"])
+    console.log("createEntryOfKind; kind = " + kind + 
+    ";id = " + id + 
+    ";properties = " + JSON.stringify(properties) + 
+    ";edges = " + JSON.stringify(edges) + 
+    "RUs used: " + result.attributes["x-ms-request-charge"])
 
     const edgePromises = edges.map(async e => await createEdge(id, e.id, e.relationship, e.properties))
     await Promise.all(edgePromises)
@@ -84,7 +92,11 @@ async function createEdge(source, target, relationship, properties) {
         relationship: relationship,
         target: target
     })
-    console.log("RUs used: " + result.attributes["x-ms-request-charge"])
+    console.log("createEdge; source = " + source + 
+    ";target = " + target + 
+    ";relationship = " + relationship + 
+    ";properties = " + JSON.stringify(properties) + 
+    "RUs used: " + result.attributes["x-ms-request-charge"])
     client.close();
 }
 
