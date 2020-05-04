@@ -1,12 +1,17 @@
 const cosmos = require('../util/cosmos')
+const entityConversion = require('../util/entityConversion')
 
 module.exports = async function (context, _) {
     context.log('GET /insecure/recipes');
 
     try {
-        const info = await cosmos.getEntriesOfKind('recipe', ['name', 'steps'])
-        const infoPromises = info.map(processRecipe)
-        const recipes = await Promise.all(infoPromises)
+        const info = await cosmos.getAllDescendentsOfKind('recipe')
+
+        var recipes = new Array();
+        for(recipe in info) {
+            recipes.push(entityConversion.processRecipe(info[recipe]));
+        }
+
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: recipes
@@ -19,25 +24,3 @@ module.exports = async function (context, _) {
         };
     }
 };
-
-async function processRecipe(recipe) {
-    recipe.steps = JSON.parse(recipe.steps)
-    const usages = await cosmos.getConnectedEntriesOfKind(recipe.id, 'ingredientUsage', [])
-    const usagesPromises = usages.map(processIngredientUsages)
-    recipe.ingredients = await Promise.all(usagesPromises);
-    return recipe;
-}
-
-async function processIngredientUsages(usage) {
-    const ingred = {}
-    const unit = (await cosmos.getConnectedEntriesOfKind(usage.id, 'unit', ['name'], ['unitAmount']))[0]
-    ingred.unit = {}
-    ingred.unit.name = unit.vertex.name;
-    ingred.unit.id = unit.id;
-    ingred.amount = unit.edge.unitAmount;
-    const ingredient = (await cosmos.getConnectedEntriesOfKind(usage.id, 'ingredient', ['name']))[0]
-    ingred.ingredient = {}
-    ingred.ingredient.name = ingredient.vertex.name;
-    ingred.ingredient.id = ingredient.id;
-    return ingred;
-}

@@ -15,6 +15,18 @@ function createClient() {
     );
 }
 
+async function getAllDescendentsOfKind(kind) {
+    const command = "g.V().hasLabel(label).outE().inV().outE().inV().tree()";
+    const client = createClient();
+    await client.open();
+    const result = await client.submit(command, {
+        label: kind
+    });
+    console.log("getAllDescendentsOfKind; kind = " + kind + ";RUs used: " + result.attributes["x-ms-request-charge"])
+    await client.close();
+    return result._items[0];
+}
+
 async function getEntriesOfKind(kind, properties) {
     const command = "g.V().hasLabel(label)"
     const client = createClient()
@@ -100,6 +112,7 @@ async function createEdge(source, target, relationship, properties) {
     client.close();
 }
 
+exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
