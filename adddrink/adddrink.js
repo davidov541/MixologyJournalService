@@ -51,7 +51,7 @@ module.exports = async function (context, req) {
             const ingredientIDs = await Promise.all(ingredientIDPromises)
     
             const info = {
-                name: "Drink - " + req.body.name,
+                name: req.body.name,
                 // Need steps to be a string for the create entry call.
                 steps: JSON.stringify(req.body.steps)
             }
