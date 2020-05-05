@@ -36,8 +36,6 @@ async function getAllDescendentsOfEntity(id) {
     });
     console.log("getAllDescendentsOfEntity; id = " + id + ";RUs used: " + result.attributes["x-ms-request-charge"])
     await client.close();
-    console.log("Result from lookup");
-    console.log(JSON.stringify(result._items[0]));
     return result._items[0][id];
 }
 
