@@ -27,6 +27,18 @@ async function getAllDescendentsOfKind(kind) {
     return result._items[0];
 }
 
+async function getAllDescendentsOfEntity(id) {
+    const command = "g.V(id).outE().inV().outE().inV().tree()";
+    const client = createClient();
+    await client.open();
+    const result = await client.submit(command, {
+        id: id
+    });
+    console.log("getAllDescendentsOfEntity; id = " + id + ";RUs used: " + result.attributes["x-ms-request-charge"])
+    await client.close();
+    return result._items[0][0];
+}
+
 async function getEntriesOfKind(kind, properties) {
     const command = "g.V().hasLabel(label)"
     const client = createClient()
@@ -113,6 +125,7 @@ async function createEdge(source, target, relationship, properties) {
 }
 
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
+exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;

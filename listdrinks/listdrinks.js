@@ -5,9 +5,13 @@ module.exports = async function (context, _) {
     context.log('GET /insecure/drinks');
 
     try {
-        const info = await cosmos.getEntriesOfKind('drink', ['name', 'steps'])
-        const infoPromises = info.map(entityConversion.processDrink)
-        const drinks = await Promise.all(infoPromises)
+        const info = await cosmos.getAllDescendentsOfKind('drink')
+
+        var drinks = new Array();
+        for(drink in info) {
+            drinks.push(entityConversion.processDrink(info[drink]));
+        }
+
         context.res = {
             // status: 200, /* Defaults to 200 */
             body: drinks
