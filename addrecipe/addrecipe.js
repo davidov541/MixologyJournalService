@@ -62,7 +62,7 @@ module.exports = async function (context, req) {
             await cosmos.createEdge(rootID, recipeID, 'created', {});
             await cosmos.createEdge(recipeID, rootID, 'created by', {});
 
-            const finalResult = entityConversion.processRecipe(getAllDescendentsOfEntity(recipeID));
+            const finalResult = entityConversion.processRecipe(await cosmos.getAllDescendentsOfEntity(recipeID));
 
             context.res = {
                 // status: 200, /* Defaults to 200 */

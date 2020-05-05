@@ -67,7 +67,7 @@ module.exports = async function (context, req) {
             await cosmos.createEdge(rootID, drinkID, 'created', {});
             await cosmos.createEdge(drinkID, rootID, 'created by', {});
 
-            const finalResult = entityConversion.processDrink(getAllDescendentsOfEntity(drinkID));
+            const finalResult = entityConversion.processDrink(await cosmos.getAllDescendentsOfEntity(drinkID));
 
             context.res = {
                 // status: 200, /* Defaults to 200 */

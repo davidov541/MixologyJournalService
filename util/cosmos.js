@@ -36,7 +36,9 @@ async function getAllDescendentsOfEntity(id) {
     });
     console.log("getAllDescendentsOfEntity; id = " + id + ";RUs used: " + result.attributes["x-ms-request-charge"])
     await client.close();
-    return result._items[0][0];
+    console.log("Result from lookup");
+    console.log(JSON.stringify(result._items[0]));
+    return result._items[0][id];
 }
 
 async function getEntriesOfKind(kind, properties) {
@@ -111,7 +113,7 @@ async function createEdge(source, target, relationship, properties) {
     var command = "g.V(source).addE(relationship).to(g.V(target))";
     Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
     const client = createClient()
-    await client.submit(command, {
+    const result = await client.submit(command, {
         source: source,
         relationship: relationship,
         target: target
