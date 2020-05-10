@@ -61,9 +61,9 @@ module.exports = async function (context, req) {
             cosmos.createEdge(drinkID, recipeID, 'derived from', {});
             cosmos.createEdge(recipeID, drinkID, 'derivative', {});
 
-            const rootID = process.env.ROOT_USER;
-            await cosmos.createEdge(rootID, drinkID, 'created', {});
-            await cosmos.createEdge(drinkID, rootID, 'created by', {});
+            const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.sub;
+            await cosmos.createEdge(userID, drinkID, 'created', {});
+            await cosmos.createEdge(drinkID, userID, 'created by', {});
 
             const finalResult = entityConversion.processDrink(await cosmos.getAllDescendentsOfEntity(drinkID));
 

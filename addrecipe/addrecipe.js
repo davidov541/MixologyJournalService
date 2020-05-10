@@ -56,9 +56,9 @@ module.exports = async function (context, req) {
             info.id = recipeID
             info.steps = JSON.parse(info.steps)
 
-            const rootID = process.env.ROOT_USER;
-            await cosmos.createEdge(rootID, recipeID, 'created', {});
-            await cosmos.createEdge(recipeID, rootID, 'created by', {});
+            const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.sub;
+            await cosmos.createEdge(userID, recipeID, 'created', {});
+            await cosmos.createEdge(recipeID, userID, 'created by', {});
 
             const finalResult = entityConversion.processRecipe(await cosmos.getAllDescendentsOfEntity(recipeID));
 
