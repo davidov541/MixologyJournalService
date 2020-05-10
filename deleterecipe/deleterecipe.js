@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
         try {
             const id = req.body.id;
             context.log("ID: " + id);
-            await cosmos.deleteEntry(id, ['uses']);
+            await cosmos.deleteEntry(id, ['uses', 'derivative']);
             context.res = {
                 status: 200,
                 body: "Success"
