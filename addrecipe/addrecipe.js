@@ -1,24 +1,22 @@
 const { uuid } = require('uuidv4');
 
 const cosmos = require('../util/cosmos')
+const entityConversion = require('../util/entityConversion')
+const security = require('../util/security')
 
 module.exports = async function (context, req) {
     context.log('POST /secure/recipes');
+    
+    const securityResult = security.checkToken(context, req);
 
-    const secret = process.env.APP_SECRET;
-
-    try {
-        if (!req.headers.hasOwnProperty('app-secret')) {
-            context.res = {
-                status: 401,
-                body: "Must be authorized to use this API."
-            }
-        } else if (req.headers['app-secret'] != secret) {
-            context.res = {
-                status: 401,
-                body: "Invalid credentials."
-            }
-        } else {
+    if (!securityResult.success)
+    {
+        context.res = {
+            status: securityResult.error.code,
+            body: securityResult.error.message
+        }
+    } else {
+        try {
             const ingredients = req.body.ingredients
             var ingredientUsage = 1;
             const ingredientIDPromises = ingredients.map(async i => {
@@ -68,12 +66,12 @@ module.exports = async function (context, req) {
                 // status: 200, /* Defaults to 200 */
                 body: finalResult
             };    
+        } catch (err) {
+            console.log(err)
+            context.res = {
+                status: 500,
+                body: "Error found: " + err
+            };
         }
-    } catch (err) {
-        console.log(err)
-        context.res = {
-            status: 500,
-            body: "Error found: " + err
-        };
     }
 };
