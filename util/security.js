@@ -75,4 +75,9 @@ function checkToken(context, req) {
     return result;
 }
 
+function isAdmin(user) {
+    return user.payload.sub == process.env.ADMIN_USER;
+}
+
 exports.checkToken = checkToken;
+exports.isAdmin = isAdmin;
