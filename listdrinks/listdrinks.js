@@ -1,8 +1,11 @@
 const cosmos = require('../util/cosmos')
 const entityConversion = require('../util/entityConversion')
+const security = require('../util/security')
 
-module.exports = async function (context, _) {
+module.exports = async function (context, req) {
     context.log('GET /insecure/drinks');
+
+    const securityResult = security.checkToken(context, req);
 
     try {
         const info = await cosmos.getAllDescendentsOfKind('drink')
@@ -13,7 +16,7 @@ module.exports = async function (context, _) {
         }
 
         context.res = {
-            // status: 200, /* Defaults to 200 */
+            status: 200,
             body: drinks
         };
     } catch (err) {

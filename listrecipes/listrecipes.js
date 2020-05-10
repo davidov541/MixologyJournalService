@@ -2,7 +2,7 @@ const cosmos = require('../util/cosmos')
 const entityConversion = require('../util/entityConversion')
 const security = require('../util/security')
 
-module.exports = async (context, req) => {
+module.exports = async function (context, req) {
     context.log('GET /insecure/recipes');
 
     const securityResult = security.checkToken(context, req);

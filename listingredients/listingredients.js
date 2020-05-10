@@ -1,12 +1,15 @@
 const cosmos = require('../util/cosmos')
+const security = require('../util/security')
 
-module.exports = async function (context, _) {
+module.exports = async function (context, req) {
     context.log('GET /insecure/ingredients');
+
+    const securityResult = security.checkToken(context, req);
 
     try {
         const info = await cosmos.getEntriesOfKind('ingredient', ['name'])
         context.res = {
-            // status: 200, /* Defaults to 200 */
+            status: 200,
             body: info
         };
     } catch (err) {
