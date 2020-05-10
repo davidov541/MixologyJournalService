@@ -5,26 +5,43 @@ const jwt = require('jsonwebtoken');
 const config = require("../config/config");
 
 function checkToken(context, req) {
+    var result = {
+        "error": {},
+        "user": {},
+        "success": false
+    }
     var token;
     var parts = req.headers.authorization.split(' ');
-      if (parts.length == 2) {
+    if (parts.length == 2) {
         var scheme = parts[0];
         var credentials = parts[1];
 
         if (/^Bearer$/i.test(scheme)) {
-          token = credentials;
+            token = credentials;
         } else {
-          context.log("Credentials Bad Scheme 1");
-          return false;
+            result.error = {
+                "message": "Only JWTs are accepted for this API.",
+                "code": 401
+            }
+            context.log("Error found: " + JSON.stringify(result));
+            return result;
         }
-      } else {
-        context.log("Credentials Bad Scheme 2");
-        return false;
+    } else {
+        result.error = {
+            "message": "Authentication required for this API.",
+            "code": 401
+        }
+        context.log("Error found: " + JSON.stringify(result));
+        return result;
     }
 
     if (!token) {
-      context.log("No access token was found.");
-      return false;
+        result.error = {
+            "message": "No access token was found.",
+            "code": 401
+        }
+        context.log("Error found: " + JSON.stringify(result));
+        return result;
     }
 
     const cert = config.signingToken;
@@ -37,37 +54,41 @@ function checkToken(context, req) {
     try {
         dtoken = jwt.decode(token, options)
     } catch (err) {
-        context.log("Cannot Decode Token: " + JSON.stringify(err));
-        return false;
+        result.error = {
+            "message": "Cannot decode token: " + err,
+            "code": 403
+        }
+        context.log("Error found: " + JSON.stringify(result));
+        return result;
     }
-    context.log("DToken: " + JSON.stringify(dtoken));
 
-    var result;
+    var rawResult;
     try {
-        result = jwt.verify(token, cert, options) || {};
+        rawResult = jwt.verify(token, cert, options) || {};
     } catch (err) {
-      context.log("Invalid Token: " + JSON.stringify(err));
-      context.log("Error = " + err);
-      context.log("Result = " + JSON.stringify(result));
-      return false;
+        result.error = {
+            "message": "Invalid token: " + err,
+            "code": 403
+        }
+        context.log("Error found: " + JSON.stringify(result));
+        return result;
     }
     context.log("Result: " + JSON.stringify(result));
-    return true;
+    result.user = rawResult;
+    result.success = true;
+    return result;
 }
 
 module.exports = async (context, req) => {
     context.log('GET /insecure/recipes');
 
-    const success = checkToken(context, req);
-    context.log("Check Token Result: " + success);
+    const securityResult = checkToken(context, req);
 
-    context.log("Request: " + JSON.stringify(req));
-
-    if (!success)
+    if (!securityResult.success)
     {
         context.res = {
-            status: 401,
-            body: "Error found: "  + JSON.stringify(success)
+            status: securityResult.error.code,
+            body: securityResult.error.message
         }
     } else {
         try {
