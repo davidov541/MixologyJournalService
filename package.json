@@ -1,0 +1,20 @@
+{
+  "name": "mixology_journal_backend",
+  "version": "1.0.0",
+  "description": "Backend implementation for the Mixology Journal app.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidov541/mixologyjournalservice.git"
+  },
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "gremlin": "^3.4.6",
+    "jsonwebtoken": "^8.5.1",
+    "uuidv4": "^6.0.7"
+  },
+  "devDependencies": {}
+}
