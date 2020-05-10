@@ -7,12 +7,17 @@ module.exports = async function (context, req) {
 
     const securityResult = security.checkToken(context, req);
 
+
     try {
         const info = await cosmos.getAllDescendentsOfKind('drink')
 
         var drinks = new Array();
         for(drink in info) {
-            drinks.push(entityConversion.processDrink(info[drink]));
+            const drinkInfo = entityConversion.processDrink(info[drink], securityResult.user);
+            if (drinkInfo.user == "root" || drinkInfo.user == securityResult.user.payload.sub)
+            {
+                drinks.push(drinkInfo);
+            }
         }
 
         context.res = {

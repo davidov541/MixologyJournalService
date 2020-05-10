@@ -2,18 +2,28 @@ const cosmos = require('../util/cosmos');
 
 function processDrink(drink) {
     var result = {}
-    
+
     result.id = drink.key.id;
     result.name = drink.key.properties.name[0].value
     result.steps = JSON.parse(drink.key.properties.steps[0].value)
 
     result.ingredients = new Array();
-    for(ingredientUsageEdge in drink.value) {
-        if (drink.value[ingredientUsageEdge].key.inVLabel == "ingredientUsage")
+    for(edgeKey in drink.value) {
+        const edge = drink.value[edgeKey];
+        if (edge.key.inVLabel == "ingredientUsage")
         {
-            for (ingredientUsage in drink.value[ingredientUsageEdge].value)
+            for (ingredientUsageKey in edge.value)
             {
-                result.ingredients.push(processIngredientUsages(drink.value[ingredientUsageEdge].value[ingredientUsage]));
+                const ingredientUsage = edge.value[ingredientUsageKey];
+                result.ingredients.push(processIngredientUsages(ingredientUsage));
+            }
+        } 
+        else if (edge.key.inVLabel == "user")
+        {
+            for (userKey in edge.value)
+            {
+                const user = edge.value[userKey];
+                result.user = user.key.properties.name[0].value;
             }
         }
     }
