@@ -61,7 +61,7 @@ module.exports = async function (context, req) {
             cosmos.createEdge(drinkID, recipeID, 'derived from', {});
             cosmos.createEdge(recipeID, drinkID, 'derivative', {});
 
-            const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.sub;
+            const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.payload.sub;
             await cosmos.createEdge(userID, drinkID, 'created', {});
             await cosmos.createEdge(drinkID, userID, 'created by', {});
 
