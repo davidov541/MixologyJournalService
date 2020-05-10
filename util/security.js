@@ -69,9 +69,9 @@ function checkToken(context, req) {
         return result;
     }
 
-    context.log("Result: " + JSON.stringify(result));
     result.user = rawResult;
     result.success = true;
+    context.log("Result: " + JSON.stringify(result));
     return result;
 }
 
