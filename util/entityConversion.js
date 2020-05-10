@@ -38,12 +38,21 @@ function processRecipe(recipe) {
     result.steps = JSON.parse(recipe.key.properties.steps[0].value)
 
     result.ingredients = new Array();
-    for(ingredientUsageEdge in recipe.value) {
-        if (recipe.value[ingredientUsageEdge].key.inVLabel == "ingredientUsage")
+    for(edgeKey in recipe.value) {
+        const edge = recipe.value[edgeKey];
+        if (edge.key.inVLabel == "ingredientUsage")
         {
-            for (ingredientUsage in recipe.value[ingredientUsageEdge].value)
+            for (ingredientUsage in edge.value)
             {
-                result.ingredients.push(processIngredientUsages(recipe.value[ingredientUsageEdge].value[ingredientUsage]));
+                result.ingredients.push(processIngredientUsages(edge.value[ingredientUsage]));
+            }
+        }
+        else if (edge.key.inVLabel == "user")
+        {
+            for (userKey in edge.value)
+            {
+                const user = edge.value[userKey];
+                result.user = user.key.properties.name[0].value;
             }
         }
     }
