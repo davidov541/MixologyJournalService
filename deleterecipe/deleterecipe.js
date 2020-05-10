@@ -4,7 +4,6 @@ const security = require('../util/security')
 module.exports = async function (context, req) {
     context.log('DELETE /secure/recipes');
     
-    context.log("Request: " + JSON.stringify(req));
     const securityResult = security.checkToken(context, req);
 
     if (!securityResult.success)
@@ -16,7 +15,6 @@ module.exports = async function (context, req) {
     } else {
         try {
             const id = req.body.id;
-            context.log("ID: " + id);
             await cosmos.deleteEntry(id, ['uses', 'derivative']);
             context.res = {
                 status: 200,
