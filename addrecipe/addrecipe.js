@@ -56,7 +56,7 @@ module.exports = async function (context, req) {
             info.id = recipeID
             info.steps = JSON.parse(info.steps)
 
-            const rootID = 'ef5375ad-6d92-4571-a999-999aa494ff13';
+            const rootID = process.env.ROOT_USER;
             await cosmos.createEdge(rootID, recipeID, 'created', {});
             await cosmos.createEdge(recipeID, rootID, 'created by', {});
 

@@ -61,7 +61,7 @@ module.exports = async function (context, req) {
             cosmos.createEdge(drinkID, recipeID, 'derived from', {});
             cosmos.createEdge(recipeID, drinkID, 'derivative', {});
 
-            const rootID = 'ef5375ad-6d92-4571-a999-999aa494ff13';
+            const rootID = process.env.ROOT_USER;
             await cosmos.createEdge(rootID, drinkID, 'created', {});
             await cosmos.createEdge(drinkID, rootID, 'created by', {});
 
