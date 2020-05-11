@@ -87,7 +87,7 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
 
 async function createEntryOfKind(kind, id, properties, edges) {
     var command = "g.addV(label).property('id', id).property('partition_key', partition_key)"
-    Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
+    Object.keys(properties).forEach(k => command += `.property("${k}", "${properties[k]}")`)
     const client = createClient()
     await client.open();
     const result = await client.submit(command, {

@@ -17,7 +17,6 @@ module.exports = async function (context, req) {
         }
     } else {
         try {
-            context.log("Request: " + JSON.stringify(req));
             const ingredients = req.body.ingredients
             var ingredientUsage = 1;
             const ingredientIDPromises = ingredients.map(async i => {
@@ -51,7 +50,7 @@ module.exports = async function (context, req) {
             const info = {
                 name: req.body.name,
                 // Need steps to be a string for the create entry call.
-                steps: JSON.stringify(req.body.steps)
+                steps: encodeURIComponent(JSON.stringify(req.body.steps))
             }
             const drinkID = uuid()
             await cosmos.createEntryOfKind('drink', drinkID, info, ingredientIDs)
@@ -64,6 +63,21 @@ module.exports = async function (context, req) {
             const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.payload.sub;
             await cosmos.createEdge(userID, drinkID, 'created', {});
             await cosmos.createEdge(drinkID, userID, 'created by', {});
+
+            console.log("Review = " + req.body.review);
+            const reviewInfo = {
+                name: req.body.name,
+                rating: req.body.rating,
+                review: encodeURIComponent(JSON.stringify(req.body.review).slice(1, -1))
+            }
+            const reviewID = uuid();
+            const reviewEdges = [{
+                id: drinkID,
+                relationship: "reviews",
+                properties: {}
+            }]
+            await cosmos.createEntryOfKind('review', reviewID, reviewInfo, reviewEdges);
+            await cosmos.createEdge(drinkID, reviewID, 'review of', {});
 
             const finalResult = entityConversion.processDrink(await cosmos.getAllDescendentsOfEntity(drinkID));
 

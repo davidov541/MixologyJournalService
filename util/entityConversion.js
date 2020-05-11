@@ -5,7 +5,7 @@ function processDrink(drink) {
 
     result.id = drink.key.id;
     result.name = drink.key.properties.name[0].value
-    result.steps = JSON.parse(drink.key.properties.steps[0].value)
+    result.steps = JSON.parse(decodeURIComponent(drink.key.properties.steps[0].value))
 
     result.ingredients = new Array();
     for(edgeKey in drink.value) {
@@ -24,6 +24,15 @@ function processDrink(drink) {
             {
                 const user = edge.value[userKey];
                 result.user = user.key.properties.name[0].value;
+            }
+        }
+        else if (edge.key.inVLabel == "review")
+        {
+            for (reviewKey in edge.value)
+            {
+                const review = edge.value[reviewKey];
+                result.rating = review.key.properties.rating[0].value;
+                result.review = JSON.parse('"' + decodeURIComponent(review.key.properties.review[0].value) + '"');
             }
         }
     }
