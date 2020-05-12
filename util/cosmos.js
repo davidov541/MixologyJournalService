@@ -99,20 +99,7 @@ async function createEntryOfKind(kind, id, properties, edges) {
         edges: edges
     }
 
-    const sbClient = ServiceBusClient.createFromConnectionString(connectionString); 
-    const queueClient = sbClient.createQueueClient(queueName);
-    const sender = queueClient.createSender();
-    try {
-        const message = {
-            body: JSON.stringify(vertex),
-            label: 'vertexCreation',
-        }
-        console.log(`Sending message: ${JSON.stringify(message)}`);
-        await sender.send(message);
-        await queueClient.close();
-    } finally {
-        await sbClient.close();
-    }
+    await sendCreationMessage(vertex);
 }
 
 async function createEdge(source, target, relationship, properties) {
@@ -124,34 +111,25 @@ async function createEdge(source, target, relationship, properties) {
         relationship: relationship
     }
     
-    const sbClient = ServiceBusClient.createFromConnectionString(connectionString); 
+    sendCreationMessage(edge);
+}
+
+async function sendCreationMessage(entity) {
+    const sbClient = ServiceBusClient.createFromConnectionString(connectionString);
     const queueClient = sbClient.createQueueClient(queueName);
     const sender = queueClient.createSender();
     try {
         const message = {
-            body: JSON.stringify(edge),
-            label: 'edgeCreation',
-        }
+            body: JSON.stringify(entity),
+            label: 'creationRequest',
+        };
         console.log(`Sending message: ${JSON.stringify(message)}`);
         await sender.send(message);
         await queueClient.close();
-    } finally {
+    }
+    finally {
         await sbClient.close();
     }
-    var command = "g.V(source).addE(relationship).to(g.V(target))";
-    Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
-    const client = createClient()
-    const result = await client.submit(command, {
-        source: source,
-        relationship: relationship,
-        target: target
-    })
-    console.log("createEdge; source = " + source + 
-    ";target = " + target + 
-    ";relationship = " + relationship + 
-    ";properties = " + JSON.stringify(properties) + 
-    "RUs used: " + result.attributes["x-ms-request-charge"])
-    client.close();
 }
 
 async function deleteEntry(id, edgeLabelsToFollow) {
