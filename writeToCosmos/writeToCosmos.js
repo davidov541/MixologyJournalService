@@ -1,3 +1,6 @@
-﻿﻿module.exports = async function(context, msg) {
-    context.log('JavaScript ServiceBus queue trigger function processed message', msg);
+﻿const cosmos = require('../util/cosmos');
+
+module.exports = async function(context, msg) {
+    console.log("Message = " + JSON.stringify(msg));
+    await cosmos.createEntryOfKind(msg.kind, msg.id, {}, []);
 };
