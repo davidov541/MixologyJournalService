@@ -7,7 +7,7 @@
       "name": "Run Local Azure Functions Instance",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["start", "func", "start", "--build"],
-      "port": 7071,
+      "port": 7072,
       "skipFiles": [
         "<node_internals>/**"
       ]
