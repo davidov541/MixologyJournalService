@@ -111,28 +111,13 @@ async function createEdge(source, target, relationship, properties) {
 }
 
 async function deleteEntry(id, edgeLabelsToFollow) {
-    const edgeLabels = edgeLabelsToFollow.map(label => "'" + label + "'").join(',');
-    const command1 = "g.V(id).outE().hasLabel(labels).inV().drop()";
-
-    const client = createClient()
-    await client.open();
-    const result1 = await client.submit(command1, {
+    const deletionInfo = {
+        entityType: "deletion",
         id: id,
-        labels: edgeLabels
-    })
-    console.log("deleteEntry #1; id = " + id +
-    ";edgeLabelsToFollow = " + JSON.stringify(edgeLabelsToFollow) +
-    ";RUs used: " + result1.attributes["x-ms-request-charge"])
-
-    var command2 = "g.V(id).drop()"
-    const result2 = await client.submit(command2, {
-        id: id
-    })
-    console.log("deleteEntry #2; id = " + id +
-    ";edgeLabelsToFollow = " + JSON.stringify(edgeLabelsToFollow) +
-    ";RUs used: " + result2.attributes["x-ms-request-charge"])
-
-    await client.close();
+        edgeLabelsToFollow: edgeLabelsToFollow
+    }
+    
+    await servicebus.sendCreationMessage(deletionInfo);
 }
 
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
