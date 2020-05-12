@@ -130,7 +130,7 @@ async function deleteEntry(id, edgeLabelsToFollow) {
     })
     console.log("deleteEntry #2; id = " + id +
     ";edgeLabelsToFollow = " + JSON.stringify(edgeLabelsToFollow) +
-    ";RUs used: " + result1.attributes["x-ms-request-charge"])
+    ";RUs used: " + result2.attributes["x-ms-request-charge"])
 
     await client.close();
 }
