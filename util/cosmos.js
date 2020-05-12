@@ -1,6 +1,11 @@
 const Gremlin = require('gremlin');
 const config = require("../config/config");
 
+const { ServiceBusClient } = require("@azure/service-bus"); 
+
+const connectionString = process.env.mixologyJournal_RootManageSharedAccessKey_SERVICEBUS;
+const queueName = process.env.queueName;
+
 const authenticator = new Gremlin.driver.auth.PlainTextSaslAuthenticator(`/dbs/${config.database}/colls/${config.collection}`, config.primaryKey)
 
 function createClient() {
@@ -86,28 +91,53 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
 }
 
 async function createEntryOfKind(kind, id, properties, edges) {
-    var command = "g.addV(label).property('id', id).property('partition_key', partition_key)"
-    Object.keys(properties).forEach(k => command += `.property("${k}", "${properties[k]}")`)
-    const client = createClient()
-    await client.open();
-    const result = await client.submit(command, {
-        label: kind,
+    const vertex = {
+        entityType: "vertex",
+        kind: kind,
         id: id,
-        partition_key: id
-    })
-    console.log("createEntryOfKind; kind = " + kind + 
-    ";id = " + id + 
-    ";properties = " + JSON.stringify(properties) + 
-    ";edges = " + JSON.stringify(edges) + 
-    "RUs used: " + result.attributes["x-ms-request-charge"])
+        properties: properties,
+        edges: edges
+    }
 
-    const edgePromises = edges.map(async e => await createEdge(id, e.id, e.relationship, e.properties))
-    await Promise.all(edgePromises)
-
-    await client.close();
+    const sbClient = ServiceBusClient.createFromConnectionString(connectionString); 
+    const queueClient = sbClient.createQueueClient(queueName);
+    const sender = queueClient.createSender();
+    try {
+        const message = {
+            body: JSON.stringify(vertex),
+            label: 'vertexCreation',
+        }
+        console.log(`Sending message: ${JSON.stringify(message)}`);
+        await sender.send(message);
+        await queueClient.close();
+    } finally {
+        await sbClient.close();
+    }
 }
 
 async function createEdge(source, target, relationship, properties) {
+    const edge = {
+        entityType: "edge",
+        source: source,
+        target: target,
+        properties: properties,
+        relationship: relationship
+    }
+    
+    const sbClient = ServiceBusClient.createFromConnectionString(connectionString); 
+    const queueClient = sbClient.createQueueClient(queueName);
+    const sender = queueClient.createSender();
+    try {
+        const message = {
+            body: JSON.stringify(edge),
+            label: 'edgeCreation',
+        }
+        console.log(`Sending message: ${JSON.stringify(message)}`);
+        await sender.send(message);
+        await queueClient.close();
+    } finally {
+        await sbClient.close();
+    }
     var command = "g.V(source).addE(relationship).to(g.V(target))";
     Object.keys(properties).forEach(k => command += `.property('${k}', '${properties[k]}')`)
     const client = createClient()

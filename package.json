@@ -12,6 +12,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "@azure/service-bus": "^1.1.6",
     "gremlin": "^3.4.6",
     "jsonwebtoken": "^8.5.1",
     "uuidv4": "^6.0.7"

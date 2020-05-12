@@ -79,11 +79,9 @@ module.exports = async function (context, req) {
             await cosmos.createEntryOfKind('review', reviewID, reviewInfo, reviewEdges);
             await cosmos.createEdge(drinkID, reviewID, 'review of', {});
 
-            const finalResult = entityConversion.processDrink(await cosmos.getAllDescendentsOfEntity(drinkID));
-
             context.res = {
                 // status: 200, /* Defaults to 200 */
-                body: finalResult
+                body: "Success"
             };    
         } catch (err) {
             console.log(err)
