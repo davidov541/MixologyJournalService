@@ -2,11 +2,15 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach to Node Functions",
       "type": "node",
-      "request": "attach",
-      "port": 9229,
-      "preLaunchTask": "func: host start"
+      "request": "launch",
+      "name": "Run Local Azure Functions Instance",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start", "func", "start", "--build"],
+      "port": 7071,
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
     }
   ]
 }

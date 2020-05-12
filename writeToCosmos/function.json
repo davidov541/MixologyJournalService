@@ -1,0 +1,13 @@
+﻿{
+    "bindings": [
+      {
+        "name": "msg",
+        "type": "serviceBusTrigger",
+        "direction": "in",
+        "queueName": "cosmoswrites",
+        "connection": "mixologyjournal_RootManageSharedAccessKey_SERVICEBUS"
+      }
+    ],
+    "disabled": false,
+    "scriptFile": "writeToCosmos.js"
+}
