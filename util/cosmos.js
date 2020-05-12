@@ -1,10 +1,6 @@
 const Gremlin = require('gremlin');
 const config = require("../config/config");
-
-const { ServiceBusClient } = require("@azure/service-bus"); 
-
-const connectionString = process.env.mixologyJournal_RootManageSharedAccessKey_SERVICEBUS;
-const queueName = process.env.queueName;
+const servicebus = require('./servicebus')
 
 const authenticator = new Gremlin.driver.auth.PlainTextSaslAuthenticator(`/dbs/${config.database}/colls/${config.collection}`, config.primaryKey)
 
@@ -99,7 +95,7 @@ async function createEntryOfKind(kind, id, properties, edges) {
         edges: edges
     }
 
-    await sendCreationMessage(vertex);
+    await servicebus.sendCreationMessage(vertex);
 }
 
 async function createEdge(source, target, relationship, properties) {
@@ -111,25 +107,7 @@ async function createEdge(source, target, relationship, properties) {
         relationship: relationship
     }
     
-    sendCreationMessage(edge);
-}
-
-async function sendCreationMessage(entity) {
-    const sbClient = ServiceBusClient.createFromConnectionString(connectionString);
-    const queueClient = sbClient.createQueueClient(queueName);
-    const sender = queueClient.createSender();
-    try {
-        const message = {
-            body: JSON.stringify(entity),
-            label: 'creationRequest',
-        };
-        console.log(`Sending message: ${JSON.stringify(message)}`);
-        await sender.send(message);
-        await queueClient.close();
-    }
-    finally {
-        await sbClient.close();
-    }
+    await servicebus.sendCreationMessage(edge);
 }
 
 async function deleteEntry(id, edgeLabelsToFollow) {
