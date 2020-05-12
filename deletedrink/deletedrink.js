@@ -1,4 +1,4 @@
-const cosmos = require('../util/cosmos')
+const cosmos = require('../util/persistence')
 const security = require('../util/security')
 
 module.exports = async function (context, req) {

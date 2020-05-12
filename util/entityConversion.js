@@ -1,4 +1,4 @@
-const cosmos = require('../util/cosmos');
+const cosmos = require('./persistence');
 
 function processDrink(drink) {
     var result = {}

@@ -1,6 +1,6 @@
 const { uuid } = require('uuidv4');
 
-const cosmos = require('../util/cosmos')
+const cosmos = require('../util/persistence')
 const entityConversion = require('../util/entityConversion')
 const security = require('../util/security')
 
