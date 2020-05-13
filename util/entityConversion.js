@@ -1,5 +1,3 @@
-const cosmos = require('./persistence');
-
 function processDrink(drink) {
     var result = {}
 
