@@ -17,5 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "uuidv4": "^6.0.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
 }
