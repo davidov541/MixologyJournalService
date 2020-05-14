@@ -12,8 +12,13 @@ async function getConfig() {
     const fileSystemName = process.env.ADLS_CONFIGFSNAME;
     const fileName = process.env.ADLS_CONFIGFILENAME;
     const accountURL = `https://${account}.blob.core.windows.net/${sas}`;
+    const accountKey = process.env.ADLS_ACCOUNTKEY;
     console.log("Account URL = " + accountURL);
-    const serviceClient = new DataLakeServiceClient(accountURL);
+    const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
+    const serviceClient = new DataLakeServiceClient(
+      `https://${account}.dfs.core.windows.net`,
+      sharedKeyCredential
+    );
 
     console.log("File Systems Available: " + JSON.stringify(serviceClient.listFileSystems()))
     const fileSystemClient = serviceClient.getFileSystemClient(
