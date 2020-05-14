@@ -11,7 +11,7 @@ async function getConfig() {
     const sas = process.env.ADLS_SASTOKEN;
     const fileSystemName = process.env.ADLS_CONFIGFSNAME;
     const fileName = process.env.ADLS_CONFIGFILENAME;
-    const accountURL = `https://${account}.file.core.windows.net/${sas}`;
+    const accountURL = `https://${account}.blob.core.windows.net/${sas}`;
     console.log("Account URL = " + accountURL);
     const serviceClient = new DataLakeServiceClient(accountURL);
 
