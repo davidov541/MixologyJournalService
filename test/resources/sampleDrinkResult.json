@@ -1761,6 +1761,95 @@
                 }
               }
             }
+          },
+          "72aceee8-4e7e-4de7-9dfd-46c400ec01e1": {
+            "key": {
+              "id": "72aceee8-4e7e-4de7-9dfd-46c400ec01e1",
+              "label": "review of",
+              "type": "edge",
+              "inVLabel": "review",
+              "outVLabel": "drink",
+              "inV": "13551c5b-45a0-4099-93b6-433e5f93271a",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "13551c5b-45a0-4099-93b6-433e5f93271a": {
+                "key": {
+                  "id": "13551c5b-45a0-4099-93b6-433e5f93271a",
+                  "label": "review",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "13551c5b-45a0-4099-93b6-433e5f93271a|partition_key",
+                        "value": "13551c5b-45a0-4099-93b6-433e5f93271a"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "cb899540-728f-444a-a001-609379e1a180",
+                        "value": "Moscow Mule"
+                      }
+                    ],
+                    "rating": [
+                      {
+                        "id": "24208129-d83a-4cd4-bdea-3c3099560c9f",
+                        "value": "4"
+                      }
+                    ],
+                    "review": [
+                      {
+                        "id": "fb5da468-abb0-473c-bb0e-c3e87024b075",
+                        "value": "This%20recipe%20turned%20out%20alright.%5C%5CnI%20could've%20done%20without%20the%20ginger%20beer.%5C%5CnThe%20vodka%20sucked.%5C%5CnWould%20get%20it%20again."
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "b1009dca-d6b7-4a05-ab36-86687bfc362b": {
+                    "key": {
+                      "id": "b1009dca-d6b7-4a05-ab36-86687bfc362b",
+                      "label": "reviews",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "review",
+                      "inV": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                      "outV": "13551c5b-45a0-4099-93b6-433e5f93271a"
+                    },
+                    "value": {
+                      "8c956448-13e9-4191-a3d8-c4e68036e8bb": {
+                        "key": {
+                          "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb|partition_key",
+                                "value": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "074aeb6d-3df2-42de-aa17-d39b9f50e4e0",
+                                "value": "Moscow Mule"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "33d1cdf5-fbef-4ab8-bc03-363084f3bf2f",
+                                "value": "%5B%22Shake%20Vodka%20and%20Lime%20Juice%20together%20in%20a%20shaker.%22%2C%22Strain%20into%20a%20collins%20glass.%22%2C%22Top%20with%20ginger%20beer.%22%5D"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

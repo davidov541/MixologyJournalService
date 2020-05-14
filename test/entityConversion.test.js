@@ -46,6 +46,8 @@ describe('Entity Conversion Tests', function () {
                 },
               ],
               "name": "Daiquiri",
+              "rating": "4",
+              "review": "This recipe turned out alright.\\nI could've done without the ginger beer.\\nThe vodka sucked.\\nWould get it again.",
               "steps": [
                 "Combine gin and vermouth in mixing glass",
                 "Stir",
