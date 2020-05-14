@@ -27,6 +27,7 @@ async function getConfig() {
     );
     isInitialized = true;
   }
+  console.log("Certificate = " + config.signingToken);
   return config;
 }
 
