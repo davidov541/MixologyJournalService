@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "jest"
   },
   "dependencies": {
     "@azure/service-bus": "^1.1.6",
