@@ -57,7 +57,6 @@ async function checkToken(context, req) {
     }
 
     const cert = (await config()).signingToken;
-    console.log("Signing Token = \"" + cert + "\"");
     var rawResult;
     try {
         rawResult = jwt.verify(token, cert, options) || {};
