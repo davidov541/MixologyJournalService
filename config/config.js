@@ -32,6 +32,7 @@ async function getConfig() {
       downloadResponse.readableStreamBody
     );
     isInitialized = true;
+    console.log("Signing Token = " + config.signingToken);
   }
   return config;
 }
