@@ -15,6 +15,7 @@ async function getConfig() {
     console.log("Account URL = " + accountURL);
     const serviceClient = new DataLakeServiceClient(accountURL);
 
+    console.log("File Systems Available: " + JSON.stringify(serviceClient.listFileSystems()))
     const fileSystemClient = serviceClient.getFileSystemClient(
       fileSystemName
     );
