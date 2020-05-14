@@ -10,7 +10,7 @@ async function getAllDescendentsOfEntity(id) {
 }
 
 async function getEntriesOfKind(kind, properties) {
-    return await getEntriesOfKind(kind, properties);
+    return await cosmos.getEntriesOfKind(kind, properties);
 }
 
 async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties = []) {
