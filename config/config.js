@@ -17,7 +17,6 @@ async function getConfig() {
       defaultAzureCredential
     );
 
-    console.log("File Systems Available: " + JSON.stringify(serviceClient.listFileSystems()))
     const fileSystemClient = serviceClient.getFileSystemClient(
       fileSystemName
     );
@@ -27,7 +26,6 @@ async function getConfig() {
       downloadResponse.readableStreamBody
     );
     isInitialized = true;
-    console.log("Signing Token = " + config.signingToken);
   }
   return config;
 }
