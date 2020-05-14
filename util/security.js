@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require("../config/config");
 
-function checkToken(context, req) {
+async function checkToken(context, req) {
     var result = {
         "error": {},
         "user": {},
@@ -41,7 +41,7 @@ function checkToken(context, req) {
         return result;
     }
 
-    const cert = config.signingToken;
+    const cert = await config().signingToken;
     const issuer = "https://" + process.env.AUTH0_DOMAIN + "/";
 
     const options = { issuer: issuer, complete: true, algorithms: ['RS256'] };

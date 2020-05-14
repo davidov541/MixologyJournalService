@@ -6,7 +6,7 @@ const security = require('../util/security')
 module.exports = async function (context, req) {
     context.log('POST /secure/ingredients');
 
-    const securityResult = security.checkToken(context, req);
+    const securityResult = await security.checkToken(context, req);
 
     if (!securityResult.success)
     {
