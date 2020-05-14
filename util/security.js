@@ -56,7 +56,7 @@ async function checkToken(context, req) {
         return result;
     }
 
-    const cert = await config().signingToken;
+    const cert = (await config()).signingToken;
     console.log("Signing Token = \"" + cert + "\"");
     var rawResult;
     try {
