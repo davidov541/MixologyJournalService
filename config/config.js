@@ -1,4 +1,4 @@
-const { DataLakeServiceClient, StorageSharedKeyCredential } = require("@azure/storage-file-datalake");
+const { DataLakeServiceClient } = require("@azure/storage-file-datalake");
 const { DefaultAzureCredential } = require("@azure/identity");
 
 var config = {};
@@ -9,13 +9,8 @@ async function getConfig() {
     config = {};
 
     const account = process.env.ADLS_ACCOUNTNAME;
-    const sas = process.env.ADLS_SASTOKEN;
     const fileSystemName = process.env.ADLS_CONFIGFSNAME;
     const fileName = process.env.ADLS_CONFIGFILENAME;
-    const accountURL = `https://${account}.blob.core.windows.net/${sas}`;
-    const accountKey = process.env.ADLS_ACCOUNTKEY;
-    console.log("Account URL = " + accountURL);
-    const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
     const defaultAzureCredential = new DefaultAzureCredential();
     const serviceClient = new DataLakeServiceClient(
       `https://${account}.dfs.core.windows.net`,
