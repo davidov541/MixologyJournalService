@@ -1,4 +1,4 @@
-const { DataLakeServiceClient, StorageSharedKeyCredential } = require("@azure/storage-file-datalake");
+const { DataLakeServiceClient, StorageSharedKeyCredential, DefaultAzureCredential } = require("@azure/storage-file-datalake");
 
 var config = {};
 var isInitialized = false;
@@ -15,9 +15,10 @@ async function getConfig() {
     const accountKey = process.env.ADLS_ACCOUNTKEY;
     console.log("Account URL = " + accountURL);
     const sharedKeyCredential = new StorageSharedKeyCredential(account, accountKey);
+    const defaultAzureCredential = new DefaultAzureCredential();
     const serviceClient = new DataLakeServiceClient(
       `https://${account}.dfs.core.windows.net`,
-      sharedKeyCredential
+      defaultAzureCredential
     );
 
     console.log("File Systems Available: " + JSON.stringify(serviceClient.listFileSystems()))
