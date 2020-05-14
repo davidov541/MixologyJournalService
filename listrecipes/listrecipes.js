@@ -27,7 +27,7 @@ module.exports = async function (context, req) {
         console.log(err)
         context.res = {
             status: 500,
-            body: "Error found: " + err
+            body: "Error found: " + err + "\nInput: " + JSON.stringify(req)
         };
     }
 };
