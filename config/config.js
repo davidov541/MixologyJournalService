@@ -1,4 +1,4 @@
-const { DataLakeServiceClient } = require("@azure/storage-file-datalake");
+const { DataLakeServiceClient, StorageSharedKeyCredential } = require("@azure/storage-file-datalake");
 
 var config = {};
 var isInitialized = false;
