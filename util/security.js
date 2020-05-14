@@ -41,7 +41,6 @@ async function checkToken(context, req) {
         return result;
     }
 
-    const cert = await config().signingToken;
     const issuer = "https://" + process.env.AUTH0_DOMAIN + "/";
 
     const options = { issuer: issuer, complete: true, algorithms: ['RS256'] };
@@ -57,6 +56,8 @@ async function checkToken(context, req) {
         return result;
     }
 
+    const cert = await config().signingToken;
+    console.log("Signing Token = \"" + cert + "\"");
     var rawResult;
     try {
         rawResult = jwt.verify(token, cert, options) || {};
