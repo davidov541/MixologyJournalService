@@ -1,0 +1,1769 @@
+{
+  "_items": [
+    {
+      "8c956448-13e9-4191-a3d8-c4e68036e8bb": {
+        "key": {
+          "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+          "label": "drink",
+          "type": "vertex",
+          "properties": {
+            "partition_key": [
+              {
+                "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb|partition_key",
+                "value": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+              }
+            ],
+            "name": [
+              {
+                "id": "41da4878-8398-4429-9912-182e6375134d",
+                "value": "Daiquiri"
+              }
+            ],
+            "steps": [
+              {
+                "id": "7f90cb6a-63ee-4a31-97e4-8475e5a3ef70",
+                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+              }
+            ]
+          }
+        },
+        "value": {
+          "78437dcf-a774-4f2c-82bf-0b436225796b": {
+            "key": {
+              "id": "78437dcf-a774-4f2c-82bf-0b436225796b",
+              "label": "uses",
+              "type": "edge",
+              "inVLabel": "ingredientUsage",
+              "outVLabel": "drink",
+              "inV": "3ba59ad0-70b5-4caf-a938-3dd92ef999ee",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "3ba59ad0-70b5-4caf-a938-3dd92ef999ee": {
+                "key": {
+                  "id": "3ba59ad0-70b5-4caf-a938-3dd92ef999ee",
+                  "label": "ingredientUsage",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "3ba59ad0-70b5-4caf-a938-3dd92ef999ee|partition_key",
+                        "value": "3ba59ad0-70b5-4caf-a938-3dd92ef999ee"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "9d427bca-2bbf-4a25-a7c8-6e79b0fa9ddf",
+                        "value": "Daiquiri Ingredient Usage #1"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "7ca80a28-f1b4-46dc-92a9-c6b7e8891af0": {
+                    "key": {
+                      "id": "7ca80a28-f1b4-46dc-92a9-c6b7e8891af0",
+                      "label": "of",
+                      "type": "edge",
+                      "inVLabel": "ingredient",
+                      "outVLabel": "ingredientUsage",
+                      "inV": "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f",
+                      "outV": "3ba59ad0-70b5-4caf-a938-3dd92ef999ee"
+                    },
+                    "value": {
+                      "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f": {
+                        "key": {
+                          "id": "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f",
+                          "label": "ingredient",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f|partition_key",
+                                "value": "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "f6a4bf1a-8c26-4c68-b141-ee0c20234ae8",
+                                "value": "Lime Juice"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "31c70cb2-8f37-4a2a-8ff8-8d3ac507cdf4": {
+                    "key": {
+                      "id": "31c70cb2-8f37-4a2a-8ff8-8d3ac507cdf4",
+                      "label": "amount",
+                      "type": "edge",
+                      "inVLabel": "unit",
+                      "outVLabel": "ingredientUsage",
+                      "inV": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                      "outV": "3ba59ad0-70b5-4caf-a938-3dd92ef999ee",
+                      "properties": {
+                        "unitAmount": "0.75"
+                      }
+                    },
+                    "value": {
+                      "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd": {
+                        "key": {
+                          "id": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                          "label": "unit",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd|partition_key",
+                                "value": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
+                                "value": "Ounce"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "b2ee5f7f-d2ae-4011-85ac-cf1b7f0b7e59": {
+            "key": {
+              "id": "b2ee5f7f-d2ae-4011-85ac-cf1b7f0b7e59",
+              "label": "uses",
+              "type": "edge",
+              "inVLabel": "ingredientUsage",
+              "outVLabel": "drink",
+              "inV": "d71a7446-0126-4668-a3b8-5e7990e53e32",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "d71a7446-0126-4668-a3b8-5e7990e53e32": {
+                "key": {
+                  "id": "d71a7446-0126-4668-a3b8-5e7990e53e32",
+                  "label": "ingredientUsage",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "d71a7446-0126-4668-a3b8-5e7990e53e32|partition_key",
+                        "value": "d71a7446-0126-4668-a3b8-5e7990e53e32"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "60833ae2-5e4e-4ca5-a6a8-139c3fb6823e",
+                        "value": "Daiquiri Ingredient Usage #2"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "1d293419-3b54-4953-accc-fdae83602b5e": {
+                    "key": {
+                      "id": "1d293419-3b54-4953-accc-fdae83602b5e",
+                      "label": "amount",
+                      "type": "edge",
+                      "inVLabel": "unit",
+                      "outVLabel": "ingredientUsage",
+                      "inV": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                      "outV": "d71a7446-0126-4668-a3b8-5e7990e53e32",
+                      "properties": {
+                        "unitAmount": "2"
+                      }
+                    },
+                    "value": {
+                      "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd": {
+                        "key": {
+                          "id": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                          "label": "unit",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd|partition_key",
+                                "value": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
+                                "value": "Ounce"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "9d8f49dd-fa77-41da-bee5-da4d9ca7b289": {
+                    "key": {
+                      "id": "9d8f49dd-fa77-41da-bee5-da4d9ca7b289",
+                      "label": "of",
+                      "type": "edge",
+                      "inVLabel": "ingredient",
+                      "outVLabel": "ingredientUsage",
+                      "inV": "ea5e55dc-c6c7-4671-aed7-8f697179abc0",
+                      "outV": "d71a7446-0126-4668-a3b8-5e7990e53e32"
+                    },
+                    "value": {
+                      "ea5e55dc-c6c7-4671-aed7-8f697179abc0": {
+                        "key": {
+                          "id": "ea5e55dc-c6c7-4671-aed7-8f697179abc0",
+                          "label": "ingredient",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "ea5e55dc-c6c7-4671-aed7-8f697179abc0|partition_key",
+                                "value": "ea5e55dc-c6c7-4671-aed7-8f697179abc0"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "c3acfc79-fb24-4f43-b0b7-9bf70d4b718c",
+                                "value": "Rum"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a9759d1b-66fe-4885-8448-b40c6ad0e618": {
+            "key": {
+              "id": "a9759d1b-66fe-4885-8448-b40c6ad0e618",
+              "label": "uses",
+              "type": "edge",
+              "inVLabel": "ingredientUsage",
+              "outVLabel": "drink",
+              "inV": "e4ad8d59-e940-4e21-abff-46417c86efbf",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "e4ad8d59-e940-4e21-abff-46417c86efbf": {
+                "key": {
+                  "id": "e4ad8d59-e940-4e21-abff-46417c86efbf",
+                  "label": "ingredientUsage",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "e4ad8d59-e940-4e21-abff-46417c86efbf|partition_key",
+                        "value": "e4ad8d59-e940-4e21-abff-46417c86efbf"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "cbe041ac-cc82-4b29-9db4-64c58020373f",
+                        "value": "Daiquiri Ingredient Usage #3"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "7ef9cd2f-66c5-4a4d-9454-6f419f0a160e": {
+                    "key": {
+                      "id": "7ef9cd2f-66c5-4a4d-9454-6f419f0a160e",
+                      "label": "of",
+                      "type": "edge",
+                      "inVLabel": "ingredient",
+                      "outVLabel": "ingredientUsage",
+                      "inV": "00d79a27-d012-4169-8d12-9b1db3e53546",
+                      "outV": "e4ad8d59-e940-4e21-abff-46417c86efbf"
+                    },
+                    "value": {
+                      "00d79a27-d012-4169-8d12-9b1db3e53546": {
+                        "key": {
+                          "id": "00d79a27-d012-4169-8d12-9b1db3e53546",
+                          "label": "ingredient",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "00d79a27-d012-4169-8d12-9b1db3e53546|partition_key",
+                                "value": "00d79a27-d012-4169-8d12-9b1db3e53546"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "42b76fcb-881d-42d7-b1e5-947ca6783aab",
+                                "value": "Simple Syrup"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "7ad4747e-64b6-4dd5-80bd-aa2ef02fec48": {
+                    "key": {
+                      "id": "7ad4747e-64b6-4dd5-80bd-aa2ef02fec48",
+                      "label": "amount",
+                      "type": "edge",
+                      "inVLabel": "unit",
+                      "outVLabel": "ingredientUsage",
+                      "inV": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                      "outV": "e4ad8d59-e940-4e21-abff-46417c86efbf",
+                      "properties": {
+                        "unitAmount": "1"
+                      }
+                    },
+                    "value": {
+                      "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd": {
+                        "key": {
+                          "id": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                          "label": "unit",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd|partition_key",
+                                "value": "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
+                                "value": "Ounce"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "af9172d6-25fb-4a5f-b57f-a9e04ff4b924": {
+            "key": {
+              "id": "af9172d6-25fb-4a5f-b57f-a9e04ff4b924",
+              "label": "derived from",
+              "type": "edge",
+              "inVLabel": "recipe",
+              "outVLabel": "drink",
+              "inV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "baaa07f5-4564-46ec-9733-1d89c0f85ebe": {
+                "key": {
+                  "id": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+                  "label": "recipe",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "baaa07f5-4564-46ec-9733-1d89c0f85ebe|partition_key",
+                        "value": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "74c9e539-ade7-4f4a-97c9-e2bae6131b2b",
+                        "value": "Daiquiri"
+                      }
+                    ],
+                    "steps": [
+                      {
+                        "id": "833bc7ec-9576-413f-b4b5-2e3132cf85ae",
+                        "value": "[\"Shake ingredients with ice.\",\"Strain into coupe glass.\"]"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "1f04e402-1df0-4930-a731-698460233588": {
+                    "key": {
+                      "id": "1f04e402-1df0-4930-a731-698460233588",
+                      "label": "uses",
+                      "type": "edge",
+                      "inVLabel": "ingredientUsage",
+                      "outVLabel": "recipe",
+                      "inV": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de": {
+                        "key": {
+                          "id": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de",
+                          "label": "ingredientUsage",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de|partition_key",
+                                "value": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "f1a27168-c71b-4da1-af8e-74d684eba5d4",
+                                "value": "Daiquiri Ingredient Usage #3"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "76dabadc-9501-4b54-b9cc-09fb70938e50": {
+                    "key": {
+                      "id": "76dabadc-9501-4b54-b9cc-09fb70938e50",
+                      "label": "uses",
+                      "type": "edge",
+                      "inVLabel": "ingredientUsage",
+                      "outVLabel": "recipe",
+                      "inV": "220bfe1b-46a4-474f-9bc7-3a8cc930854f",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "220bfe1b-46a4-474f-9bc7-3a8cc930854f": {
+                        "key": {
+                          "id": "220bfe1b-46a4-474f-9bc7-3a8cc930854f",
+                          "label": "ingredientUsage",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "220bfe1b-46a4-474f-9bc7-3a8cc930854f|partition_key",
+                                "value": "220bfe1b-46a4-474f-9bc7-3a8cc930854f"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "bbeb0951-16a6-4210-899f-a465c373fe1c",
+                                "value": "Daiquiri Ingredient Usage #1"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "c720751b-1650-40ba-94c7-efd281179249": {
+                    "key": {
+                      "id": "c720751b-1650-40ba-94c7-efd281179249",
+                      "label": "uses",
+                      "type": "edge",
+                      "inVLabel": "ingredientUsage",
+                      "outVLabel": "recipe",
+                      "inV": "8010d0b3-2974-4496-a55d-d52949706fd9",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "8010d0b3-2974-4496-a55d-d52949706fd9": {
+                        "key": {
+                          "id": "8010d0b3-2974-4496-a55d-d52949706fd9",
+                          "label": "ingredientUsage",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8010d0b3-2974-4496-a55d-d52949706fd9|partition_key",
+                                "value": "8010d0b3-2974-4496-a55d-d52949706fd9"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "913fde78-11e7-4433-96a7-99c40b4c013c",
+                                "value": "Daiquiri Ingredient Usage #2"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "51049e69-4cb8-4138-bf01-360c6074a112": {
+                    "key": {
+                      "id": "51049e69-4cb8-4138-bf01-360c6074a112",
+                      "label": "created by",
+                      "type": "edge",
+                      "inVLabel": "user",
+                      "outVLabel": "recipe",
+                      "inV": "ef5375ad-6d92-4571-a999-999aa494ff13",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "ef5375ad-6d92-4571-a999-999aa494ff13": {
+                        "key": {
+                          "id": "ef5375ad-6d92-4571-a999-999aa494ff13",
+                          "label": "user",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "ef5375ad-6d92-4571-a999-999aa494ff13|partition_key",
+                                "value": "root"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "3cd61e56-51d4-449b-bf0d-1d1d02c76d11",
+                                "value": "root"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "1eadc40e-47b7-451c-b0b5-6d0b9773bb29": {
+                    "key": {
+                      "id": "1eadc40e-47b7-451c-b0b5-6d0b9773bb29",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "8c956448-13e9-4191-a3d8-c4e68036e8bb": {
+                        "key": {
+                          "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb|partition_key",
+                                "value": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "41da4878-8398-4429-9912-182e6375134d",
+                                "value": "Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "7f90cb6a-63ee-4a31-97e4-8475e5a3ef70",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "3a3c3625-c878-45cf-afda-2efc6c34d112": {
+                    "key": {
+                      "id": "3a3c3625-c878-45cf-afda-2efc6c34d112",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "7620e68b-4256-4eb6-8bae-79aa2574111c",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "7620e68b-4256-4eb6-8bae-79aa2574111c": {
+                        "key": {
+                          "id": "7620e68b-4256-4eb6-8bae-79aa2574111c",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "7620e68b-4256-4eb6-8bae-79aa2574111c|partition_key",
+                                "value": "7620e68b-4256-4eb6-8bae-79aa2574111c"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "5c72a843-bcee-45bc-bf0a-9884df3fb676",
+                                "value": "Drink Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "1225b2e9-ffe5-4273-ba6e-1fbbb314ead5",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "e401c194-9900-4c23-aaa6-bf195ac40f9b": {
+                    "key": {
+                      "id": "e401c194-9900-4c23-aaa6-bf195ac40f9b",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "c186684a-40ee-4772-9332-b80ae1d5d50d",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "c186684a-40ee-4772-9332-b80ae1d5d50d": {
+                        "key": {
+                          "id": "c186684a-40ee-4772-9332-b80ae1d5d50d",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "c186684a-40ee-4772-9332-b80ae1d5d50d|partition_key",
+                                "value": "c186684a-40ee-4772-9332-b80ae1d5d50d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "867fcec1-273c-40ac-abfb-4b568fe0503c",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "6269d0e4-c39f-477c-8e0b-6a491acfcd4a",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "a33362ca-53e7-4e00-934a-1c69a71ea6e1": {
+                    "key": {
+                      "id": "a33362ca-53e7-4e00-934a-1c69a71ea6e1",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "3e5c1e85-97e7-4a3c-9c22-b03d52240046",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "3e5c1e85-97e7-4a3c-9c22-b03d52240046": {
+                        "key": {
+                          "id": "3e5c1e85-97e7-4a3c-9c22-b03d52240046",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "3e5c1e85-97e7-4a3c-9c22-b03d52240046|partition_key",
+                                "value": "3e5c1e85-97e7-4a3c-9c22-b03d52240046"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "d2c8bd3f-eef5-4886-9b72-5fedc01dd6f6",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "e30c3246-91e1-4040-a0f9-2caab5eab124",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "0c89ccf3-dc25-4f32-8e2f-871aa9f50f1c": {
+                    "key": {
+                      "id": "0c89ccf3-dc25-4f32-8e2f-871aa9f50f1c",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "0d4f51e2-09e2-433b-9961-2ac5b1f1771b": {
+                        "key": {
+                          "id": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b|partition_key",
+                                "value": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "bf43296b-1b08-4b41-807c-6aee4e9f39f7",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "9a3c9dfe-4c8f-429a-9d91-a7392f5f1828",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "17a72dd2-81e6-4fce-8244-e68ebf014490": {
+                    "key": {
+                      "id": "17a72dd2-81e6-4fce-8244-e68ebf014490",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "82ff63e3-382a-4017-a7d1-ddee347deb4d",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "82ff63e3-382a-4017-a7d1-ddee347deb4d": {
+                        "key": {
+                          "id": "82ff63e3-382a-4017-a7d1-ddee347deb4d",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "82ff63e3-382a-4017-a7d1-ddee347deb4d|partition_key",
+                                "value": "82ff63e3-382a-4017-a7d1-ddee347deb4d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "934b5623-c4d7-4574-9822-f036a496beb5",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "445d4d32-5927-4bf0-b467-2339977a402b",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "3775101e-6ba8-4774-ae57-2374aad8cdb6": {
+                    "key": {
+                      "id": "3775101e-6ba8-4774-ae57-2374aad8cdb6",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86": {
+                        "key": {
+                          "id": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86|partition_key",
+                                "value": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "2fa5dca4-d206-4233-a23a-f1657d8ad2f7",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "47525718-bd3c-4024-8092-7224b0e4e309",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "322020bf-30aa-465c-bd84-1e129134a5fc": {
+            "key": {
+              "id": "322020bf-30aa-465c-bd84-1e129134a5fc",
+              "label": "created by",
+              "type": "edge",
+              "inVLabel": "user",
+              "outVLabel": "drink",
+              "inV": "ef5375ad-6d92-4571-a999-999aa494ff13",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "ef5375ad-6d92-4571-a999-999aa494ff13": {
+                "key": {
+                  "id": "ef5375ad-6d92-4571-a999-999aa494ff13",
+                  "label": "user",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "ef5375ad-6d92-4571-a999-999aa494ff13|partition_key",
+                        "value": "root"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "3cd61e56-51d4-449b-bf0d-1d1d02c76d11",
+                        "value": "root"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "0f6f3ee0-39d3-4744-be74-4b694bd92ca9": {
+                    "key": {
+                      "id": "0f6f3ee0-39d3-4744-be74-4b694bd92ca9",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "071983ba-a98f-43d4-841d-40350d804868",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "071983ba-a98f-43d4-841d-40350d804868": {
+                        "key": {
+                          "id": "071983ba-a98f-43d4-841d-40350d804868",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "071983ba-a98f-43d4-841d-40350d804868|partition_key",
+                                "value": "071983ba-a98f-43d4-841d-40350d804868"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "2d2e1e20-a73f-4ecf-bb0c-e57407d19343",
+                                "value": "Margarita"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "7d9fbb6f-37c9-488b-8141-c32938b35256",
+                                "value": "[\"Combine and shake.\",\"Strain into rocks glass.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "03b96c28-a29f-4e08-ba89-15107be79984": {
+                    "key": {
+                      "id": "03b96c28-a29f-4e08-ba89-15107be79984",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "9d086e81-38c8-4be1-a515-bccd97ba0df9",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "9d086e81-38c8-4be1-a515-bccd97ba0df9": {
+                        "key": {
+                          "id": "9d086e81-38c8-4be1-a515-bccd97ba0df9",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "9d086e81-38c8-4be1-a515-bccd97ba0df9|partition_key",
+                                "value": "9d086e81-38c8-4be1-a515-bccd97ba0df9"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "db439f71-0b0f-4019-8dee-364d6ddae247",
+                                "value": "Negroni"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "7d0e9bb4-7d4d-447c-a7e6-58dfa14b1c21",
+                                "value": "[\"Combine in mixing glass and stir.\",\"Strain into rocks glass.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "cef8fc9f-3c57-41c5-8aa8-bf19c64e2d5b": {
+                    "key": {
+                      "id": "cef8fc9f-3c57-41c5-8aa8-bf19c64e2d5b",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "baaa07f5-4564-46ec-9733-1d89c0f85ebe": {
+                        "key": {
+                          "id": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "baaa07f5-4564-46ec-9733-1d89c0f85ebe|partition_key",
+                                "value": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "74c9e539-ade7-4f4a-97c9-e2bae6131b2b",
+                                "value": "Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "833bc7ec-9576-413f-b4b5-2e3132cf85ae",
+                                "value": "[\"Shake ingredients with ice.\",\"Strain into coupe glass.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "041a7d0c-2232-4cde-9a39-1c69b398540d": {
+                    "key": {
+                      "id": "041a7d0c-2232-4cde-9a39-1c69b398540d",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "63be1f90-1354-47f9-b379-c5f1fdaef16f",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "63be1f90-1354-47f9-b379-c5f1fdaef16f": {
+                        "key": {
+                          "id": "63be1f90-1354-47f9-b379-c5f1fdaef16f",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "63be1f90-1354-47f9-b379-c5f1fdaef16f|partition_key",
+                                "value": "63be1f90-1354-47f9-b379-c5f1fdaef16f"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "f8a97ac7-d196-4b9a-ab29-ff419dd0f2bb",
+                                "value": "Martini"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "060cc424-fac5-48c3-b60f-d571f1ebbecf",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "b1f253bc-9aec-457f-ac03-747c20c283ca": {
+                    "key": {
+                      "id": "b1f253bc-9aec-457f-ac03-747c20c283ca",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "69dd79ac-1903-4c88-b7e4-b1314d6b149c",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "69dd79ac-1903-4c88-b7e4-b1314d6b149c": {
+                        "key": {
+                          "id": "69dd79ac-1903-4c88-b7e4-b1314d6b149c",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "69dd79ac-1903-4c88-b7e4-b1314d6b149c|partition_key",
+                                "value": "69dd79ac-1903-4c88-b7e4-b1314d6b149c"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "be055c60-e7d0-43ff-9c8a-0e2202ab1868",
+                                "value": "Gin & Tonic"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "f39c5032-d449-48ef-a9bf-1ae6609ada5f",
+                                "value": "[\"Build in a Tom Collins glass\",\"Stir\",\"Garnish with a lime wedge\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "d4651382-dc8d-4b90-9240-bc7a6a68d0eb": {
+                    "key": {
+                      "id": "d4651382-dc8d-4b90-9240-bc7a6a68d0eb",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "61de1b7c-dbc2-426f-babb-75f9ab04142d",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "61de1b7c-dbc2-426f-babb-75f9ab04142d": {
+                        "key": {
+                          "id": "61de1b7c-dbc2-426f-babb-75f9ab04142d",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "61de1b7c-dbc2-426f-babb-75f9ab04142d|partition_key",
+                                "value": "61de1b7c-dbc2-426f-babb-75f9ab04142d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "83d2a055-2dcf-4640-9c93-5856c814d6fc",
+                                "value": "Manhattan"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "82d4073c-2707-42e3-902e-e6fa6ba04f7e",
+                                "value": "[\"Mix all ingredients except for cherries in a mixing glass.\",\"Strain into coup glass.\",\"Garnish with cherries.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "0ab3ce4f-9b99-4f98-b667-e49eab43ce0f": {
+                    "key": {
+                      "id": "0ab3ce4f-9b99-4f98-b667-e49eab43ce0f",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "16cca463-0ed2-4e76-bc09-5057be4072e6",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "16cca463-0ed2-4e76-bc09-5057be4072e6": {
+                        "key": {
+                          "id": "16cca463-0ed2-4e76-bc09-5057be4072e6",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "16cca463-0ed2-4e76-bc09-5057be4072e6|partition_key",
+                                "value": "16cca463-0ed2-4e76-bc09-5057be4072e6"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "1cbfddf3-c99a-48e0-bbed-88cf35aa4824",
+                                "value": "Sidecar"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "7a5d6237-b8ad-4f0f-a0cc-87489ee461cc",
+                                "value": "[\"Combine ingredients\",\"Shake\",\"Strain into a coup glass\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "b0962ba2-4a40-4c17-942b-089403182ef4": {
+                    "key": {
+                      "id": "b0962ba2-4a40-4c17-942b-089403182ef4",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "24142b03-fd78-4de5-b1fb-0c43dcdac817",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "24142b03-fd78-4de5-b1fb-0c43dcdac817": {
+                        "key": {
+                          "id": "24142b03-fd78-4de5-b1fb-0c43dcdac817",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "24142b03-fd78-4de5-b1fb-0c43dcdac817|partition_key",
+                                "value": "24142b03-fd78-4de5-b1fb-0c43dcdac817"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "ab042aea-4aea-4d8d-bcea-e764452028fe",
+                                "value": "Old Fashioned"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "a68cb125-8749-47cf-af3e-3292ac4ba4a2",
+                                "value": "[\"Combine in a rocks glass\",\"Stir\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "a3740ec9-08d4-4c10-b2f1-5286b80067bb": {
+                    "key": {
+                      "id": "a3740ec9-08d4-4c10-b2f1-5286b80067bb",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "5810fd16-63f5-4106-9a07-424ba8de1f37",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "5810fd16-63f5-4106-9a07-424ba8de1f37": {
+                        "key": {
+                          "id": "5810fd16-63f5-4106-9a07-424ba8de1f37",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "5810fd16-63f5-4106-9a07-424ba8de1f37|partition_key",
+                                "value": "5810fd16-63f5-4106-9a07-424ba8de1f37"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "bdd0be78-ec43-4cba-8fbb-edd30ca407a6",
+                                "value": "Tequila Sunrise"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "68de0aef-e5b4-4adc-80c3-187c13ca036f",
+                                "value": "[\"Stir together tequila and orange juice in mixing glass.\",\"Strain into an old fashioned glass.\",\"Gently layer grenadine on top of drink.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "e991237c-539b-4ee0-9283-3f13ce046144": {
+                    "key": {
+                      "id": "e991237c-539b-4ee0-9283-3f13ce046144",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "8c956448-13e9-4191-a3d8-c4e68036e8bb": {
+                        "key": {
+                          "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb|partition_key",
+                                "value": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "41da4878-8398-4429-9912-182e6375134d",
+                                "value": "Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "7f90cb6a-63ee-4a31-97e4-8475e5a3ef70",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "06003aec-c502-4756-9a02-3c5ebf885600": {
+                    "key": {
+                      "id": "06003aec-c502-4756-9a02-3c5ebf885600",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "7620e68b-4256-4eb6-8bae-79aa2574111c",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "7620e68b-4256-4eb6-8bae-79aa2574111c": {
+                        "key": {
+                          "id": "7620e68b-4256-4eb6-8bae-79aa2574111c",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "7620e68b-4256-4eb6-8bae-79aa2574111c|partition_key",
+                                "value": "7620e68b-4256-4eb6-8bae-79aa2574111c"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "5c72a843-bcee-45bc-bf0a-9884df3fb676",
+                                "value": "Drink Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "1225b2e9-ffe5-4273-ba6e-1fbbb314ead5",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "e7b6b6e7-99e2-4756-9a12-49318d24a116": {
+                    "key": {
+                      "id": "e7b6b6e7-99e2-4756-9a12-49318d24a116",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "c186684a-40ee-4772-9332-b80ae1d5d50d",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "c186684a-40ee-4772-9332-b80ae1d5d50d": {
+                        "key": {
+                          "id": "c186684a-40ee-4772-9332-b80ae1d5d50d",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "c186684a-40ee-4772-9332-b80ae1d5d50d|partition_key",
+                                "value": "c186684a-40ee-4772-9332-b80ae1d5d50d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "867fcec1-273c-40ac-abfb-4b568fe0503c",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "6269d0e4-c39f-477c-8e0b-6a491acfcd4a",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "cb7320a1-ed9e-4a40-b0a4-dd36b100d6df": {
+                    "key": {
+                      "id": "cb7320a1-ed9e-4a40-b0a4-dd36b100d6df",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "3e5c1e85-97e7-4a3c-9c22-b03d52240046",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "3e5c1e85-97e7-4a3c-9c22-b03d52240046": {
+                        "key": {
+                          "id": "3e5c1e85-97e7-4a3c-9c22-b03d52240046",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "3e5c1e85-97e7-4a3c-9c22-b03d52240046|partition_key",
+                                "value": "3e5c1e85-97e7-4a3c-9c22-b03d52240046"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "d2c8bd3f-eef5-4886-9b72-5fedc01dd6f6",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "e30c3246-91e1-4040-a0f9-2caab5eab124",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "df4f9841-62ff-4fa2-8eeb-6d17128014bb": {
+                    "key": {
+                      "id": "df4f9841-62ff-4fa2-8eeb-6d17128014bb",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "0d4f51e2-09e2-433b-9961-2ac5b1f1771b": {
+                        "key": {
+                          "id": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b|partition_key",
+                                "value": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "bf43296b-1b08-4b41-807c-6aee4e9f39f7",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "9a3c9dfe-4c8f-429a-9d91-a7392f5f1828",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "537778b6-697d-4a8c-8f49-29cbb689b48d": {
+                    "key": {
+                      "id": "537778b6-697d-4a8c-8f49-29cbb689b48d",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "82ff63e3-382a-4017-a7d1-ddee347deb4d",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "82ff63e3-382a-4017-a7d1-ddee347deb4d": {
+                        "key": {
+                          "id": "82ff63e3-382a-4017-a7d1-ddee347deb4d",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "82ff63e3-382a-4017-a7d1-ddee347deb4d|partition_key",
+                                "value": "82ff63e3-382a-4017-a7d1-ddee347deb4d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "934b5623-c4d7-4574-9822-f036a496beb5",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "445d4d32-5927-4bf0-b467-2339977a402b",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "d54ad6ab-f760-466e-9c30-12e023a6ef60": {
+                    "key": {
+                      "id": "d54ad6ab-f760-466e-9c30-12e023a6ef60",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "bad6c2bd-b3c1-4569-8d78-6ff8aca2c805",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "bad6c2bd-b3c1-4569-8d78-6ff8aca2c805": {
+                        "key": {
+                          "id": "bad6c2bd-b3c1-4569-8d78-6ff8aca2c805",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "bad6c2bd-b3c1-4569-8d78-6ff8aca2c805|partition_key",
+                                "value": "bad6c2bd-b3c1-4569-8d78-6ff8aca2c805"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "64e7464f-7934-4d70-b2e6-b0e6f69b36a6",
+                                "value": "Drink - Sidecar"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "3695556c-e6b7-4320-970e-9fa484019603",
+                                "value": "[\"Combine ingredients\",\"Shake\",\"Strain into a coup glass\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "9f987288-66a2-426f-b0f5-2b0508fdc50b": {
+                    "key": {
+                      "id": "9f987288-66a2-426f-b0f5-2b0508fdc50b",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "c3241375-2db5-47f3-99c1-29ea58146651",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "c3241375-2db5-47f3-99c1-29ea58146651": {
+                        "key": {
+                          "id": "c3241375-2db5-47f3-99c1-29ea58146651",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "c3241375-2db5-47f3-99c1-29ea58146651|partition_key",
+                                "value": "c3241375-2db5-47f3-99c1-29ea58146651"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "9686ad10-9c92-4c9a-97e8-75f0688534cc",
+                                "value": "Drink - Sidecar"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "613f46f5-82d6-4893-a38e-f7a0fff8d936",
+                                "value": "[\"Combine ingredients\",\"Shake\",\"Strain into a coup glass\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "886beec1-e371-4bf3-bf81-1aa8b102742a": {
+                    "key": {
+                      "id": "886beec1-e371-4bf3-bf81-1aa8b102742a",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "1321c532-e835-4552-9d41-0993429f9ea0",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "1321c532-e835-4552-9d41-0993429f9ea0": {
+                        "key": {
+                          "id": "1321c532-e835-4552-9d41-0993429f9ea0",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "1321c532-e835-4552-9d41-0993429f9ea0|partition_key",
+                                "value": "1321c532-e835-4552-9d41-0993429f9ea0"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "f08bf214-8e78-4ae8-b92f-f3d5603d4a80",
+                                "value": "Drink - Negroni"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "a809dc83-8be1-4a11-9921-120145df2baf",
+                                "value": "[\"Combine in mixing glass and stir.\",\"Strain into rocks glass.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "7fa85bb5-aab4-4785-a22a-3f0a77e553d4": {
+                    "key": {
+                      "id": "7fa85bb5-aab4-4785-a22a-3f0a77e553d4",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86": {
+                        "key": {
+                          "id": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86|partition_key",
+                                "value": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "2fa5dca4-d206-4233-a23a-f1657d8ad2f7",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "47525718-bd3c-4024-8092-7224b0e4e309",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "5283fae8-a80c-44c7-9b44-d438b9b68829": {
+                    "key": {
+                      "id": "5283fae8-a80c-44c7-9b44-d438b9b68829",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "16f86ab6-9ed0-4a36-b13e-0f4056f61cd3",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "16f86ab6-9ed0-4a36-b13e-0f4056f61cd3": {
+                        "key": {
+                          "id": "16f86ab6-9ed0-4a36-b13e-0f4056f61cd3",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "16f86ab6-9ed0-4a36-b13e-0f4056f61cd3|partition_key",
+                                "value": "16f86ab6-9ed0-4a36-b13e-0f4056f61cd3"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "681b2def-77c3-4826-9bac-0b847356eed2",
+                                "value": "Drink - Martini"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "cd95c23b-1b85-41d5-94d7-2f3c96da50bb",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "d571220a-7c72-4318-8c22-323076b89108": {
+                    "key": {
+                      "id": "d571220a-7c72-4318-8c22-323076b89108",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "recipe",
+                      "outVLabel": "user",
+                      "inV": "e082f8e9-9327-4673-996b-4d32ddd15b65",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "e082f8e9-9327-4673-996b-4d32ddd15b65": {
+                        "key": {
+                          "id": "e082f8e9-9327-4673-996b-4d32ddd15b65",
+                          "label": "recipe",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "e082f8e9-9327-4673-996b-4d32ddd15b65|partition_key",
+                                "value": "e082f8e9-9327-4673-996b-4d32ddd15b65"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "1c2e2f83-78ed-4457-8d96-1db9f3e6c705",
+                                "value": "Moscow Mule"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "c0c7bdba-0697-48d6-a24c-196457785b44",
+                                "value": "[\"Shake Vodka and Lime Juice together in a shaker.\",\"Strain into a collins glass.\",\"Top with ginger beer.\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "67a8de90-6ad2-405e-a23e-fe49baa657bc": {
+                    "key": {
+                      "id": "67a8de90-6ad2-405e-a23e-fe49baa657bc",
+                      "label": "created",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "user",
+                      "inV": "fe4eea1a-8050-4b98-bea1-6f7dbceb3194",
+                      "outV": "ef5375ad-6d92-4571-a999-999aa494ff13"
+                    },
+                    "value": {
+                      "fe4eea1a-8050-4b98-bea1-6f7dbceb3194": {
+                        "key": {
+                          "id": "fe4eea1a-8050-4b98-bea1-6f7dbceb3194",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "fe4eea1a-8050-4b98-bea1-6f7dbceb3194|partition_key",
+                                "value": "fe4eea1a-8050-4b98-bea1-6f7dbceb3194"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "074aeb6d-3df2-42de-aa17-d39b9f50e4e0",
+                                "value": "Moscow Mule"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "33d1cdf5-fbef-4ab8-bc03-363084f3bf2f",
+                                "value": "%5B%22Shake%20Vodka%20and%20Lime%20Juice%20together%20in%20a%20shaker.%22%2C%22Strain%20into%20a%20collins%20glass.%22%2C%22Top%20with%20ginger%20beer.%22%5D"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
