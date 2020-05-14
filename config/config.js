@@ -11,11 +11,11 @@ async function getConfig() {
     const sas = process.env.ADLS_SASTOKEN;
     const fileSystemName = process.env.ADLS_CONFIGFSNAME;
     const fileName = process.env.ADLS_CONFIGFILENAME;
-    const serviceClientWithSAS = new DataLakeServiceClient(
+    const serviceClient = new DataLakeServiceClient(
       `https://${account}.dfs.core.windows.net/${fileSystemName}${sas}`
     );
 
-    const fileSystemClient = datalakeServiceClient.getFileSystemClient(
+    const fileSystemClient = serviceClient.getFileSystemClient(
       fileSystemName
     );
     const fileClient = fileSystemClient.getFileClient(fileName);
