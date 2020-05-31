@@ -14,9 +14,9 @@ async function sendCreationMessage(entity) {
         };
         console.log(`Sending message: ${JSON.stringify(message)}`);
         await sender.send(message);
-        await queueClient.close();
     }
     finally {
+        await queueClient.close();
         await sbClient.close();
     }
 }
