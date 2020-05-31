@@ -1,8 +1,9 @@
 const Gremlin = require('gremlin');
 
-const authenticator = new Gremlin.driver.auth.PlainTextSaslAuthenticator(`/dbs/${process.env.COSMOS_DATABASE}/colls/${process.env.COSMOS_COLLECTION}`, process.env.COSMOS_PUBLICKEY)
+var GetAuthenticator = () => new Gremlin.driver.auth.PlainTextSaslAuthenticator(`/dbs/${process.env.COSMOS_DATABASE}/colls/${process.env.COSMOS_COLLECTION}`, process.env.COSMOS_PUBLICKEY)
 
 function createClient() {
+    const authenticator = GetAuthenticator()
     return new Gremlin.driver.Client(
         process.env.COSMOS_ENDPOINT,
         {
