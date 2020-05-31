@@ -3,8 +3,10 @@ const { ServiceBusClient } = require("@azure/service-bus");
 const connectionString = process.env.mixologyJournal_RootManageSharedAccessKey_SERVICEBUS;
 const queueName = process.env.queueName;
 
+var createServiceBusClient = () => ServiceBusClient.createFromConnectionString(connectionString)
+
 async function sendCreationMessage(entity) {
-    const sbClient = ServiceBusClient.createFromConnectionString(connectionString);
+    const sbClient = createServiceBusClient();
     const queueClient = sbClient.createQueueClient(queueName);
     const sender = queueClient.createSender();
     try {
