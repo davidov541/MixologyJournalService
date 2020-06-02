@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const config = require("../config/config");
+var jwt = () => require('jsonwebtoken');
+var config = require("../config/config");
 
 async function checkToken(context, req) {
     var result = {
@@ -46,7 +46,7 @@ async function checkToken(context, req) {
     const options = { issuer: issuer, complete: true, algorithms: ['RS256'] };
     var dtoken;
     try {
-        dtoken = jwt.decode(token, options)
+        dtoken = jwt().decode(token, options)
     } catch (err) {
         result.error = {
             "message": "Cannot decode token: " + err,
@@ -59,7 +59,7 @@ async function checkToken(context, req) {
     const cert = (await config()).signingToken;
     var rawResult;
     try {
-        rawResult = jwt.verify(token, cert, options) || {};
+        rawResult = jwt().verify(token, cert, options) || {};
     } catch (err) {
         result.error = {
             "message": "Invalid token: " + err,
