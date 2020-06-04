@@ -133,7 +133,6 @@ describe('Add Drink Function Tests', function () {
                         }
                     }
                 ]),
-            
             mockPersistence.expects("createEntryOfKind")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
@@ -206,7 +205,6 @@ describe('Add Drink Function Tests', function () {
         }
         expect(context.res).toEqual(expectedResponse);
 
-        mockSecurity.verify()
         expectations.map(e => e.verify())
     });
 });
