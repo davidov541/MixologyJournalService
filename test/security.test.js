@@ -6,8 +6,7 @@ const jwt = uut.__get__("jwt")();
 
 function setupMockJWT() {
     const jwtMock = sinon.mock(jwt)
-    // uut.__set__("jwt", () => jwtMock)
-
+    
     return jwtMock
 }
 
