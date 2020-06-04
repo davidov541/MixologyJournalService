@@ -1,5 +1,5 @@
-const servicebus = require('./servicebus')
-const cosmos = require('./cosmos')
+var servicebus = require('./servicebus')
+var cosmos = require('./cosmos')
 
 async function getAllDescendentsOfKind(kind) {
     return await cosmos.getAllDescendentsOfKind(kind);
