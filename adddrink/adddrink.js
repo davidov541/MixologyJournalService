@@ -1,7 +1,6 @@
 const { uuid } = require('uuidv4');
 
 const cosmos = require('../util/persistence')
-const entityConversion = require('../util/entityConversion')
 const security = require('../util/security')
 
 module.exports = async function (context, req) {
@@ -87,7 +86,7 @@ module.exports = async function (context, req) {
             console.log(err)
             context.res = {
                 status: 500,
-                body: "Error found: " + err
+                body: `Error found: ${err}`
             };
         }
     } 
