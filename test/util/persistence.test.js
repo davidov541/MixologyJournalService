@@ -1,7 +1,7 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
-const uut = rewire('../util/persistence');
+const uut = rewire('../../util/persistence');
 
 function setupMockCosmos() {
     return sinon.mock(uut.__get__("cosmos"))

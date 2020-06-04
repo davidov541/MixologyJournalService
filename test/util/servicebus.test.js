@@ -1,7 +1,7 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
-const uut = rewire('../util/servicebus');
+const uut = rewire('../../util/servicebus');
 
 function setupMockBusClient() {
     const sendSpy = sinon.spy();

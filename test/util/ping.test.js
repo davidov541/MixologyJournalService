@@ -1,4 +1,4 @@
-const helloworld = require('../ping/helloworld')
+const helloworld = require('../../ping/helloworld')
 
 describe('Ping Function Tests', function () {
     test('should return successfully at all times.', async function () {

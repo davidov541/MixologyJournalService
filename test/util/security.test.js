@@ -1,7 +1,7 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
-const uut = rewire('../util/security');
+const uut = rewire('../../util/security');
 const jwt = uut.__get__("jwt")();
 
 function setupMockJWT() {

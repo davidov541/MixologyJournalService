@@ -1,7 +1,7 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
-const uut = rewire('../util/cosmos');
+const uut = rewire('../../util/cosmos');
 
 uut.__set__("GetAuthenticator", () => {})
 

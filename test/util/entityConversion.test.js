@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const uut = require('../util/entityConversion')
+const uut = require('../../util/entityConversion')
 
 describe('Entity Conversion Tests', function () {
     test('should parse a drink JSON with an empty review field successfully.', async function () {
