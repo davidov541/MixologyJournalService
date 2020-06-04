@@ -39,5 +39,7 @@ describe('Add Drink Function Tests', function () {
             "body": mockResult.error.message
         }
         expect(context.res).toEqual(expectedResponse);
+
+        mockSecurity.verify()
     });
 });
