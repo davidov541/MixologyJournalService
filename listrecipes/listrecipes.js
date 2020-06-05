@@ -13,7 +13,8 @@ module.exports = async function (context, req) {
         var recipes = new Array();
         for(recipe in info) {
             const recipeInfo = entityConversion.processRecipe(info[recipe], securityResult.user);
-            if (recipeInfo.user == "root" || recipeInfo.user == securityResult.user.payload.sub)
+            if (recipeInfo.user == "root" || 
+                (securityResult.success && recipeInfo.user == securityResult.user.payload.sub))
             {
                 recipes.push(recipeInfo);
             }

@@ -20,13 +20,15 @@ async function runSuccessfulListTest(securitySuccess) {
     const mockPersistence = setupMockPersistence()
     const mockConversion = setupMockConversion()
 
-    const mockSecurityResult = {
+    var mockSecurityResult = {
         "success": securitySuccess,
         "error": {
             "code": "Test Code",
             "message": "Test Message"
-        },
-        "user": {
+        }
+    }
+    if (securitySuccess) {
+        mockSecurityResult.user = {
             "payload": {
                 "sub": "User"
             }
@@ -81,7 +83,11 @@ async function runSuccessfulListTest(securitySuccess) {
         
     await uut(context, request);
 
-    expect(context.res.body).toEqual([mockList[0], mockList[1]]);
+    var expectedBody = [mockList[1]]
+    if (securitySuccess) {
+        expectedBody = [mockList[0], mockList[1]]
+    }
+    expect(context.res.body).toEqual(expectedBody);
 
     expectations.map(e => e.verify())
 
