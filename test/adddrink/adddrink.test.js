@@ -47,7 +47,7 @@ describe('Add Drink Function Tests', function () {
         mockSecurity.verify()
     });
 
-    test('should correctly add the recipe if authentication succeeds.', async function () {
+    test('should correctly add the drink if authentication succeeds.', async function () {
         const mockSecurity = setupMockSecurity()
         const mockPersistence = setupMockPersistence()
         
@@ -99,8 +99,7 @@ describe('Add Drink Function Tests', function () {
                 ],
                 "sourceRecipeID": "Recipe-1",
                 "review": "Test Review",
-                "rating": "1.0",
-                
+                "rating": "1.0"
             }
         }
 
