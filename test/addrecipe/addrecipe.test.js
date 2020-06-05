@@ -206,5 +206,6 @@ describe('Add Recipe Function Tests', function () {
 
         mockPersistence.restore()
         mockSecurity.restore()
+        mockEntityConversion.restore()
     });
 });
