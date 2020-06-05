@@ -45,6 +45,8 @@ describe('Add Unit Function Tests', function () {
         expect(context.res).toEqual(expectedResponse);
 
         mockSecurity.verify()
+        
+        mockSecurity.restore()
     });
 
     test('should correctly add the unit if authentication succeeds.', async function () {
@@ -93,5 +95,8 @@ describe('Add Unit Function Tests', function () {
         expect(context.res.body.name).toEqual(request.body.name);
 
         expectations.map(e => e.verify())
+        
+        mockPersistence.restore()
+        mockSecurity.restore()
     });
 });

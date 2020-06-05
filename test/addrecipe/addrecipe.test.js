@@ -49,6 +49,8 @@ describe('Add Recipe Function Tests', function () {
         expect(context.res).toEqual(expectedResponse);
 
         mockSecurity.verify()
+        
+        mockSecurity.restore()
     });
 
     test('should correctly add the recipe if authentication succeeds.', async function () {
@@ -201,5 +203,8 @@ describe('Add Recipe Function Tests', function () {
         expect(context.res).toEqual(expectedResponse);
 
         expectations.map(e => e.verify())
+
+        mockPersistence.restore()
+        mockSecurity.restore()
     });
 });
