@@ -29,6 +29,8 @@ describe('Persistence Facade Tests', function () {
         expect(actual).toEqual(expectedReturnValue)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 
     test('should properly return all descendants of a specific entity', async function () {
@@ -48,6 +50,8 @@ describe('Persistence Facade Tests', function () {
         expect(actual).toEqual(expectedReturnValue)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 
     test('should properly return all entities of a kind', async function () {
@@ -68,6 +72,8 @@ describe('Persistence Facade Tests', function () {
         expect(actual).toEqual(expectedReturnValue)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 
     test('should properly return all connected entities of a kind', async function () {
@@ -90,6 +96,8 @@ describe('Persistence Facade Tests', function () {
         expect(actual).toEqual(expectedReturnValue)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 
     test('should properly create an entry', async function () {
@@ -116,6 +124,8 @@ describe('Persistence Facade Tests', function () {
         await uut.createEntryOfKind(testKind, testId, testProperties, testEdges)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 
     test('should properly create an edge', async function () {
@@ -142,6 +152,8 @@ describe('Persistence Facade Tests', function () {
         await uut.createEdge(testSource, testTarget, testRelationship, testProperties)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 
     test('should properly delete an entry', async function () {
@@ -164,5 +176,7 @@ describe('Persistence Facade Tests', function () {
         await uut.deleteEntry(testId, testEdgeLabelsToFollow)
 
         mockCosmos.verify()
+
+        mockCosmos.restore()
     })
 })

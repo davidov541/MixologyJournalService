@@ -46,6 +46,8 @@ describe('Security and JWT Interface Tests', function () {
         await uut.checkToken(context, req)
 
         jwtMock.verify()
+
+        jwtMock.restore()
     })
     
     test('should reject an expired token.', async function () {
@@ -83,6 +85,8 @@ describe('Security and JWT Interface Tests', function () {
         jwtMock.verify()
 
         expect(result).toEqual(expected)
+
+        jwtMock.restore()
     })
     
     test("should reject a token that can't be decoded.", async function () {
@@ -118,6 +122,8 @@ describe('Security and JWT Interface Tests', function () {
         jwtMock.verify()
 
         expect(result).toEqual(expected)
+
+        jwtMock.restore()
     })
     
     test("should reject an authorization header that is too short.", async function () {
@@ -151,6 +157,8 @@ describe('Security and JWT Interface Tests', function () {
         jwtMock.verify()
 
         expect(result).toEqual(expected)
+
+        jwtMock.restore()
     })
     
     test("should reject an authorization header that is too long.", async function () {
@@ -184,6 +192,8 @@ describe('Security and JWT Interface Tests', function () {
         jwtMock.verify()
 
         expect(result).toEqual(expected)
+
+        jwtMock.restore()
     })
     
     test("should reject an invalid authorization header.", async function () {
@@ -217,6 +227,8 @@ describe('Security and JWT Interface Tests', function () {
         jwtMock.verify()
 
         expect(result).toEqual(expected)
+
+        jwtMock.restore()
     })
     
     test("should reject an empty authorization header.", async function () {
@@ -250,5 +262,7 @@ describe('Security and JWT Interface Tests', function () {
         jwtMock.verify()
 
         expect(result).toEqual(expected)
+
+        jwtMock.restore()
     })
 })
