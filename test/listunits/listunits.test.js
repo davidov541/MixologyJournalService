@@ -34,11 +34,7 @@ describe('List Units Function Tests', function () {
             log: function (msg) {}        
         }
 
-        const request = {
-            "body": {
-                "name": "Test Ingredient"
-            }
-        }
+        const request = {}
 
         const mockList = [
             {
@@ -88,11 +84,7 @@ describe('List Units Function Tests', function () {
             log: function (msg) {}        
         }
 
-        const request = {
-            "body": {
-                "name": "Test Ingredient"
-            }
-        }
+        const request = {}
 
         const mockList = [
             {
