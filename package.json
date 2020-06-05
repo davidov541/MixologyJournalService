@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "func start",
-    "test": "jest --maxConcurrency=1 --maxWorkers=1"
+    "test": "jest"
   },
   "dependencies": {
     "@azure/identity": "^1.0.3",
