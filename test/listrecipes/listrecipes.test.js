@@ -44,15 +44,15 @@ async function runSuccessfulListTest(securitySuccess) {
 
     const mockList = [
         {
-            "name": "Ingredient 1",
+            "name": "Recipe 1",
             "user": "User"
         },
         {
-            "name": "Ingredient 2",
+            "name": "Recipe 2",
             "user": "root"
         },
         {
-            "name": "Ingredient 3",
+            "name": "Recipe 3",
             "user": "Some Other User"
         }
     ]
@@ -96,12 +96,12 @@ async function runSuccessfulListTest(securitySuccess) {
     mockConversion.restore()
 }
 
-describe('List Ingredients Function Tests', function () {
-    test('should correctly list ingredients if authentication succeeds.', async function () {
+describe('List Recipes Function Tests', function () {
+    test('should correctly list recipes if authentication succeeds.', async function () {
         await runSuccessfulListTest(true)
     });
 
-    test('should correctly list ingredients even if authentication fails.', async function () {
+    test('should correctly list recipes even if authentication fails.', async function () {
         await runSuccessfulListTest(false)
     });
 });
