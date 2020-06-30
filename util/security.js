@@ -8,6 +8,14 @@ async function checkToken(context, req) {
         "success": false
     }
     var token;
+    if (!req.headers.authorization) {
+        result.error = {
+            "message": "Authentication required for this API.",
+            "code": 401
+        }
+        context.log("Error found: " + JSON.stringify(result));
+        return result;
+    }
     var parts = req.headers.authorization.split(' ');
     if (parts.length == 2) {
         var scheme = parts[0];

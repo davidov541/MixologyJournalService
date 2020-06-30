@@ -265,4 +265,36 @@ describe('Security and JWT Interface Tests', function () {
 
         jwtMock.restore()
     })
+    
+    test("should reject no authorization header.", async function () {
+        const expected = {
+            "error": {
+                code: 401,
+                message: "Authentication required for this API."
+            },
+            "success": false,
+            "user": {}
+        }
+
+        const jwtMock = setupMockJWT();
+        setupMockConfig("");
+
+        jwtMock.expects("decode").never()
+        jwtMock.expects("verify").never()
+        const req = {
+            "headers": {}
+        }
+
+        const context = {
+            "log": (message) => {console.log(message)}
+        }
+
+        const result = await uut.checkToken(context, req)
+
+        jwtMock.verify()
+
+        expect(result).toEqual(expected)
+
+        jwtMock.restore()
+    })
 })
