@@ -4,7 +4,7 @@ const cosmos = require('../util/persistence')
 const security = require('../util/security')
 
 async function createUser(userId, userName) {
-    const userExists = await cosmos.getPropertiesOfEntity(userId, ["id"])
+    const userExists = await cosmos.getPropertiesOfEntity(userId, [])
     if (!userExists.success)
     {
         await cosmos.createEntryOfKind('user', userId, {name: userName}, [])
