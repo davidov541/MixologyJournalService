@@ -126,6 +126,36 @@ describe('Cosmos Interface Tests', function () {
         expect(args[0]).toEqual("g.V(id)")
         expect(args[1]).toEqual({id: requestedId})
     })
+
+    test('should properly return no results if specific vertex doesnt exist.', async function () {
+        const requestedId = "ef5375ad-6d92-4571-a999-999aa494ff13"
+        const returnValue = {
+            "_items": [],
+            attributes: {
+                "x-ms-request-charge": 10
+            }
+        }
+        const gremlinSubmitFake = sinon.fake.returns(returnValue)
+        const spies = setupMockGremlin(gremlinSubmitFake);
+
+        const actual = await uut.getPropertiesOfEntity(requestedId, ["name"])
+
+        const expectedReturnValue = {
+            success: false,
+            id: requestedId,
+            properties: {}
+        }
+        expect(actual).toEqual(expectedReturnValue)
+        
+        checkOpenAndCloseOfGremlin(spies)
+
+        expect(gremlinSubmitFake.called).toBeTruthy();
+        expect(gremlinSubmitFake.callCount).toBe(1);
+
+        const args = gremlinSubmitFake.args[0]
+        expect(args[0]).toEqual("g.V(id)")
+        expect(args[1]).toEqual({id: requestedId})
+    })
     
     test('should properly return all descendants of a given entity', async function () {
         const returnValue = {
