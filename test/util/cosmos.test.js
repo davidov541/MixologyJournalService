@@ -68,6 +68,64 @@ describe('Cosmos Interface Tests', function () {
         expect(args[0]).toEqual("g.V().hasLabel(label).outE().inV().outE().inV().tree()")
         expect(args[1]).toEqual({label: testKind})
     })
+
+    test('should properly return requested properties for a specific vertex.', async function () {
+        const requestedId = "ef5375ad-6d92-4571-a999-999aa494ff13"
+        const returnValue = {
+            "_items": [
+                {
+                    "id": requestedId,
+                    "label": "user",
+                    "type": "vertex",
+                    "properties": {
+                        "partition_key": [
+                            {
+                                "id": "ef5375ad-6d92-4571-a999-999aa494ff13|partition_key",
+                                "value": "root"
+                            }
+                        ],
+                        "name": [
+                            {
+                                "id": "3cd61e56-51d4-449b-bf0d-1d1d02c76d11",
+                                "value": "root"
+                            }
+                        ],
+                        "hiddenProperty": [
+                            {
+                                "id": "3cd61e56-51d4-449b-bf0d-1d1d02c76d11",
+                                "value": "someValue"
+                            }
+                        ]
+                    }
+                }
+            ],
+            attributes: {
+                "x-ms-request-charge": 10
+            }
+        }
+        const gremlinSubmitFake = sinon.fake.returns(returnValue)
+        const spies = setupMockGremlin(gremlinSubmitFake);
+
+        const actual = await uut.getPropertiesOfEntity(requestedId, ["name"])
+
+        const expectedReturnValue = {
+            success: true,
+            id: requestedId,
+            properties: {
+                name: "root"
+            }
+        }
+        expect(actual).toEqual(expectedReturnValue)
+        
+        checkOpenAndCloseOfGremlin(spies)
+
+        expect(gremlinSubmitFake.called).toBeTruthy();
+        expect(gremlinSubmitFake.callCount).toBe(1);
+
+        const args = gremlinSubmitFake.args[0]
+        expect(args[0]).toEqual("g.V(id)")
+        expect(args[1]).toEqual({id: requestedId})
+    })
     
     test('should properly return all descendants of a given entity', async function () {
         const returnValue = {

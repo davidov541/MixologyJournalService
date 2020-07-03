@@ -39,6 +39,31 @@ async function getAllDescendentsOfEntity(id) {
     return result._items[0][id];
 }
 
+async function getPropertiesOfEntity(id, properties) {
+    const command = "g.V(id)";
+    const client = createClient();
+    await client.open();
+    const result = await client.submit(command, {
+        id: id
+    });
+    console.log("getPropertiesOfEntity; id = " + id + 
+        "properties = " + JSON.stringify(properties) + 
+        ";RUs used: " + result.attributes["x-ms-request-charge"])
+    await client.close();
+    const foundItem = result._items.length > 0
+    var finalResult = {
+        success: foundItem,
+        id: id,
+        properties: {}
+    }
+    if (foundItem)
+    {
+        const foundVertex = result._items[0]
+        properties.forEach(p => finalResult.properties[p] = foundVertex.properties[p][0].value)
+    }
+    return finalResult;
+}
+
 async function getEntriesOfKind(kind, properties) {
     const command = "g.V().hasLabel(label)"
     const client = createClient()
@@ -87,5 +112,6 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
 
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
+exports.getPropertiesOfEntity = getPropertiesOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;

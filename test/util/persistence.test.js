@@ -54,6 +54,28 @@ describe('Persistence Facade Tests', function () {
         mockCosmos.restore()
     })
 
+    test('should properly properties of a specific vertex', async function () {
+        const mockCosmos = setupMockCosmos();
+
+        const testId = "Test Id";
+        const testProperties = ["Test Property 1"];
+        const expectedReturnValue = "Test Result"
+
+        mockCosmos
+            .expects("getPropertiesOfEntity")
+            .once()
+            .withArgs(testId, testProperties)
+            .returns(expectedReturnValue)
+
+        const actual = await uut.getPropertiesOfEntity(testId, testProperties)
+
+        expect(actual).toEqual(expectedReturnValue)
+
+        mockCosmos.verify()
+
+        mockCosmos.restore()
+    })
+
     test('should properly return all entities of a kind', async function () {
         const mockCosmos = setupMockCosmos();
 
