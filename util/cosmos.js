@@ -50,6 +50,7 @@ async function getPropertiesOfEntity(id, properties) {
         "properties = " + JSON.stringify(properties) + 
         ";RUs used: " + result.attributes["x-ms-request-charge"])
     await client.close();
+    console.log("Returned result: " + JSON.stringify(result))
     const foundItem = result._items.length > 0
     var finalResult = {
         success: foundItem,
