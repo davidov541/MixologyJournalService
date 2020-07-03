@@ -48,6 +48,51 @@ describe('Add Unit Function Tests', function () {
         
         mockSecurity.restore()
     });
+    test('should return an error if a non-admin user tries to create a unit.', async function () {
+        const mockSecurity = setupMockSecurity()
+        
+        const mockResult = {
+            "success": true,
+            "error": {},
+            "user": {
+                "payload": {
+                    "sub": "User"
+                }
+            }
+        }
+
+        var context = {   
+            res: {},
+            log: function (msg) {}        
+        }
+
+        const request = {}
+
+        const expectations = [
+            mockSecurity
+                .expects("checkToken")
+                .once()
+                .withArgs(context, request)
+                .returns(mockResult),
+            mockSecurity
+                .expects("isAdmin")
+                .once()
+                .withArgs(mockResult.user)
+                .returns(false)
+        ]
+
+        await uut(context, request);
+
+        const expectedResponse = {
+            "status": 401,
+            "body": "User cannot add units."
+        }
+        expect(context.res).toEqual(expectedResponse);
+
+        expectations.map(e => e.verify())
+
+        mockSecurity.restore()
+    });
 
     test('should correctly add the unit if authentication succeeds.', async function () {
         const mockSecurity = setupMockSecurity()
@@ -83,6 +128,11 @@ describe('Add Unit Function Tests', function () {
                 .once()
                 .withArgs(context, request)
                 .returns(mockSecurityResult),
+            mockSecurity
+                .expects("isAdmin")
+                .once()
+                .withArgs(mockSecurityResult.user)
+                .returns(true),
             mockPersistence.expects("createEntryOfKind")
                 .once()
                 .withExactArgs('unit', sinon.match.any, {
