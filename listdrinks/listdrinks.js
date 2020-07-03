@@ -7,7 +7,6 @@ module.exports = async function (context, req) {
 
     const securityResult = await security.checkToken(context, req);
 
-
     try {
         const info = await cosmos.getAllDescendentsOfKind('drink')
 
