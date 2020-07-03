@@ -83,9 +83,9 @@ async function runSuccessfulListTest(securitySuccess) {
         
     await uut(context, request);
 
-    var expectedBody = [mockList[1]]
+    var expectedBody = []
     if (securitySuccess) {
-        expectedBody = [mockList[0], mockList[1]]
+        expectedBody = [mockList[0]]
     }
     expect(context.res.body).toEqual(expectedBody);
 
