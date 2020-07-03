@@ -14,6 +14,11 @@ module.exports = async function (context, req) {
             status: securityResult.error.code,
             body: securityResult.error.message
         }
+    } else if (!security.isAdmin(securityResult.user)) {
+        context.res = {
+            status: 401,
+            body: "User cannot add ingredients."
+        }
     } else {
         const info = {
             name: req.body.name

@@ -3,6 +3,14 @@ const { uuid } = require('uuidv4');
 const cosmos = require('../util/persistence')
 const security = require('../util/security')
 
+async function createUser(userId, userName) {
+    const userExists = await cosmos.getPropertiesOfEntity(userId, ["id"])
+    if (!userExists.success)
+    {
+        await cosmos.createEntryOfKind('user', userId, {name: userName}, [])
+    }
+}
+
 module.exports = async function (context, req) {
     context.log('POST /secure/drinks');
 
@@ -16,6 +24,8 @@ module.exports = async function (context, req) {
         }
     } else {
         try {
+            await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
+
             const ingredients = req.body.ingredients
             var ingredientUsage = 1;
             const ingredientIDPromises = ingredients.map(async i => {

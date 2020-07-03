@@ -13,6 +13,10 @@ async function getEntriesOfKind(kind, properties) {
     return await cosmos.getEntriesOfKind(kind, properties);
 }
 
+async function getPropertiesOfEntity(id, properties) {
+    return await cosmos.getPropertiesOfEntity(id, properties);
+}
+
 async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties = []) {
     return await cosmos.getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties)
 }
@@ -54,6 +58,7 @@ async function deleteEntry(id, edgeLabelsToFollow) {
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
+exports.getPropertiesOfEntity = getPropertiesOfEntity;
 exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
 exports.createEdge = createEdge;
