@@ -53,7 +53,8 @@ describe('Add Recipe Function Tests', function () {
         mockSecurity.restore()
     });
 
-    test('should correctly add the recipe if authentication succeeds.', async function () {
+
+    test('should correctly add the recipe and user if it doesnt already exist.', async function () {
         const mockSecurity = setupMockSecurity()
         const mockPersistence = setupMockPersistence()
         const mockEntityConversion = setupMockEntityConversion()
@@ -74,7 +75,8 @@ describe('Add Recipe Function Tests', function () {
             },
             "user": {
                 "payload": {
-                    "sub": "User"
+                    "sub": "User",
+                    "name": "User Name"
                 }
             }
         }
@@ -126,6 +128,179 @@ describe('Add Recipe Function Tests', function () {
                 .once()
                 .withArgs(mockSecurityResult.user)
                 .returns(false),
+            mockPersistence
+                .expects("getPropertiesOfEntity")
+                .once()
+                .withArgs(mockSecurityResult.user.payload.sub, ["id"])
+                .returns({success: false}),
+            mockPersistence
+                .expects("createEntryOfKind")
+                .once()
+                .withExactArgs('user', mockSecurityResult.user.payload.sub, {
+                    name: mockSecurityResult.user.payload.name
+                }, []),
+            mockPersistence.expects("createEntryOfKind")
+                .once()
+                .withExactArgs('ingredientUsage', sinon.match.any, {
+                    "name": "Test Recipe Ingredient Usage #1"
+                }, [
+                    {
+                        "id": "Ingredient-1",
+                        "relationship": "of",
+                        "properties": {}
+                    },
+                    {
+                        "id": "Unit-1",
+                        "relationship": "amount",
+                        "properties": {
+                            "unitAmount": "1.0"
+                        }
+                    }
+                ]),
+            mockPersistence.expects("createEntryOfKind")
+                .once()
+                .withExactArgs('ingredientUsage', sinon.match.any, {
+                    "name": "Test Recipe Ingredient Usage #2"
+                }, [
+                    {
+                        "id": "Ingredient-2",
+                        "properties": {},
+                        "relationship": "of"
+                    },
+                    {
+                        "id": "Unit-2",
+                        "properties": {
+                            "unitAmount": "2.0"
+                        },
+                        "relationship": "amount"
+                    }
+                ]),
+            mockPersistence.expects("createEntryOfKind")
+                .once()
+                .withExactArgs('recipe', sinon.match.any, {
+                    "name": "Test Recipe",
+                    "steps": "[\"Step 1\",\"Step 2\",\"Step 3\"]"
+                }, [
+                    {
+                        "id": sinon.match.any,
+                        "relationship": "uses",
+                        "properties": {}
+                    },
+                    {
+                        "id": sinon.match.any,
+                        "relationship": "uses",
+                        "properties": {}
+                    }
+                ]),
+            mockPersistence.expects("createEdge")
+                .once()
+                .withExactArgs(sinon.match.any, "User", 'created by', {}),
+            mockPersistence.expects("createEdge")
+                .once()
+                .withExactArgs("User", sinon.match.any, 'created', {}),
+            mockPersistence.expects("getAllDescendentsOfEntity")
+                .once()
+                .withExactArgs(sinon.match.any)
+                .returns(mockRecipe),
+            mockEntityConversion.expects("processRecipe")
+                .once()
+                .withExactArgs(mockRecipe)
+                .returns(mockFinalResult)
+        ]
+            
+        await uut(context, request);
+
+        const expectedResponse = {
+            "body": mockFinalResult
+        }
+        expect(context.res).toEqual(expectedResponse);
+
+        expectations.map(e => e.verify())
+
+        mockPersistence.restore()
+        mockSecurity.restore()
+        mockEntityConversion.restore()
+    });
+
+    test('should correctly add the recipe if authentication succeeds.', async function () {
+        const mockSecurity = setupMockSecurity()
+        const mockPersistence = setupMockPersistence()
+        const mockEntityConversion = setupMockEntityConversion()
+
+        const mockRecipe = {
+            "name": "Some Recipe"
+        }
+        
+        const mockFinalResult = {
+            "name": "A Final Recipe"
+        }
+
+        const mockSecurityResult = {
+            "success": true,
+            "error": {
+                "code": "Test Code",
+                "message": "Test Message"
+            },
+            "user": {
+                "payload": {
+                    "sub": "User",
+                    "name": "User Name"
+                }
+            }
+        }
+
+        var context = {   
+            res: {},
+            log: function (msg) {}        
+        }
+
+        const request = {
+            "body": {
+                "name": "Test Recipe",
+                "ingredients": [
+                    {
+                        "ingredient": {
+                            "id": "Ingredient-1"
+                        },
+                        "unit": {
+                            "id": "Unit-1"
+                        },
+                        "amount": "1.0"
+                    },
+                    {
+                        "ingredient": {
+                            "id": "Ingredient-2"
+                        },
+                        "unit": {
+                            "id": "Unit-2"
+                        },
+                        "amount": "2.0"
+                    }
+                ],
+                "steps": [
+                    "Step 1",
+                    "Step 2",
+                    "Step 3"
+                ]                
+            }
+        }
+
+        const expectations = [
+            mockSecurity
+                .expects("checkToken")
+                .once()
+                .withArgs(context, request)
+                .returns(mockSecurityResult),
+            mockSecurity
+                .expects("isAdmin")
+                .once()
+                .withArgs(mockSecurityResult.user)
+                .returns(false),
+            mockPersistence
+                .expects("getPropertiesOfEntity")
+                .once()
+                .withArgs(mockSecurityResult.user.payload.sub, ["id"])
+                .returns({success: true}),
             mockPersistence.expects("createEntryOfKind")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
