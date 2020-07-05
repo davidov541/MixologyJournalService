@@ -4,7 +4,7 @@ const cosmos = require('../util/persistence')
 const security = require('../util/security')
 
 async function createUser(userId, userName) {
-    const userExists = await cosmos.getPropertiesOfEntity(userId, ["id"])
+    const userExists = await cosmos.getPropertiesOfEntity(userId, [])
     if (!userExists.success)
     {
         await cosmos.createEntryOfKind('user', userId, {name: userName}, [])
@@ -69,7 +69,7 @@ module.exports = async function (context, req) {
             cosmos.createEdge(drinkID, recipeID, 'derived from', {});
             cosmos.createEdge(recipeID, drinkID, 'derivative', {});
 
-            const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.payload.sub;
+            const userID = securityResult.user.payload.sub;
             await cosmos.createEdge(userID, drinkID, 'created', {});
             await cosmos.createEdge(drinkID, userID, 'created by', {});
 

@@ -131,7 +131,7 @@ describe('Add Recipe Function Tests', function () {
             mockPersistence
                 .expects("getPropertiesOfEntity")
                 .once()
-                .withArgs(mockSecurityResult.user.payload.sub, ["id"])
+                .withArgs(mockSecurityResult.user.payload.sub, [])
                 .returns({success: false}),
             mockPersistence
                 .expects("createEntryOfKind")
@@ -299,7 +299,7 @@ describe('Add Recipe Function Tests', function () {
             mockPersistence
                 .expects("getPropertiesOfEntity")
                 .once()
-                .withArgs(mockSecurityResult.user.payload.sub, ["id"])
+                .withArgs(mockSecurityResult.user.payload.sub, [])
                 .returns({success: true}),
             mockPersistence.expects("createEntryOfKind")
                 .once()

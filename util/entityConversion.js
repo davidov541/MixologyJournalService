@@ -21,7 +21,7 @@ function processDrink(drink) {
             for (userKey in edge.value)
             {
                 const user = edge.value[userKey];
-                result.user = user.key.properties.name[0].value;
+                result.user = user.key.id;
             }
         }
         else if (edge.key.inVLabel == "review")
@@ -59,7 +59,7 @@ function processRecipe(recipe) {
             for (userKey in edge.value)
             {
                 const user = edge.value[userKey];
-                result.user = user.key.properties.name[0].value;
+                result.user = user.key.id;
             }
         }
     }
