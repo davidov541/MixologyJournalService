@@ -49,7 +49,7 @@ async function runSuccessfulListTest(securitySuccess) {
         },
         {
             "name": "Recipe 2",
-            "user": "root"
+            "user": "ef5375ad-6d92-4571-a999-999aa494ff13"
         },
         {
             "name": "Recipe 3",
