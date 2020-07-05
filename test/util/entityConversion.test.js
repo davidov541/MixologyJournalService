@@ -54,7 +54,7 @@ describe('Entity Conversion Tests', function () {
                 "Strain into a martini glass",
                 "Garnish with three olives",
               ],
-              "user": "root",
+              "user": "ef5375ad-6d92-4571-a999-999aa494ff13",
             }
         expect(actual).toEqual(expected)
     });
@@ -110,7 +110,7 @@ describe('Entity Conversion Tests', function () {
                 "Strain into a martini glass",
                 "Garnish with three olives",
               ],
-              "user": "root",
+              "user": "ef5375ad-6d92-4571-a999-999aa494ff13",
             }
         expect(actual).toEqual(expected)
     });
@@ -152,7 +152,7 @@ describe('Entity Conversion Tests', function () {
                 "Stir",
                 "Garnish with a lime wedge",
               ],
-              "user": "root",
+              "user": "ef5375ad-6d92-4571-a999-999aa494ff13",
             }
         expect(actual).toEqual(expected)
     });
