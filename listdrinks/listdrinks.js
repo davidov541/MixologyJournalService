@@ -13,7 +13,7 @@ module.exports = async function (context, req) {
         var drinks = new Array();
         for(drink in info) {
             const drinkInfo = entityConversion.processDrink(info[drink], securityResult.user);
-            context.log("Processing drink " + drinkInfo)
+            context.log("Processing drink " + JSON.stringify(drinkInfo))
             context.log("Authenticated User = " + securityResult.user.payload.sub)
             if (securityResult.success && drinkInfo.user == securityResult.user.payload.sub)
             {
