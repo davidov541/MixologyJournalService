@@ -90,8 +90,11 @@ module.exports = async function (context, req) {
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
-                body: "Success"
-            };    
+                body: {
+                    message: "Success",
+                    createdId: drinkID
+                }
+            };
         } catch (err) {
             console.log(err)
             context.res = {

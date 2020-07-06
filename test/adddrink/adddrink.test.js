@@ -208,10 +208,7 @@ describe('Add Drink Function Tests', function () {
             
         await uut(context, request);
 
-        const expectedResponse = {
-            "body": "Success"
-        }
-        expect(context.res).toEqual(expectedResponse);
+        expect(context.res.body.message).toEqual("Success");
 
         expectations.map(e => e.verify())
 
@@ -372,10 +369,7 @@ describe('Add Drink Function Tests', function () {
             
         await uut(context, request);
 
-        const expectedResponse = {
-            "body": "Success"
-        }
-        expect(context.res).toEqual(expectedResponse);
+        expect(context.res.body.message).toEqual("Success");
 
         expectations.map(e => e.verify())
 
