@@ -197,23 +197,12 @@ describe('Add Recipe Function Tests', function () {
                 .withExactArgs(sinon.match.any, "User", 'created by', {}),
             mockPersistence.expects("createEdge")
                 .once()
-                .withExactArgs("User", sinon.match.any, 'created', {}),
-            mockPersistence.expects("getAllDescendentsOfEntity")
-                .once()
-                .withExactArgs(sinon.match.any)
-                .returns(mockRecipe),
-            mockEntityConversion.expects("processRecipe")
-                .once()
-                .withExactArgs(mockRecipe)
-                .returns(mockFinalResult)
+                .withExactArgs("User", sinon.match.any, 'created', {})
         ]
             
         await uut(context, request);
 
-        const expectedResponse = {
-            "body": mockFinalResult
-        }
-        expect(context.res).toEqual(expectedResponse);
+        expect(context.res.body.message).toEqual("Success");
 
         expectations.map(e => e.verify())
 
@@ -359,23 +348,12 @@ describe('Add Recipe Function Tests', function () {
                 .withExactArgs(sinon.match.any, "User", 'created by', {}),
             mockPersistence.expects("createEdge")
                 .once()
-                .withExactArgs("User", sinon.match.any, 'created', {}),
-            mockPersistence.expects("getAllDescendentsOfEntity")
-                .once()
-                .withExactArgs(sinon.match.any)
-                .returns(mockRecipe),
-            mockEntityConversion.expects("processRecipe")
-                .once()
-                .withExactArgs(mockRecipe)
-                .returns(mockFinalResult)
+                .withExactArgs("User", sinon.match.any, 'created', {})
         ]
             
         await uut(context, request);
 
-        const expectedResponse = {
-            "body": mockFinalResult
-        }
-        expect(context.res).toEqual(expectedResponse);
+        expect(context.res.body.message).toEqual("Success");
 
         expectations.map(e => e.verify())
 
