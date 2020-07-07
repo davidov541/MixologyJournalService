@@ -34,7 +34,7 @@ async function createEntryOfKind(kind, id, properties, edges) {
         edges: edges
     }
 
-    await servicebus.sendCreationMessage(vertex);
+    await servicebus.sendMutation(vertex);
 }
 
 async function createEdge(source, target, relationship, properties) {
@@ -46,7 +46,7 @@ async function createEdge(source, target, relationship, properties) {
         relationship: relationship
     }
     
-    await servicebus.sendCreationMessage(edge);
+    await servicebus.sendMutation(edge);
 }
 
 async function deleteEntry(id, edgeLabelsToFollow) {
@@ -56,7 +56,7 @@ async function deleteEntry(id, edgeLabelsToFollow) {
         edgeLabelsToFollow: edgeLabelsToFollow
     }
     
-    await servicebus.sendCreationMessage(deletionInfo);
+    await servicebus.sendMutation(deletionInfo);
 }
 
 async function deleteEdge(id) {
@@ -65,7 +65,7 @@ async function deleteEdge(id) {
         id: id
     }
     
-    await servicebus.sendCreationMessage(deletionInfo);
+    await servicebus.sendMutation(deletionInfo);
 }
 
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;

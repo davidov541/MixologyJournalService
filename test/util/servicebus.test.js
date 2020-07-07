@@ -51,14 +51,14 @@ describe('Service Bus Interface Tests', function () {
             "someProperty": "someValue"
         }
 
-        await uut.sendCreationMessage(testObject)
+        await uut.sendMutation(testObject)
         
         checkOpenAndCloseOfServiceBus(spies)
 
-        const expectedBody = {
+        const expectedBody = [{
             "someProperty": "someValue",
             "environment": process.env.ENVIRONMENT
-        }
+        }]
         const expected = [
             {
                 body: JSON.stringify(expectedBody),

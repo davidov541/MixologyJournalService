@@ -162,7 +162,7 @@ describe('Persistence Facade Tests', function () {
         }
 
         mockCosmos
-            .expects("sendCreationMessage")
+            .expects("sendMutation")
             .once()
             .withArgs(expectedVertexInfo)
 
@@ -190,7 +190,7 @@ describe('Persistence Facade Tests', function () {
         }
 
         mockCosmos
-            .expects("sendCreationMessage")
+            .expects("sendMutation")
             .once()
             .withArgs(expectedVertexInfo)
 
@@ -214,7 +214,7 @@ describe('Persistence Facade Tests', function () {
         }
 
         mockCosmos
-            .expects("sendCreationMessage")
+            .expects("sendMutation")
             .once()
             .withArgs(expectedVertexInfo)
 
@@ -236,7 +236,7 @@ describe('Persistence Facade Tests', function () {
         }
 
         mockCosmos
-            .expects("sendCreationMessage")
+            .expects("sendMutation")
             .once()
             .withArgs(expectedEdgeInfo)
 

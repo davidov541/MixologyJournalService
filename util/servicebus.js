@@ -5,14 +5,14 @@ const queueName = process.env.queueName;
 
 var createServiceBusClient = () => ServiceBusClient.createFromConnectionString(connectionString)
 
-async function sendCreationMessage(entity) {
+async function sendMutation(entity) {
     entity.environment = process.env.ENVIRONMENT;
     const sbClient = createServiceBusClient();
     const queueClient = sbClient.createQueueClient(queueName);
     const sender = queueClient.createSender();
     try {
         const message = {
-            body: JSON.stringify(entity),
+            body: JSON.stringify([entity]),
             label: 'creationRequest',
         };
         console.log(`Sending message: ${JSON.stringify(message)}`);
@@ -24,4 +24,4 @@ async function sendCreationMessage(entity) {
     }
 }
 
-exports.sendCreationMessage = sendCreationMessage;
+exports.sendMutation = sendMutation;
