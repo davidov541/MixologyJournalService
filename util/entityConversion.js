@@ -5,8 +5,9 @@ function processDrink(drink) {
     result.name = drink.key.properties.name[0].value
     result.steps = JSON.parse(decodeURIComponent(drink.key.properties.steps[0].value))
     result.isFavorite = false;
-
     result.ingredients = new Array();
+    result.basisRecipe = "Not Found";
+    
     for(edgeKey in drink.value) {
         const edge = drink.value[edgeKey];
         console.log("Processing edge: " + JSON.stringify(edge))
