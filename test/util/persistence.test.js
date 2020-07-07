@@ -201,4 +201,26 @@ describe('Persistence Facade Tests', function () {
 
         mockCosmos.restore()
     })
+
+    test('should properly delete an edge', async function () {
+        const mockCosmos = setupMockServiceBus();
+
+        const testId = "Test ID";
+
+        const expectedEdgeInfo = {
+            command: "delete-edge",
+            id: testId
+        }
+
+        mockCosmos
+            .expects("sendCreationMessage")
+            .once()
+            .withArgs(expectedEdgeInfo)
+
+        await uut.deleteEdge(testId)
+
+        mockCosmos.verify()
+
+        mockCosmos.restore()
+    })
 })

@@ -55,6 +55,15 @@ async function deleteEntry(id, edgeLabelsToFollow) {
     await servicebus.sendCreationMessage(deletionInfo);
 }
 
+async function deleteEdge(id) {
+    const deletionInfo = {
+        command: "delete-edge",
+        id: id
+    }
+    
+    await servicebus.sendCreationMessage(deletionInfo);
+}
+
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
@@ -63,3 +72,4 @@ exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
 exports.createEdge = createEdge;
 exports.deleteEntry = deleteEntry;
+exports.deleteEdge = deleteEdge;
