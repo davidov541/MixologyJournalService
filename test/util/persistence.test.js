@@ -131,7 +131,7 @@ describe('Persistence Facade Tests', function () {
         const testEdges = "Test Edges";
 
         const expectedVertexInfo = {
-            entityType: "vertex",
+            command: "add-vertex",
             kind: testKind,
             id: testId,
             properties: testProperties,
@@ -159,7 +159,7 @@ describe('Persistence Facade Tests', function () {
         const testProperties = "Test Properties";
 
         const expectedVertexInfo = {
-            entityType: "edge",
+            command: "add-edge",
             source: testSource,
             target: testTarget,
             properties: testProperties,
@@ -185,7 +185,7 @@ describe('Persistence Facade Tests', function () {
         const testEdgeLabelsToFollow = "Test Edge Labels to Follow";
 
         const expectedVertexInfo = {
-            entityType: "deletion",
+            command: "delete-vertex",
             id: testId,
             edgeLabelsToFollow: testEdgeLabelsToFollow
         }

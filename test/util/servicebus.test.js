@@ -55,9 +55,13 @@ describe('Service Bus Interface Tests', function () {
         
         checkOpenAndCloseOfServiceBus(spies)
 
+        const expectedBody = {
+            "someProperty": "someValue",
+            "environment": process.env.ENVIRONMENT
+        }
         const expected = [
             {
-                body: JSON.stringify(testObject),
+                body: JSON.stringify(expectedBody),
                 label: 'creationRequest'
             }
         ]

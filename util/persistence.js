@@ -23,7 +23,7 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
 
 async function createEntryOfKind(kind, id, properties, edges) {
     const vertex = {
-        entityType: "vertex",
+        command: "add-vertex",
         kind: kind,
         id: id,
         properties: properties,
@@ -35,7 +35,7 @@ async function createEntryOfKind(kind, id, properties, edges) {
 
 async function createEdge(source, target, relationship, properties) {
     const edge = {
-        entityType: "edge",
+        command: "add-edge",
         source: source,
         target: target,
         properties: properties,
@@ -47,7 +47,7 @@ async function createEdge(source, target, relationship, properties) {
 
 async function deleteEntry(id, edgeLabelsToFollow) {
     const deletionInfo = {
-        entityType: "deletion",
+        command: "delete-vertex",
         id: id,
         edgeLabelsToFollow: edgeLabelsToFollow
     }

@@ -6,6 +6,7 @@ const queueName = process.env.queueName;
 var createServiceBusClient = () => ServiceBusClient.createFromConnectionString(connectionString)
 
 async function sendCreationMessage(entity) {
+    entity.environment = process.env.ENVIRONMENT;
     const sbClient = createServiceBusClient();
     const queueClient = sbClient.createQueueClient(queueName);
     const sender = queueClient.createSender();
