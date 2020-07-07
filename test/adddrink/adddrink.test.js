@@ -1,6 +1,8 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
+const testUtil = require('../util/testutil')
+
 const uut = rewire('../../adddrink/adddrink')
 
 function setupMockSecurity() {
@@ -23,10 +25,7 @@ describe('Add Drink Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {}        
-        }
+        var context = testUtil.getBaseContext()
 
         const request = {}
 
@@ -67,44 +66,39 @@ describe('Add Drink Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {}        
-        }
+        var context = testUtil.getBaseContext()
 
-        const request = {
-            "body": {
-                "name": "Test Recipe",
-                "ingredients": [
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-1"
-                        },
-                        "unit": {
-                            "id": "Unit-1"
-                        },
-                        "amount": "1.0"
+        const request = testUtil.getBaseRequest({
+            "name": "Test Recipe",
+            "ingredients": [
+                {
+                    "ingredient": {
+                        "id": "Ingredient-1"
                     },
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-2"
-                        },
-                        "unit": {
-                            "id": "Unit-2"
-                        },
-                        "amount": "2.0"
-                    }
-                ],
-                "steps": [
-                    "Step 1",
-                    "Step 2",
-                    "Step 3"
-                ],
-                "basisRecipe": "Recipe-1",
-                "review": "Test Review",
-                "rating": "1.0"
-            }
-        }
+                    "unit": {
+                        "id": "Unit-1"
+                    },
+                    "amount": "1.0"
+                },
+                {
+                    "ingredient": {
+                        "id": "Ingredient-2"
+                    },
+                    "unit": {
+                        "id": "Unit-2"
+                    },
+                    "amount": "2.0"
+                }
+            ],
+            "steps": [
+                "Step 1",
+                "Step 2",
+                "Step 3"
+            ],
+            "basisRecipe": "Recipe-1",
+            "review": "Test Review",
+            "rating": "1.0"
+        })
 
         const userMock = {type: "User"}
         const ingredientUsage1Mock = {type: "IngredientUsage1"}
@@ -270,44 +264,39 @@ describe('Add Drink Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {}        
-        }
+        var context = testUtil.getBaseContext()
 
-        const request = {
-            "body": {
-                "name": "Test Recipe",
-                "ingredients": [
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-1"
-                        },
-                        "unit": {
-                            "id": "Unit-1"
-                        },
-                        "amount": "1.0"
+        const request = testUtil.getBaseRequest({
+            "name": "Test Recipe",
+            "ingredients": [
+                {
+                    "ingredient": {
+                        "id": "Ingredient-1"
                     },
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-2"
-                        },
-                        "unit": {
-                            "id": "Unit-2"
-                        },
-                        "amount": "2.0"
-                    }
-                ],
-                "steps": [
-                    "Step 1",
-                    "Step 2",
-                    "Step 3"
-                ],
-                "basisRecipe": "Recipe-1",
-                "review": "Test Review",
-                "rating": "1.0"
-            }
-        }
+                    "unit": {
+                        "id": "Unit-1"
+                    },
+                    "amount": "1.0"
+                },
+                {
+                    "ingredient": {
+                        "id": "Ingredient-2"
+                    },
+                    "unit": {
+                        "id": "Unit-2"
+                    },
+                    "amount": "2.0"
+                }
+            ],
+            "steps": [
+                "Step 1",
+                "Step 2",
+                "Step 3"
+            ],
+            "basisRecipe": "Recipe-1",
+            "review": "Test Review",
+            "rating": "1.0"
+        })
 
         const ingredientUsage1Mock = {type: "IngredientUsage1"}
         const ingredientUsage2Mock = {type: "IngredientUsage2"}

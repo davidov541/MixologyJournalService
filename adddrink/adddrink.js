@@ -1,5 +1,7 @@
 const { uuid } = require('uuidv4');
 
+const versioning = require('./versioning')
+
 const cosmos = require('../util/persistence')
 const security = require('../util/security')
 
@@ -27,11 +29,13 @@ module.exports = async function (context, req) {
         try {
             var mutations = await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
 
-            const ingredients = req.body.ingredients
+            const body = versioning.migrateRequestToLatestVersion(req.body, req.headers.apiVersion);
+
+            const ingredients = body.ingredients
             var ingredientUsage = 1;
             const ingredientIDs = ingredients.map(i => {
                 const info = {
-                    name: `${req.body.name} Instance Ingredient Usage #${ingredientUsage++}`
+                    name: `${body.name} Instance Ingredient Usage #${ingredientUsage++}`
                 };
                 const id = uuid();
                 const ingredientEdge = {
@@ -56,14 +60,14 @@ module.exports = async function (context, req) {
             })
         
             const info = {
-                name: req.body.name,
+                name: body.name,
                 // Need steps to be a string for the create entry call.
-                steps: encodeURIComponent(JSON.stringify(req.body.steps))
+                steps: encodeURIComponent(JSON.stringify(body.steps))
             }
             const drinkID = uuid()
             mutations.push(cosmos.queueCreateEntry('drink', drinkID, info, ingredientIDs));
 
-            const recipeID = req.body.basisRecipe
+            const recipeID = body.basisRecipe
             mutations.push(cosmos.queueCreateEdge(drinkID, recipeID, 'derived from', {}));
             mutations.push(cosmos.queueCreateEdge(recipeID, drinkID, 'derivative', {}));
 
@@ -71,11 +75,11 @@ module.exports = async function (context, req) {
             mutations.push(cosmos.queueCreateEdge(userID, drinkID, 'created', {}));
             mutations.push(cosmos.queueCreateEdge(drinkID, userID, 'created by', {}));
 
-            console.log("Review = " + req.body.review);
+            console.log("Review = " + body.review);
             const reviewInfo = {
-                name: req.body.name,
-                rating: req.body.rating,
-                review: encodeURIComponent(JSON.stringify(req.body.review).slice(1, -1))
+                name: body.name,
+                rating: body.rating,
+                review: encodeURIComponent(JSON.stringify(body.review).slice(1, -1))
             }
             const reviewID = uuid();
             const reviewEdges = [{
