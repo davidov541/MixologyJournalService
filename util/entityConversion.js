@@ -9,6 +9,7 @@ function processDrink(drink) {
     result.ingredients = new Array();
     for(edgeKey in drink.value) {
         const edge = drink.value[edgeKey];
+        console.log("Processing edge: " + JSON.stringify(edge))
         if (edge.key.inVLabel == "ingredientUsage")
         {
             for (ingredientUsageKey in edge.value)
