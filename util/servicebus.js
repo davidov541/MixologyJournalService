@@ -19,7 +19,7 @@ async function sendMutations(entities) {
     const sender = queueClient.createSender();
     try {
         const message = {
-            body: JSON.stringify(fullMessage),
+            body: fullMessage,
             label: 'creationRequest',
         };
         console.log(`Sending message to creationRequest queue: ${JSON.stringify(message)}`);

@@ -66,7 +66,7 @@ describe('Service Bus Interface Tests', function () {
         }
         const expected = [
             {
-                body: JSON.stringify(expectedBody),
+                body: expectedBody,
                 label: 'creationRequest'
             }
         ]
@@ -106,7 +106,7 @@ describe('Service Bus Interface Tests', function () {
         }
         const expected = [
             {
-                body: JSON.stringify(expectedBody),
+                body: expectedBody,
                 label: 'creationRequest'
             }
         ]
