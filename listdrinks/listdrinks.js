@@ -23,6 +23,8 @@ module.exports = async function (context, req) {
             status: 200,
             body: drinks
         };
+
+        context.log("Returning: " + JSON.stringify(context.res));
     } catch (err) {
         console.log(err)
         context.res = {
