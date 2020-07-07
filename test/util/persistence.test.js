@@ -246,4 +246,34 @@ describe('Persistence Facade Tests', function () {
 
         mockCosmos.restore()
     })
+
+    test('should properly submit mutations', async function () {
+        const mockCosmos = setupMockServiceBus();
+
+        const testId = "Test ID";
+        const testEdgeLabelsToFollow = "Test Edge Labels to Follow";
+
+        const mutations = [
+            {
+                command: "delete-edge",
+                id: testId
+            },
+            {
+                command: "delete-vertex",
+                id: testId,
+                edgeLabelsToFollow: testEdgeLabelsToFollow
+            }
+        ]
+
+        mockCosmos
+            .expects("sendMutations")
+            .once()
+            .withArgs(mutations)
+
+        await uut.submitMutations(mutations)
+
+        mockCosmos.verify()
+
+        mockCosmos.restore()
+    })
 })

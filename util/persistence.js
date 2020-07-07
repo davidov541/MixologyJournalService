@@ -84,6 +84,10 @@ async function deleteEdge(id) {
     await servicebus.sendMutation(deletionInfo);
 }
 
+async function submitMutations(mutations) {
+    await servicebus.sendMutations(mutations);
+}
+
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
@@ -100,3 +104,5 @@ exports.createEntryOfKind = createEntryOfKind;
 exports.createEdge = createEdge;
 exports.deleteEntry = deleteEntry;
 exports.deleteEdge = deleteEdge;
+
+exports.submitMutations = submitMutations;
