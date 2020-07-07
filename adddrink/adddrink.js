@@ -77,7 +77,6 @@ module.exports = async function (context, req) {
             mutations.push(cosmos.queueCreateEdge(userID, drinkID, 'created', {}));
             mutations.push(cosmos.queueCreateEdge(drinkID, userID, 'created by', {}));
 
-            console.log("Review = " + body.review);
             const reviewInfo = {
                 name: body.name,
                 rating: body.rating,
