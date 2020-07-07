@@ -22,7 +22,7 @@ async function sendMutations(entities) {
             body: JSON.stringify(fullMessage),
             label: 'creationRequest',
         };
-        console.log(`Sending message: ${JSON.stringify(message)}`);
+        console.log(`Sending message to creationRequest queue: ${JSON.stringify(message)}`);
         await sender.send(message);
     }
     finally {

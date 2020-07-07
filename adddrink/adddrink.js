@@ -62,7 +62,6 @@ module.exports = async function (context, req) {
             }
             const drinkID = uuid()
             mutations.push(cosmos.queueCreateEntry('drink', drinkID, info, ingredientIDs));
-            info.id = drinkID
 
             const recipeID = req.body.basisRecipe
             mutations.push(cosmos.queueCreateEdge(drinkID, recipeID, 'derived from', {}));
