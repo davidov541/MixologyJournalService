@@ -3,16 +3,15 @@ const latestAPIVersion = 1;
 function getBaseRequest(b) {
     return {   
         body: b,
-        headers: {},
+        headers: {
+            apiVersion: latestAPIVersion
+        },
     }
 }
 
 function getBaseContext() {
     return {   
         res: {},
-        headers: {
-            apiVersion: latestAPIVersion
-        },
         log: function (msg) {}        
     }
 }
