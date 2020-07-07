@@ -7,8 +7,9 @@ async function createUser(userId, userName) {
     const userExists = await cosmos.getPropertiesOfEntity(userId, [])
     if (!userExists.success)
     {
-        await cosmos.createEntryOfKind('user', userId, {name: userName}, [])
+        return [cosmos.queueCreateEntry('user', userId, {name: userName}, [])]
     }
+    return []
 }
 
 module.exports = async function (context, req) {
@@ -24,11 +25,11 @@ module.exports = async function (context, req) {
         }
     } else {
         try {
-            await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
+            var mutations = await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
 
             const ingredients = req.body.ingredients
             var ingredientUsage = 1;
-            const ingredientIDPromises = ingredients.map(async i => {
+            const ingredientIDs = ingredients.map(i => {
                 const info = {
                     name: `${req.body.name} Instance Ingredient Usage #${ingredientUsage++}`
                 };
@@ -46,32 +47,30 @@ module.exports = async function (context, req) {
                     }
                 }
                 const ingredientUsageEdges = [ingredientEdge, unitEdge]
-                await cosmos.createEntryOfKind('ingredientUsage', id, info, ingredientUsageEdges);
+                mutations.push(cosmos.queueCreateEntry('ingredientUsage', id, info, ingredientUsageEdges));
                 return {
                     id: id,
                     relationship: "uses",
                     properties: {}
                 };
             })
-    
-            const ingredientIDs = await Promise.all(ingredientIDPromises)
-    
+        
             const info = {
                 name: req.body.name,
                 // Need steps to be a string for the create entry call.
                 steps: encodeURIComponent(JSON.stringify(req.body.steps))
             }
             const drinkID = uuid()
-            await cosmos.createEntryOfKind('drink', drinkID, info, ingredientIDs)
+            mutations.push(cosmos.queueCreateEntry('drink', drinkID, info, ingredientIDs));
             info.id = drinkID
 
             const recipeID = req.body.basisRecipe
-            cosmos.createEdge(drinkID, recipeID, 'derived from', {});
-            cosmos.createEdge(recipeID, drinkID, 'derivative', {});
+            mutations.push(cosmos.queueCreateEdge(drinkID, recipeID, 'derived from', {}));
+            mutations.push(cosmos.queueCreateEdge(recipeID, drinkID, 'derivative', {}));
 
             const userID = securityResult.user.payload.sub;
-            await cosmos.createEdge(userID, drinkID, 'created', {});
-            await cosmos.createEdge(drinkID, userID, 'created by', {});
+            mutations.push(cosmos.queueCreateEdge(userID, drinkID, 'created', {}));
+            mutations.push(cosmos.queueCreateEdge(drinkID, userID, 'created by', {}));
 
             console.log("Review = " + req.body.review);
             const reviewInfo = {
@@ -85,8 +84,10 @@ module.exports = async function (context, req) {
                 relationship: "reviews",
                 properties: {}
             }]
-            await cosmos.createEntryOfKind('review', reviewID, reviewInfo, reviewEdges);
-            await cosmos.createEdge(drinkID, reviewID, 'review of', {});
+            mutations.push(cosmos.queueCreateEntry('review', reviewID, reviewInfo, reviewEdges));
+            mutations.push(cosmos.queueCreateEdge(drinkID, reviewID, 'review of', {}));
+
+            await cosmos.submitMutations(mutations);
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
