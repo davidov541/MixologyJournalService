@@ -4,6 +4,7 @@ function processDrink(drink) {
     result.id = drink.key.id;
     result.name = drink.key.properties.name[0].value
     result.steps = JSON.parse(decodeURIComponent(drink.key.properties.steps[0].value))
+    result.isFavorite = false;
 
     result.ingredients = new Array();
     for(edgeKey in drink.value) {
@@ -31,6 +32,14 @@ function processDrink(drink) {
                 const review = edge.value[reviewKey];
                 result.rating = review.key.properties.rating[0].value;
                 result.review = JSON.parse('"' + decodeURIComponent(review.key.properties.review[0].value) + '"');
+            }
+        }
+        else if (edge.key.inVLabel == "recipe")
+        {
+            result.basisRecipe = edge.value[edge.key.inV].key.id;
+            if (edge.key.label == 'favorite')
+            {
+                result.isFavorite = true;
             }
         }
     }
