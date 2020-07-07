@@ -100,7 +100,7 @@ describe('Add Drink Function Tests', function () {
                     "Step 2",
                     "Step 3"
                 ],
-                "sourceRecipeID": "Recipe-1",
+                "basisRecipe": "Recipe-1",
                 "review": "Test Review",
                 "rating": "1.0"
             }
@@ -267,7 +267,7 @@ describe('Add Drink Function Tests', function () {
                     "Step 2",
                     "Step 3"
                 ],
-                "sourceRecipeID": "Recipe-1",
+                "basisRecipe": "Recipe-1",
                 "review": "Test Review",
                 "rating": "1.0"
             }

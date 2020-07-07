@@ -65,7 +65,7 @@ module.exports = async function (context, req) {
             await cosmos.createEntryOfKind('drink', drinkID, info, ingredientIDs)
             info.id = drinkID
 
-            const recipeID = req.body.sourceRecipeID
+            const recipeID = req.body.basisRecipe
             cosmos.createEdge(drinkID, recipeID, 'derived from', {});
             cosmos.createEdge(recipeID, drinkID, 'derivative', {});
 
