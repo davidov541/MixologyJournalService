@@ -23,6 +23,7 @@ module.exports = async function (context, req) {
             status: 200,
             body: drinks
         };
+
     } catch (err) {
         console.log(err)
         context.res = {

@@ -117,6 +117,21 @@ describe('Add Recipe Function Tests', function () {
             }
         }
 
+        const userMock = {type: "User"}
+        const ingredientUsage1Mock = {type: "IngredientUsage1"}
+        const ingredientUsage2Mock = {type: "IngredientUsage2"}
+        const recipeMock = {type: "Recipe"}
+        const createdByMock = {type: "Created By"}
+        const createdMock = {type: "Created"}
+        const mutations = [
+            userMock,
+            ingredientUsage1Mock,
+            ingredientUsage2Mock,
+            recipeMock,
+            createdMock,
+            createdByMock,
+        ]
+
         const expectations = [
             mockSecurity
                 .expects("checkToken")
@@ -134,12 +149,13 @@ describe('Add Recipe Function Tests', function () {
                 .withArgs(mockSecurityResult.user.payload.sub, [])
                 .returns({success: false}),
             mockPersistence
-                .expects("createEntryOfKind")
+                .expects("queueCreateEntry")
                 .once()
                 .withExactArgs('user', mockSecurityResult.user.payload.sub, {
                     name: mockSecurityResult.user.payload.name
-                }, []),
-            mockPersistence.expects("createEntryOfKind")
+                }, [])
+                .returns(userMock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Ingredient Usage #1"
@@ -156,8 +172,9 @@ describe('Add Recipe Function Tests', function () {
                             "unitAmount": "1.0"
                         }
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage1Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Ingredient Usage #2"
@@ -174,8 +191,9 @@ describe('Add Recipe Function Tests', function () {
                         },
                         "relationship": "amount"
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage2Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('recipe', sinon.match.any, {
                     "name": "Test Recipe",
@@ -191,13 +209,19 @@ describe('Add Recipe Function Tests', function () {
                         "relationship": "uses",
                         "properties": {}
                     }
-                ]),
-            mockPersistence.expects("createEdge")
+                ])
+                .returns(recipeMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, "User", 'created by', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, "User", 'created by', {})
+                .returns(createdByMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
                 .withExactArgs("User", sinon.match.any, 'created', {})
+                .returns(createdMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations)
         ]
             
         await uut(context, request);
@@ -274,6 +298,19 @@ describe('Add Recipe Function Tests', function () {
             }
         }
 
+        const ingredientUsage1Mock = {type: "IngredientUsage1"}
+        const ingredientUsage2Mock = {type: "IngredientUsage2"}
+        const recipeMock = {type: "Recipe"}
+        const createdByMock = {type: "Created By"}
+        const createdMock = {type: "Created"}
+        const mutations = [
+            ingredientUsage1Mock,
+            ingredientUsage2Mock,
+            recipeMock,
+            createdMock,
+            createdByMock,
+        ]
+
         const expectations = [
             mockSecurity
                 .expects("checkToken")
@@ -290,7 +327,7 @@ describe('Add Recipe Function Tests', function () {
                 .once()
                 .withArgs(mockSecurityResult.user.payload.sub, [])
                 .returns({success: true}),
-            mockPersistence.expects("createEntryOfKind")
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Ingredient Usage #1"
@@ -307,8 +344,9 @@ describe('Add Recipe Function Tests', function () {
                             "unitAmount": "1.0"
                         }
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage1Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Ingredient Usage #2"
@@ -325,8 +363,9 @@ describe('Add Recipe Function Tests', function () {
                         },
                         "relationship": "amount"
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage2Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('recipe', sinon.match.any, {
                     "name": "Test Recipe",
@@ -342,13 +381,19 @@ describe('Add Recipe Function Tests', function () {
                         "relationship": "uses",
                         "properties": {}
                     }
-                ]),
-            mockPersistence.expects("createEdge")
+                ])
+                .returns(recipeMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, "User", 'created by', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, "User", 'created by', {})
+                .returns(createdByMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
                 .withExactArgs("User", sinon.match.any, 'created', {})
+                .returns(createdMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations)
         ]
             
         await uut(context, request);

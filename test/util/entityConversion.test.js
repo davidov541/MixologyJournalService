@@ -9,6 +9,7 @@ describe('Entity Conversion Tests', function () {
         const actual = uut.processDrink(drinkJSON)
 
         const expected = {
+              "basisRecipe": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
               "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
               "ingredients": [
                 {
@@ -45,6 +46,7 @@ describe('Entity Conversion Tests', function () {
                   },
                 },
               ],
+              "isFavorite": false,
               "name": "Daiquiri",
               "rating": "4",
               "review": "",
@@ -65,6 +67,7 @@ describe('Entity Conversion Tests', function () {
         const actual = uut.processDrink(drinkJSON)
 
         const expected = {
+              "basisRecipe": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
               "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
               "ingredients": [
                 {
@@ -101,6 +104,7 @@ describe('Entity Conversion Tests', function () {
                   },
                 },
               ],
+              "isFavorite": true,
               "name": "Daiquiri",
               "rating": "4",
               "review": "This recipe turned out alright.\\nI could've done without the ginger beer.\\nThe vodka sucked.\\nWould get it again.",

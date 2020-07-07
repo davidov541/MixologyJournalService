@@ -1,6 +1,8 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
+const testUtil = require('../util/testutil')
+
 const uut = rewire('../../adddrink/adddrink')
 
 function setupMockSecurity() {
@@ -23,10 +25,7 @@ describe('Add Drink Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {}        
-        }
+        var context = testUtil.getBaseContext()
 
         const request = {}
 
@@ -67,44 +66,62 @@ describe('Add Drink Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {}        
-        }
+        var context = testUtil.getBaseContext()
 
-        const request = {
-            "body": {
-                "name": "Test Recipe",
-                "ingredients": [
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-1"
-                        },
-                        "unit": {
-                            "id": "Unit-1"
-                        },
-                        "amount": "1.0"
+        const request = testUtil.getBaseRequest({
+            "name": "Test Recipe",
+            "ingredients": [
+                {
+                    "ingredient": {
+                        "id": "Ingredient-1"
                     },
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-2"
-                        },
-                        "unit": {
-                            "id": "Unit-2"
-                        },
-                        "amount": "2.0"
-                    }
-                ],
-                "steps": [
-                    "Step 1",
-                    "Step 2",
-                    "Step 3"
-                ],
-                "sourceRecipeID": "Recipe-1",
-                "review": "Test Review",
-                "rating": "1.0"
-            }
-        }
+                    "unit": {
+                        "id": "Unit-1"
+                    },
+                    "amount": "1.0"
+                },
+                {
+                    "ingredient": {
+                        "id": "Ingredient-2"
+                    },
+                    "unit": {
+                        "id": "Unit-2"
+                    },
+                    "amount": "2.0"
+                }
+            ],
+            "steps": [
+                "Step 1",
+                "Step 2",
+                "Step 3"
+            ],
+            "basisRecipe": "Recipe-1",
+            "review": "Test Review",
+            "rating": "1.0"
+        })
+
+        const userMock = {type: "User"}
+        const ingredientUsage1Mock = {type: "IngredientUsage1"}
+        const ingredientUsage2Mock = {type: "IngredientUsage2"}
+        const drinkMock = {type: "Drink"}
+        const reviewMock = {type: "Review"}
+        const reviewOfMock = {type: "Review Of"}
+        const derivedFromMock = {type: "Derived From"}
+        const derivativeMock = {type: "Derivative"}
+        const createdByMock = {type: "Created By"}
+        const createdMock = {type: "Created"}
+        const mutations = [
+            userMock,
+            ingredientUsage1Mock,
+            ingredientUsage2Mock,
+            drinkMock,
+            derivedFromMock,
+            derivativeMock,
+            createdMock,
+            createdByMock,
+            reviewMock,
+            reviewOfMock,
+        ]
 
         const expectations = [
             mockSecurity
@@ -118,12 +135,13 @@ describe('Add Drink Function Tests', function () {
                 .withArgs(mockSecurityResult.user.payload.sub, [])
                 .returns({success: false}),
             mockPersistence
-                .expects("createEntryOfKind")
+                .expects("queueCreateEntry")
                 .once()
                 .withExactArgs('user', mockSecurityResult.user.payload.sub, {
                     name: mockSecurityResult.user.payload.name
-                }, []),
-            mockPersistence.expects("createEntryOfKind")
+                }, [])
+                .returns(userMock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Instance Ingredient Usage #1"
@@ -140,8 +158,9 @@ describe('Add Drink Function Tests', function () {
                             "unitAmount": "1.0"
                         }
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage1Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Instance Ingredient Usage #2"
@@ -158,8 +177,9 @@ describe('Add Drink Function Tests', function () {
                             "unitAmount": "2.0"
                         }
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage2Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('drink', sinon.match.any, {
                     "name": "Test Recipe",
@@ -175,8 +195,9 @@ describe('Add Drink Function Tests', function () {
                         "relationship": "uses",
                         "properties": {}
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(drinkMock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('review', sinon.match.any, {
                     "name": "Test Recipe",
@@ -188,22 +209,31 @@ describe('Add Drink Function Tests', function () {
                         "relationship": "reviews",
                         "properties": {}
                     }
-                ]),
-            mockPersistence.expects("createEdge")
+                ])
+                .returns(reviewMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, sinon.match.any, 'review of', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, sinon.match.any, 'review of', {})
+                .returns(reviewOfMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, sinon.match.any, 'derived from', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, sinon.match.any, 'derived from', {})
+                .returns(derivedFromMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, sinon.match.any, 'derivative', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, sinon.match.any, 'derivative', {})
+                .returns(derivativeMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, "User", 'created by', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, "User", 'created by', {})
+                .returns(createdByMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
                 .withExactArgs("User", sinon.match.any, 'created', {})
+                .returns(createdMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations)
         ]
             
         await uut(context, request);
@@ -234,44 +264,60 @@ describe('Add Drink Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {}        
-        }
+        var context = testUtil.getBaseContext()
 
-        const request = {
-            "body": {
-                "name": "Test Recipe",
-                "ingredients": [
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-1"
-                        },
-                        "unit": {
-                            "id": "Unit-1"
-                        },
-                        "amount": "1.0"
+        const request = testUtil.getBaseRequest({
+            "name": "Test Recipe",
+            "ingredients": [
+                {
+                    "ingredient": {
+                        "id": "Ingredient-1"
                     },
-                    {
-                        "ingredient": {
-                            "id": "Ingredient-2"
-                        },
-                        "unit": {
-                            "id": "Unit-2"
-                        },
-                        "amount": "2.0"
-                    }
-                ],
-                "steps": [
-                    "Step 1",
-                    "Step 2",
-                    "Step 3"
-                ],
-                "sourceRecipeID": "Recipe-1",
-                "review": "Test Review",
-                "rating": "1.0"
-            }
-        }
+                    "unit": {
+                        "id": "Unit-1"
+                    },
+                    "amount": "1.0"
+                },
+                {
+                    "ingredient": {
+                        "id": "Ingredient-2"
+                    },
+                    "unit": {
+                        "id": "Unit-2"
+                    },
+                    "amount": "2.0"
+                }
+            ],
+            "steps": [
+                "Step 1",
+                "Step 2",
+                "Step 3"
+            ],
+            "basisRecipe": "Recipe-1",
+            "review": "Test Review",
+            "rating": "1.0"
+        })
+
+        const ingredientUsage1Mock = {type: "IngredientUsage1"}
+        const ingredientUsage2Mock = {type: "IngredientUsage2"}
+        const drinkMock = {type: "Drink"}
+        const reviewMock = {type: "Review"}
+        const reviewOfMock = {type: "Review Of"}
+        const derivedFromMock = {type: "Derived From"}
+        const derivativeMock = {type: "Derivative"}
+        const createdByMock = {type: "Created By"}
+        const createdMock = {type: "Created"}
+        const mutations = [
+            ingredientUsage1Mock,
+            ingredientUsage2Mock,
+            drinkMock,
+            derivedFromMock,
+            derivativeMock,
+            createdMock,
+            createdByMock,
+            reviewMock,
+            reviewOfMock,
+        ]
 
         const expectations = [
             mockSecurity
@@ -284,7 +330,7 @@ describe('Add Drink Function Tests', function () {
                 .once()
                 .withArgs(mockSecurityResult.user.payload.sub, [])
                 .returns({success: true}),
-            mockPersistence.expects("createEntryOfKind")
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Instance Ingredient Usage #1"
@@ -301,8 +347,9 @@ describe('Add Drink Function Tests', function () {
                             "unitAmount": "1.0"
                         }
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage1Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('ingredientUsage', sinon.match.any, {
                     "name": "Test Recipe Instance Ingredient Usage #2"
@@ -319,8 +366,9 @@ describe('Add Drink Function Tests', function () {
                             "unitAmount": "2.0"
                         }
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(ingredientUsage2Mock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('drink', sinon.match.any, {
                     "name": "Test Recipe",
@@ -336,8 +384,9 @@ describe('Add Drink Function Tests', function () {
                         "relationship": "uses",
                         "properties": {}
                     }
-                ]),
-            mockPersistence.expects("createEntryOfKind")
+                ])
+                .returns(drinkMock),
+            mockPersistence.expects("queueCreateEntry")
                 .once()
                 .withExactArgs('review', sinon.match.any, {
                     "name": "Test Recipe",
@@ -349,22 +398,31 @@ describe('Add Drink Function Tests', function () {
                         "relationship": "reviews",
                         "properties": {}
                     }
-                ]),
-            mockPersistence.expects("createEdge")
+                ])
+                .returns(reviewMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, sinon.match.any, 'review of', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, sinon.match.any, 'review of', {})
+                .returns(reviewOfMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, sinon.match.any, 'derived from', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, sinon.match.any, 'derived from', {})
+                .returns(derivedFromMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, sinon.match.any, 'derivative', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, sinon.match.any, 'derivative', {})
+                .returns(derivativeMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs(sinon.match.any, "User", 'created by', {}),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(sinon.match.any, "User", 'created by', {})
+                .returns(createdByMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
                 .withExactArgs("User", sinon.match.any, 'created', {})
+                .returns(createdMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations)
         ]
             
         await uut(context, request);

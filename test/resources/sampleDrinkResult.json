@@ -823,6 +823,474 @@
                 }
               }
             }
+          },"af9172d6-25fb-4a5f-b57f-a9e04ff4b925": {
+            "key": {
+              "id": "af9172d6-25fb-4a5f-b57f-a9e04ff4b925",
+              "label": "favorite",
+              "type": "edge",
+              "inVLabel": "recipe",
+              "outVLabel": "drink",
+              "inV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+              "outV": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+            },
+            "value": {
+              "baaa07f5-4564-46ec-9733-1d89c0f85ebe": {
+                "key": {
+                  "id": "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+                  "label": "recipe",
+                  "type": "vertex",
+                  "properties": {
+                    "partition_key": [
+                      {
+                        "id": "baaa07f5-4564-46ec-9733-1d89c0f85ebe|partition_key",
+                        "value": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                      }
+                    ],
+                    "name": [
+                      {
+                        "id": "74c9e539-ade7-4f4a-97c9-e2bae6131b2b",
+                        "value": "Daiquiri"
+                      }
+                    ],
+                    "steps": [
+                      {
+                        "id": "833bc7ec-9576-413f-b4b5-2e3132cf85ae",
+                        "value": "[\"Shake ingredients with ice.\",\"Strain into coupe glass.\"]"
+                      }
+                    ]
+                  }
+                },
+                "value": {
+                  "1f04e402-1df0-4930-a731-698460233588": {
+                    "key": {
+                      "id": "1f04e402-1df0-4930-a731-698460233588",
+                      "label": "uses",
+                      "type": "edge",
+                      "inVLabel": "ingredientUsage",
+                      "outVLabel": "recipe",
+                      "inV": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de": {
+                        "key": {
+                          "id": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de",
+                          "label": "ingredientUsage",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de|partition_key",
+                                "value": "8b919d2d-f5f8-40bb-8c79-ebbd3e6425de"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "f1a27168-c71b-4da1-af8e-74d684eba5d4",
+                                "value": "Daiquiri Ingredient Usage #3"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "76dabadc-9501-4b54-b9cc-09fb70938e50": {
+                    "key": {
+                      "id": "76dabadc-9501-4b54-b9cc-09fb70938e50",
+                      "label": "uses",
+                      "type": "edge",
+                      "inVLabel": "ingredientUsage",
+                      "outVLabel": "recipe",
+                      "inV": "220bfe1b-46a4-474f-9bc7-3a8cc930854f",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "220bfe1b-46a4-474f-9bc7-3a8cc930854f": {
+                        "key": {
+                          "id": "220bfe1b-46a4-474f-9bc7-3a8cc930854f",
+                          "label": "ingredientUsage",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "220bfe1b-46a4-474f-9bc7-3a8cc930854f|partition_key",
+                                "value": "220bfe1b-46a4-474f-9bc7-3a8cc930854f"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "bbeb0951-16a6-4210-899f-a465c373fe1c",
+                                "value": "Daiquiri Ingredient Usage #1"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "c720751b-1650-40ba-94c7-efd281179249": {
+                    "key": {
+                      "id": "c720751b-1650-40ba-94c7-efd281179249",
+                      "label": "uses",
+                      "type": "edge",
+                      "inVLabel": "ingredientUsage",
+                      "outVLabel": "recipe",
+                      "inV": "8010d0b3-2974-4496-a55d-d52949706fd9",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "8010d0b3-2974-4496-a55d-d52949706fd9": {
+                        "key": {
+                          "id": "8010d0b3-2974-4496-a55d-d52949706fd9",
+                          "label": "ingredientUsage",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8010d0b3-2974-4496-a55d-d52949706fd9|partition_key",
+                                "value": "8010d0b3-2974-4496-a55d-d52949706fd9"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "913fde78-11e7-4433-96a7-99c40b4c013c",
+                                "value": "Daiquiri Ingredient Usage #2"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "51049e69-4cb8-4138-bf01-360c6074a112": {
+                    "key": {
+                      "id": "51049e69-4cb8-4138-bf01-360c6074a112",
+                      "label": "created by",
+                      "type": "edge",
+                      "inVLabel": "user",
+                      "outVLabel": "recipe",
+                      "inV": "ef5375ad-6d92-4571-a999-999aa494ff13",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "ef5375ad-6d92-4571-a999-999aa494ff13": {
+                        "key": {
+                          "id": "ef5375ad-6d92-4571-a999-999aa494ff13",
+                          "label": "user",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "ef5375ad-6d92-4571-a999-999aa494ff13|partition_key",
+                                "value": "root"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "3cd61e56-51d4-449b-bf0d-1d1d02c76d11",
+                                "value": "root"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "1eadc40e-47b7-451c-b0b5-6d0b9773bb29": {
+                    "key": {
+                      "id": "1eadc40e-47b7-451c-b0b5-6d0b9773bb29",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "8c956448-13e9-4191-a3d8-c4e68036e8bb": {
+                        "key": {
+                          "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "8c956448-13e9-4191-a3d8-c4e68036e8bb|partition_key",
+                                "value": "8c956448-13e9-4191-a3d8-c4e68036e8bb"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "41da4878-8398-4429-9912-182e6375134d",
+                                "value": "Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "7f90cb6a-63ee-4a31-97e4-8475e5a3ef70",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "3a3c3625-c878-45cf-afda-2efc6c34d112": {
+                    "key": {
+                      "id": "3a3c3625-c878-45cf-afda-2efc6c34d112",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "7620e68b-4256-4eb6-8bae-79aa2574111c",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "7620e68b-4256-4eb6-8bae-79aa2574111c": {
+                        "key": {
+                          "id": "7620e68b-4256-4eb6-8bae-79aa2574111c",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "7620e68b-4256-4eb6-8bae-79aa2574111c|partition_key",
+                                "value": "7620e68b-4256-4eb6-8bae-79aa2574111c"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "5c72a843-bcee-45bc-bf0a-9884df3fb676",
+                                "value": "Drink Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "1225b2e9-ffe5-4273-ba6e-1fbbb314ead5",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "e401c194-9900-4c23-aaa6-bf195ac40f9b": {
+                    "key": {
+                      "id": "e401c194-9900-4c23-aaa6-bf195ac40f9b",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "c186684a-40ee-4772-9332-b80ae1d5d50d",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "c186684a-40ee-4772-9332-b80ae1d5d50d": {
+                        "key": {
+                          "id": "c186684a-40ee-4772-9332-b80ae1d5d50d",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "c186684a-40ee-4772-9332-b80ae1d5d50d|partition_key",
+                                "value": "c186684a-40ee-4772-9332-b80ae1d5d50d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "867fcec1-273c-40ac-abfb-4b568fe0503c",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "6269d0e4-c39f-477c-8e0b-6a491acfcd4a",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "a33362ca-53e7-4e00-934a-1c69a71ea6e1": {
+                    "key": {
+                      "id": "a33362ca-53e7-4e00-934a-1c69a71ea6e1",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "3e5c1e85-97e7-4a3c-9c22-b03d52240046",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "3e5c1e85-97e7-4a3c-9c22-b03d52240046": {
+                        "key": {
+                          "id": "3e5c1e85-97e7-4a3c-9c22-b03d52240046",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "3e5c1e85-97e7-4a3c-9c22-b03d52240046|partition_key",
+                                "value": "3e5c1e85-97e7-4a3c-9c22-b03d52240046"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "d2c8bd3f-eef5-4886-9b72-5fedc01dd6f6",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "e30c3246-91e1-4040-a0f9-2caab5eab124",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "0c89ccf3-dc25-4f32-8e2f-871aa9f50f1c": {
+                    "key": {
+                      "id": "0c89ccf3-dc25-4f32-8e2f-871aa9f50f1c",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "0d4f51e2-09e2-433b-9961-2ac5b1f1771b": {
+                        "key": {
+                          "id": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b|partition_key",
+                                "value": "0d4f51e2-09e2-433b-9961-2ac5b1f1771b"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "bf43296b-1b08-4b41-807c-6aee4e9f39f7",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "9a3c9dfe-4c8f-429a-9d91-a7392f5f1828",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "17a72dd2-81e6-4fce-8244-e68ebf014490": {
+                    "key": {
+                      "id": "17a72dd2-81e6-4fce-8244-e68ebf014490",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "82ff63e3-382a-4017-a7d1-ddee347deb4d",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "82ff63e3-382a-4017-a7d1-ddee347deb4d": {
+                        "key": {
+                          "id": "82ff63e3-382a-4017-a7d1-ddee347deb4d",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "82ff63e3-382a-4017-a7d1-ddee347deb4d|partition_key",
+                                "value": "82ff63e3-382a-4017-a7d1-ddee347deb4d"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "934b5623-c4d7-4574-9822-f036a496beb5",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "445d4d32-5927-4bf0-b467-2339977a402b",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  },
+                  "3775101e-6ba8-4774-ae57-2374aad8cdb6": {
+                    "key": {
+                      "id": "3775101e-6ba8-4774-ae57-2374aad8cdb6",
+                      "label": "derivative",
+                      "type": "edge",
+                      "inVLabel": "drink",
+                      "outVLabel": "recipe",
+                      "inV": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86",
+                      "outV": "baaa07f5-4564-46ec-9733-1d89c0f85ebe"
+                    },
+                    "value": {
+                      "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86": {
+                        "key": {
+                          "id": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86",
+                          "label": "drink",
+                          "type": "vertex",
+                          "properties": {
+                            "partition_key": [
+                              {
+                                "id": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86|partition_key",
+                                "value": "54ffedd3-bce8-4af2-aa04-fe2fdb41ef86"
+                              }
+                            ],
+                            "name": [
+                              {
+                                "id": "2fa5dca4-d206-4233-a23a-f1657d8ad2f7",
+                                "value": "Drink - Daiquiri"
+                              }
+                            ],
+                            "steps": [
+                              {
+                                "id": "47525718-bd3c-4024-8092-7224b0e4e309",
+                                "value": "[\"Combine gin and vermouth in mixing glass\",\"Stir\",\"Strain into a martini glass\",\"Garnish with three olives\"]"
+                              }
+                            ]
+                          }
+                        },
+                        "value": {}
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "322020bf-30aa-465c-bd84-1e129134a5fc": {
             "key": {

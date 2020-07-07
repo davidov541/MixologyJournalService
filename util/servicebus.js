@@ -5,16 +5,24 @@ const queueName = process.env.queueName;
 
 var createServiceBusClient = () => ServiceBusClient.createFromConnectionString(connectionString)
 
-async function sendCreationMessage(entity) {
+async function sendMutation(entity) {
+    await sendMutations([entity])
+}
+
+async function sendMutations(entities) {
+    const fullMessage = {
+        environment: process.env.ENVIRONMENT,
+        commands: entities
+    }
     const sbClient = createServiceBusClient();
     const queueClient = sbClient.createQueueClient(queueName);
     const sender = queueClient.createSender();
     try {
         const message = {
-            body: JSON.stringify(entity),
+            body: fullMessage,
             label: 'creationRequest',
         };
-        console.log(`Sending message: ${JSON.stringify(message)}`);
+        console.log(`Sending message to creationRequest queue: ${JSON.stringify(message)}`);
         await sender.send(message);
     }
     finally {
@@ -23,4 +31,5 @@ async function sendCreationMessage(entity) {
     }
 }
 
-exports.sendCreationMessage = sendCreationMessage;
+exports.sendMutation = sendMutation;
+exports.sendMutations = sendMutations;

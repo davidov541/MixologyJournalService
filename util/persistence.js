@@ -21,45 +21,88 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
     return await cosmos.getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties)
 }
 
-async function createEntryOfKind(kind, id, properties, edges) {
-    const vertex = {
-        entityType: "vertex",
+async function getAllIncomingEdgesOfKind(id, label, properties) {
+    return await cosmos.getAllIncomingEdgesOfKind(id, label, properties)
+}
+
+function queueCreateEntry(kind, id, properties, edges) {
+    return {
+        command: "add-vertex",
         kind: kind,
         id: id,
         properties: properties,
         edges: edges
     }
-
-    await servicebus.sendCreationMessage(vertex);
 }
 
-async function createEdge(source, target, relationship, properties) {
-    const edge = {
-        entityType: "edge",
+async function createEntryOfKind(kind, id, properties, edges) {
+    const vertex = queueCreateEntry(kind, id, properties, edges);
+
+    await servicebus.sendMutation(vertex);
+}
+
+function queueCreateEdge(source, target, relationship, properties) {
+    return {
+        command: "add-edge",
         source: source,
         target: target,
         properties: properties,
         relationship: relationship
     }
-    
-    await servicebus.sendCreationMessage(edge);
 }
 
-async function deleteEntry(id, edgeLabelsToFollow) {
-    const deletionInfo = {
-        entityType: "deletion",
+async function createEdge(source, target, relationship, properties) {
+    const edge = queueCreateEdge(source, target, relationship, properties)
+    
+    await servicebus.sendMutation(edge);
+}
+
+function queueDeleteEntry(id, edgeLabelsToFollow) {
+    return {
+        command: "delete-vertex",
         id: id,
         edgeLabelsToFollow: edgeLabelsToFollow
     }
+}
+
+async function deleteEntry(id, edgeLabelsToFollow) {
+    const deletionInfo = queueDeleteEntry(id, edgeLabelsToFollow)
     
-    await servicebus.sendCreationMessage(deletionInfo);
+    await servicebus.sendMutation(deletionInfo);
+}
+
+function queueDeleteEdge(id) {
+    return {
+        command: "delete-edge",
+        id: id
+    }
+}
+
+async function deleteEdge(id) {
+    const deletionInfo = queueDeleteEdge(id)
+    
+    await servicebus.sendMutation(deletionInfo);
+}
+
+async function submitMutations(mutations) {
+    await servicebus.sendMutations(mutations);
 }
 
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.getPropertiesOfEntity = getPropertiesOfEntity;
-exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
+exports.getAllIncomingEdgesOfKind = getAllIncomingEdgesOfKind;
+
+exports.queueCreateEntry = queueCreateEntry;
+exports.queueCreateEdge = queueCreateEdge;
+exports.queueDeleteEntry = queueDeleteEntry;
+exports.queueDeleteEdge = queueDeleteEdge;
+
+exports.createEntryOfKind = createEntryOfKind;
 exports.createEdge = createEdge;
 exports.deleteEntry = deleteEntry;
+exports.deleteEdge = deleteEdge;
+
+exports.submitMutations = submitMutations;
