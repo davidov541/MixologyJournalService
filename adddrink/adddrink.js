@@ -29,12 +29,8 @@ module.exports = async function (context, req) {
         try {
             var mutations = await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
 
-            context.log("Before Versioning: " + JSON.stringify(req.body))
-            context.log("Headers: " + JSON.stringify(req.headers));
-            context.log("Specified Version = " + req.headers["apiversion"]);
             const body = versioning.migrateRequestToLatestVersion(req.body, req.headers["apiversion"]);
 
-            context.log("After Versioning: " + JSON.stringify(body))
             const ingredients = body.ingredients
             var ingredientUsage = 1;
             const ingredientIDs = ingredients.map(i => {
