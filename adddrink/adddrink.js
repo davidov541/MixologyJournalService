@@ -31,6 +31,7 @@ module.exports = async function (context, req) {
 
             context.log("Before Versioning: " + JSON.stringify(req.body))
             context.log("Headers: " + JSON.stringify(req.headers));
+            context.log("Specified Version = " + req.headers["apiVersion"]);
             const body = versioning.migrateRequestToLatestVersion(req.body, req.headers["apiVersion"]);
 
             context.log("After Versioning: " + JSON.stringify(body))

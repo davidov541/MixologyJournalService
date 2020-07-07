@@ -1,7 +1,5 @@
 function migrateRequestToLatestVersion(body, apiVersion) {
     const version = getActualVersion(apiVersion);
-    console.log("Specified Version = " + apiVersion);
-    console.log("Determined version = " + version);
     if (version < 1) {
         return convertVersion0(body);
     } else {
