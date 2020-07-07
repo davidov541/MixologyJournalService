@@ -7,10 +7,9 @@ function processDrink(drink) {
     result.isFavorite = false;
     result.ingredients = new Array();
     result.basisRecipe = "Not Found";
-    
+
     for(edgeKey in drink.value) {
         const edge = drink.value[edgeKey];
-        console.log("Processing edge: " + JSON.stringify(edge))
         if (edge.key.inVLabel == "ingredientUsage")
         {
             for (ingredientUsageKey in edge.value)
@@ -46,7 +45,9 @@ function processDrink(drink) {
             }
             console.log("Recipe basis result: " + JSON.stringify(result));
         }
+        console.log("Current result: " + JSON.stringify(result))
     }
+    console.log("Final result: " + JSON.stringify(result))
     return result;
 }
 
