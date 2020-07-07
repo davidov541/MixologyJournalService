@@ -352,4 +352,67 @@ describe('Cosmos Interface Tests', function () {
         expect(args[0]).toEqual("g.V(id).outE().inV().hasLabel(label).path()")
         expect(args[1]).toEqual({label: testKind, id: testID})
     })
+
+    test('should properly return all incoming edges to a vertex of a given kind', async function () {
+        const returnValue = {
+            "_items": [
+                {
+                    "id": "edgeID1",
+                    "label": "expectedKind",
+                    "type": "edge",
+                    "inVLabel": "unit",
+                    "outVLabel": "ingredientUsage",
+                    "inV": "testID",
+                    "outV": "4a533cc7-f07d-4eea-a2d5-f776cf427aeb",
+                    "properties": {
+                      "unitAmount": "2.0"
+                    }
+                },
+                {
+                    "id": "edgeID2",
+                    "label": "expectedKind",
+                    "type": "edge",
+                    "inVLabel": "unit",
+                    "outVLabel": "ingredientUsage",
+                    "inV": "testID",
+                    "outV": "4a533cc7-f07d-4eea-a2d5-f776cf427aeb",
+                    "properties": {
+                      "unitAmount": "5.0"
+                    }
+                }
+            ],
+            attributes: {
+                "x-ms-request-charge": 10
+            }
+        }
+        const gremlinSubmitFake = sinon.fake.returns(returnValue)
+        const spies = setupMockGremlin(gremlinSubmitFake);
+
+        const testKind = "expectedKind";
+        const testID = "testID"
+        const properties = ["unitAmount"]
+
+        const actual = await uut.getAllIncomingEdgesOfKind(testID, testKind, properties)
+        const expected = [
+            {
+                "id": "edgeID1",
+                "unitAmount": "2.0"
+            },
+            {
+                "id": "edgeID2",
+                "unitAmount": "5.0"
+            }
+        ]
+
+        expect(actual).toEqual(expected)
+        
+        checkOpenAndCloseOfGremlin(spies)
+
+        expect(gremlinSubmitFake.called).toBeTruthy();
+        expect(gremlinSubmitFake.callCount).toBe(1);
+
+        const args = gremlinSubmitFake.args[0]
+        expect(args[0]).toEqual("g.V(id).inE().hasLabel(label)")
+        expect(args[1]).toEqual({label: testKind, id: testID})
+    })
 })

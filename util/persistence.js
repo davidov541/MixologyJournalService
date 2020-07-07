@@ -21,6 +21,10 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
     return await cosmos.getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties)
 }
 
+async function getAllIncomingEdgesOfKind(id, label, properties) {
+    return await cosmos.getAllIncomingEdgesOfKind(id, label, properties)
+}
+
 async function createEntryOfKind(kind, id, properties, edges) {
     const vertex = {
         command: "add-vertex",
@@ -70,6 +74,7 @@ exports.getEntriesOfKind = getEntriesOfKind;
 exports.getPropertiesOfEntity = getPropertiesOfEntity;
 exports.createEntryOfKind = createEntryOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
+exports.getAllIncomingEdgesOfKind = getAllIncomingEdgesOfKind;
 exports.createEdge = createEdge;
 exports.deleteEntry = deleteEntry;
 exports.deleteEdge = deleteEdge;

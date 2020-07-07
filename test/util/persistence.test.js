@@ -122,6 +122,29 @@ describe('Persistence Facade Tests', function () {
         mockCosmos.restore()
     })
 
+    test('should properly return all incoming edges of a certain kind to a vertex', async function () {
+        const mockCosmos = setupMockCosmos();
+
+        const testId = "Test Id";
+        const testLabel = "Test Label";
+        const testProperties = ["Test Vertex Properties"];
+        const expectedReturnValue = "Test Result";
+
+        mockCosmos
+            .expects("getAllIncomingEdgesOfKind")
+            .once()
+            .withArgs(testId, testLabel, testProperties)
+            .returns(expectedReturnValue)
+
+        const actual = await uut.getAllIncomingEdgesOfKind(testId, testLabel, testProperties)
+
+        expect(actual).toEqual(expectedReturnValue)
+
+        mockCosmos.verify()
+
+        mockCosmos.restore()
+    })
+
     test('should properly create an entry', async function () {
         const mockCosmos = setupMockServiceBus();
 

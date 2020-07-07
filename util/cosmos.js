@@ -110,8 +110,28 @@ async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProper
     })
 }
 
+async function getAllIncomingEdgesOfKind(id, kind, properties) {
+    const command = "g.V(id).inE().hasLabel(label)"
+    const client = createClient()
+    await client.open();
+    const result = await client.submit(command, {
+        id: id,
+        label: kind
+    })
+    console.log("getAllIncomingEdgesOfKind; kind = " + kind + ";properties = " + JSON.stringify(properties) + ";RUs used: " + result.attributes["x-ms-request-charge"])
+    await client.close();
+    return result._items.map(i => {
+        var result = {
+            id: i.id
+        }
+        properties.forEach(p => result[p] = i.properties[p])
+        return result;
+    })
+}
+
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getPropertiesOfEntity = getPropertiesOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
+exports.getAllIncomingEdgesOfKind = getAllIncomingEdgesOfKind;
