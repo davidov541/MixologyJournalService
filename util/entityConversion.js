@@ -37,11 +37,13 @@ function processDrink(drink) {
         }
         else if (edge.key.inVLabel == "recipe")
         {
+            console.log("Processing recipe: " + edge.value[edge.key.inV].key.id)
             result.basisRecipe = edge.value[edge.key.inV].key.id;
             if (edge.key.label == 'favorite')
             {
                 result.isFavorite = true;
             }
+            console.log("Recipe basis result: " + JSON.stringify(result));
         }
     }
     return result;
