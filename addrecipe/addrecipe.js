@@ -8,8 +8,9 @@ async function createUser(userId, userName) {
     const userExists = await cosmos.getPropertiesOfEntity(userId, [])
     if (!userExists.success)
     {
-        await cosmos.createEntryOfKind('user', userId, {name: userName}, [])
+        return [cosmos.queueCreateEntry('user', userId, {name: userName}, [])]
     }
+    return []
 }
 
 module.exports = async function (context, req) {
@@ -25,11 +26,11 @@ module.exports = async function (context, req) {
         }
     } else {
         try {
-            await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
+            var mutations = await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
             
             const ingredients = req.body.ingredients
             var ingredientUsage = 1;
-            const ingredientIDPromises = ingredients.map(async i => {
+            const ingredientIDs = ingredients.map(i => {
                 const info = {
                     name: `${req.body.name} Ingredient Usage #${ingredientUsage++}`
                 };
@@ -47,7 +48,7 @@ module.exports = async function (context, req) {
                     }
                 }
                 const ingredientUsageEdges = [ingredientEdge, unitEdge]
-                await cosmos.createEntryOfKind('ingredientUsage', id, info, ingredientUsageEdges);
+                mutations.push(cosmos.queueCreateEntry('ingredientUsage', id, info, ingredientUsageEdges));
                 return {
                     id: id,
                     relationship: "uses",
@@ -55,20 +56,20 @@ module.exports = async function (context, req) {
                 };
             })
     
-            const ingredientIDs = await Promise.all(ingredientIDPromises)
-    
             const info = {
                 name: req.body.name,
                 steps: JSON.stringify(req.body.steps)
             }
             const recipeID = uuid()
-            await cosmos.createEntryOfKind('recipe', recipeID, info, ingredientIDs)
+            mutations.push(cosmos.queueCreateEntry('recipe', recipeID, info, ingredientIDs))
             info.id = recipeID
             info.steps = JSON.parse(info.steps)
 
             const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.payload.sub;
-            await cosmos.createEdge(userID, recipeID, 'created', {});
-            await cosmos.createEdge(recipeID, userID, 'created by', {});
+            mutations.push(cosmos.queueCreateEdge(userID, recipeID, 'created', {}));
+            mutations.push(cosmos.queueCreateEdge(recipeID, userID, 'created by', {}));
+
+            await cosmos.submitMutations(mutations);
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
