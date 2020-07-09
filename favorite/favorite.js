@@ -22,9 +22,15 @@ module.exports = async function (context, req) {
                 commands.push(cosmos.queueDeleteEdge(existingFavorite[0].id));
             }
 
-            commands.push(cosmos.queueCreateEdge(req.body.drinkId, req.body.recipeId, 'favorite', []));
+            if (req.body.isFavorited)
+            {
+                commands.push(cosmos.queueCreateEdge(req.body.drinkId, req.body.recipeId, 'favorite', []));
+            }
 
-            await cosmos.submitMutations(commands);
+            if (commands.length)
+            {
+                await cosmos.submitMutations(commands);
+            }
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
