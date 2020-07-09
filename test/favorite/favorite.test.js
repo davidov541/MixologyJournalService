@@ -77,6 +77,9 @@ describe('Favorite Drink Function Tests', function () {
                 "drinkId": "Mock Drink"
             }
         }
+        
+        const createEdgeMock = {type: "Create Favorite"}
+        const mutations = [createEdgeMock]
 
         const expectations = [
             mockSecurity
@@ -88,9 +91,13 @@ describe('Favorite Drink Function Tests', function () {
                 .once()
                 .withExactArgs('Mock Recipe', 'favorite', [])
                 .returns([]),
-            mockPersistence.expects("createEdge")
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', []),
+                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', [])
+                .returns(createEdgeMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations),
         ]
             
         await uut(context, request);
@@ -133,6 +140,10 @@ describe('Favorite Drink Function Tests', function () {
         }
 
         const existingFavorite = {id: 'Existing Favorite Edge'}
+        
+        const deleteEdgeMock = {type: "Delete Favorite"}
+        const createEdgeMock = {type: "Create Favorite"}
+        const mutations = [deleteEdgeMock, createEdgeMock]
 
         const expectations = [
             mockSecurity
@@ -144,12 +155,17 @@ describe('Favorite Drink Function Tests', function () {
                 .once()
                 .withExactArgs('Mock Recipe', 'favorite', [])
                 .returns([existingFavorite]),
-            mockPersistence.expects("deleteEdge")
+            mockPersistence.expects("queueDeleteEdge")
                 .once()
-                .withExactArgs(existingFavorite.id),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(existingFavorite.id)
+                .returns(deleteEdgeMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', []),
+                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', [])
+                .returns(createEdgeMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations),
         ]
             
         await uut(context, request);
