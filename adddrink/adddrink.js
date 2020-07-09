@@ -29,6 +29,7 @@ module.exports = async function (context, req) {
         try {
             var mutations = await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
 
+            context.log("Headers: " + JSON.stringify(req.headers))
             context.log("Version: " + req.headers["apiversion"])
             context.log("Body before versioning: " + JSON.stringify(req.body));
             const body = versioning.migrateRequestToLatestVersion(req.body, req.headers["apiversion"]);
