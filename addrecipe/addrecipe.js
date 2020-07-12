@@ -62,8 +62,6 @@ module.exports = async function (context, req) {
             }
             const recipeID = uuid()
             mutations.push(cosmos.queueCreateEntry('recipe', recipeID, info, ingredientIDs))
-            info.id = recipeID
-            info.steps = JSON.parse(info.steps)
 
             const userID = security.isAdmin(securityResult.user) ? process.env.ROOT_USER : securityResult.user.payload.sub;
             mutations.push(cosmos.queueCreateEdge(userID, recipeID, 'created', {}));
