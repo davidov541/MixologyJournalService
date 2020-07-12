@@ -45,15 +45,18 @@ async function runSuccessfulListTest(securitySuccess) {
     const mockList = [
         {
             "name": "Recipe 1",
-            "user": "User"
+            "user": "User",
+            "isBuiltIn": false
         },
         {
             "name": "Recipe 2",
-            "user": "ef5375ad-6d92-4571-a999-999aa494ff13"
+            "user": "ef5375ad-6d92-4571-a999-999aa494ff13",
+            "isBuiltIn": true
         },
         {
             "name": "Recipe 3",
-            "user": "Some Other User"
+            "user": "Some Other User",
+            "isBuiltIn": false
         }
     ]
 
@@ -66,19 +69,19 @@ async function runSuccessfulListTest(securitySuccess) {
         mockPersistence.expects("getAllDescendentsOfKind")
             .once()
             .withExactArgs('recipe')
-            .returns(mockList),
+            .returns(JSON.parse(JSON.stringify(mockList))),
         mockConversion.expects("processRecipe")
             .once()
             .withExactArgs(mockList[0], mockSecurityResult.user)
-            .returns(mockList[0]),
+            .returns(JSON.parse(JSON.stringify(mockList[0]))),
         mockConversion.expects("processRecipe")
             .once()
             .withExactArgs(mockList[1], mockSecurityResult.user)
-            .returns(mockList[1]),
+            .returns(JSON.parse(JSON.stringify(mockList[1]))),
         mockConversion.expects("processRecipe")
             .once()
             .withExactArgs(mockList[2], mockSecurityResult.user)
-            .returns(mockList[2])
+            .returns(JSON.parse(JSON.stringify(mockList[2])))
     ]
         
     await uut(context, request);
