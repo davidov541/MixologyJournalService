@@ -4,7 +4,7 @@ const adls = require('../util/adls')
 const { uuid } = require('uuidv4');
 
 module.exports = async function (context, req) {
-    context.log('POST /secure/upload');
+    context.log('POST /secure/addpictures');
 
     const securityResult = await security.checkToken(context, req);
     if (!securityResult.success)
