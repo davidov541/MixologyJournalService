@@ -1,6 +1,11 @@
 const { DataLakeServiceClient, generateAccountSASQueryParameters } = require("@azure/storage-file-datalake");
 const { DefaultAzureCredential } = require("@azure/identity");
 
+Date.prototype.addHours = function(h) {
+  this.setTime(this.getTime() + (h*60*60*1000));
+  return this;
+}
+
 function createServiceClient() {
   const account = process.env.ADLS_ACCOUNTNAME;
   const defaultAzureCredential = new DefaultAzureCredential();
@@ -38,8 +43,7 @@ async function uploadFile(fileSource, fileName) {
 }
 
 function getSASForFile(fileName) {
-  const tomorrow = Date.now()
-  tomorrow.setTime(tomorrow.getTime() + (24 * 60* 60 * 1000))
+  const tomorrow = Date.now().addHours(24)
   const sasValues = {
     expiresOn: tomorrow,
     permissions: {
