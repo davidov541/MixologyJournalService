@@ -23,6 +23,10 @@ module.exports = async function (context, req) {
             const imageId = "/" + uuid() + ".png"
             await adls.createDirectoryIfNotExists(directory)
             await adls.uploadFile(parts[0].data, directory + imageId)
+            const fileSAS = adls.getSASForFile(directory + imageId)
+            context.res = {
+                filePath: fileSAS
+            }
         } catch (err) {
             console.log(err)
             context.res = {

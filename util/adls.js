@@ -1,4 +1,4 @@
-const { DataLakeServiceClient } = require("@azure/storage-file-datalake");
+const { DataLakeServiceClient, generateAccountSASQueryParameters } = require("@azure/storage-file-datalake");
 const { DefaultAzureCredential } = require("@azure/identity");
 
 function createServiceClient() {
@@ -31,11 +31,32 @@ async function createDirectoryIfNotExists(directoryPath) {
 async function uploadFile(fileSource, fileName) {
   const fileSystemClient = createFileSystemClient()
 
-    const fileClient = fileSystemClient.getFileClient(fileName)
-    await fileClient.create()
-    await fileClient.append(fileSource, 0, fileSource.length);
-    await fileClient.flush(fileSource.length)
+  const fileClient = fileSystemClient.getFileClient(fileName)
+  await fileClient.create()
+  await fileClient.append(fileSource, 0, fileSource.length);
+  await fileClient.flush(fileSource.length)
+}
+
+function getSASForFile(fileName) {
+  const tomorrow = Date.now()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const sasValues = {
+    expiresOn: tomorrow,
+    permissions: {
+      list: true,
+      read: true
+    },
+    resourceTypes: {
+      object: true
+    },
+    services: {
+      file: true,
+      blob: true
+    }
+  }
+  generateAccountSASQueryParameters(sasValues, new DefaultAzureCredential())
 }
 
 exports.createDirectoryIfNotExists = createDirectoryIfNotExists;
 exports.uploadFile = uploadFile;
+exports.getSASForFile = getSASForFile;
