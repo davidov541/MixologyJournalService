@@ -1,7 +1,7 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
-const uut = rewire('../../addpictures/addpictures')
+const uut = rewire('../../addpicture/addpicture')
 
 function setupMockSecurity() {
     return sinon.mock(uut.__get__("security"))
