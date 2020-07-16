@@ -16,7 +16,7 @@ module.exports = async function (context, req) {
             const fileSAS = adls.getSASForFile(req.body.filePath)
             context.res = {
                 body: {
-                    filePath: body.filePath,
+                    filePath: req.body.filePath,
                     fileSAS: fileSAS
                 }
             }
