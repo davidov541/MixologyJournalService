@@ -4,9 +4,15 @@ function processDrink(drink) {
     result.id = drink.key.id;
     result.name = drink.key.properties.name[0].value
     result.steps = JSON.parse(decodeURIComponent(drink.key.properties.steps[0].value))
+    result.picture = "user/creation-pics/default.jpg"
     result.isFavorite = false;
     result.ingredients = new Array();
     result.basisRecipe = "Not Found";
+
+    if ('picPath' in drink.key.properties)
+    {
+        result.picture = drink.key.properties.picPath[0].value
+    }
 
     for(edgeKey in drink.value) {
         const edge = drink.value[edgeKey];
@@ -52,7 +58,13 @@ function processRecipe(recipe) {
     
     result.id = recipe.key.id;
     result.name = recipe.key.properties.name[0].value
+    result.picture = "user/creation-pics/default.jpg"
     result.steps = JSON.parse(recipe.key.properties.steps[0].value)
+
+    if ('picPath' in recipe.key.properties)
+    {
+        result.picture = recipe.key.properties.picPath[0].value
+    }
 
     result.ingredients = new Array();
     for(edgeKey in recipe.value) {
