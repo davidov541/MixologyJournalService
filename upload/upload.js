@@ -14,14 +14,13 @@ module.exports = async function (context, req) {
         }
     } else {
         try {
-            context.log("Retrieved body: " + req.body)
-            // encode body to base64 string
             const bodyBuffer = req.body;
-            // get boundary for multipart data e.g. ------WebKitFormBoundaryDtbT5UpPj83kllfw
             const boundary = multipart.getBoundary(req.headers['content-type']);
-            // parse the body
             const parts = multipart.Parse(bodyBuffer, boundary);
-            await adls.uploadFile(parts[0].data, 'foo.png')
+
+            const directory = 'creation-pics/' + securityResult.user.payload.sub
+            await adls.createDirectoryIfNotExists(directory)
+            await adls.uploadFile(parts[0].data, directory + '/foo.png')
         } catch (err) {
             console.log(err)
             context.res = {

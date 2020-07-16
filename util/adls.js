@@ -11,15 +11,31 @@ function createServiceClient() {
   );
 }
 
-async function uploadFile(fileSource, fileName) {
-    const fileSystemName = process.env.ADLS_CONFIGFSNAME;
+function createFileSystemClient() {
+  const fileSystemName = process.env.ADLS_USERFSNAME
 
-    const serviceClient = createServiceClient()
-    const fileSystemClient = serviceClient.getFileSystemClient(fileSystemName);
+  const serviceClient = createServiceClient()
+  return serviceClient.getFileSystemClient(fileSystemName);
+}
+
+async function createDirectoryIfNotExists(directoryPath) {
+  const fileSystemClient = createFileSystemClient()
+
+  const directoryClient = fileSystemClient.getDirectoryClient(directoryPath)
+  if (!directoryClient.exists())
+  {
+    await directoryClient.create()
+  }
+}
+
+async function uploadFile(fileSource, fileName) {
+  const fileSystemClient = createFileSystemClient()
+
     const fileClient = fileSystemClient.getFileClient(fileName)
     await fileClient.create()
     await fileClient.append(fileSource, 0, fileSource.length);
     await fileClient.flush(fileSource.length)
-  }
+}
 
+exports.createDirectoryIfNotExists = createDirectoryIfNotExists;
 exports.uploadFile = uploadFile;

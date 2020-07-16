@@ -1,6 +1,5 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
-const multipart = require('parse-multipart')
 
 const uut = rewire('../../upload/upload')
 
@@ -92,9 +91,12 @@ describe('Upload File Function Tests', function () {
                 .once()
                 .withArgs(context, request)
                 .returns(mockSecurityResult),
+                mockADLS.expects("createDirectoryIfNotExists")
+                .once()
+                .withExactArgs('creation-pics/User'),
                 mockADLS.expects("uploadFile")
                 .once()
-                .withExactArgs(fileContent, 'foo.png'),
+                .withExactArgs(fileContent, 'creation-pics/User/foo.png'),
         ]
             
         await uut(context, request);

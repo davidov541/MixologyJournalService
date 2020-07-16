@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const uut = rewire('../../util/adls');
 
-function setupMockADLSClient() {
+function setupMockADLSClient(directoryExists) {
     const createSpy = sinon.spy();
     const appendSpy = sinon.spy();
     const flushSpy = sinon.spy();
@@ -14,11 +14,24 @@ function setupMockADLSClient() {
         flush: flushSpy
     }
 
+    const existsStub = sinon.stub()
+    existsStub.returns(directoryExists)
+    const createDirSpy = sinon.spy();
+
+    const directoryMock = {
+        exists: existsStub,
+        create: createDirSpy
+    }
+
     const getFileClientStub = sinon.stub()
     getFileClientStub.returns(fileMock)
 
+    const getDirectoryClientStub = sinon.stub()
+    getDirectoryClientStub.returns(directoryMock);
+
     const fileSystemMock = {
-        getFileClient: getFileClientStub
+        getFileClient: getFileClientStub,
+        getDirectoryClient: getDirectoryClientStub
     }
 
     const getFileSystemClientStub = sinon.stub()
@@ -30,18 +43,28 @@ function setupMockADLSClient() {
 
     uut.__set__("createServiceClient", () => serviceMock);
 
-    return {"getFileSystemClient": getFileSystemClientStub, "getFileClient": getFileClientStub, "file": fileMock}
+    return {
+        "getFileSystemClient": getFileSystemClientStub, 
+        "getFileClient": getFileClientStub, 
+        "getDirectoryClient": getDirectoryClientStub,
+        "file": fileMock, 
+        "directory": directoryMock
+    }
 }
 
-process.env.ADLS_CONFIGFSNAME = "Some FileSystem Name"
+process.env.ADLS_USERFSNAME = "Some FileSystem Name"
 
 describe('ADLSv2 Interface Tests', function () {
     test('should properly upload a single file.', async function () {
-        const spies = setupMockADLSClient();
+        const spies = setupMockADLSClient(true);
         
         const fileContent = "Hello World"
         const filePath = "foo.txt"
         await uut.uploadFile(fileContent, filePath)
+        
+        expect(spies.getDirectoryClient.called).toBeFalsy()
+        expect(spies.directory.create.called).toBeFalsy()
+        expect(spies.directory.exists.called).toBeFalsy()
         
         expect(spies.file.create.called).toBeTruthy()
         expect(spies.file.create.callCount).toBe(1)
@@ -58,6 +81,59 @@ describe('ADLSv2 Interface Tests', function () {
         expect(spies.getFileClient.called).toBeTruthy()
         expect(spies.getFileClient.callCount).toBe(1)
         expect(spies.getFileClient.args[0]).toEqual([filePath])
+
+        expect(spies.getFileSystemClient.called).toBeTruthy()
+        expect(spies.getFileSystemClient.callCount).toBe(1)
+        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_CONFIGFSNAM])
+    })
+    
+    test('should properly create a directory if it doesnt exist.', async function () {
+        const spies = setupMockADLSClient(false);
+        
+        const directoryPath = "someDir"
+        await uut.createDirectoryIfNotExists(directoryPath)
+        
+        expect(spies.file.create.called).toBeFalsy()
+        expect(spies.file.append.called).toBeFalsy()
+        expect(spies.file.flush.called).toBeFalsy()
+        expect(spies.getFileClient.called).toBeFalsy()
+
+        expect(spies.directory.create.called).toBeTruthy()
+        expect(spies.directory.create.callCount).toBe(1)
+        expect(spies.directory.create.args[0]).toEqual([])
+
+        expect(spies.directory.exists.called).toBeTruthy()
+        expect(spies.directory.exists.callCount).toBe(1)
+        expect(spies.directory.exists.args[0]).toEqual([])
+
+        expect(spies.getDirectoryClient.called).toBeTruthy()
+        expect(spies.getDirectoryClient.callCount).toBe(1)
+        expect(spies.getDirectoryClient.args[0]).toEqual([directoryPath])
+
+        expect(spies.getFileSystemClient.called).toBeTruthy()
+        expect(spies.getFileSystemClient.callCount).toBe(1)
+        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_CONFIGFSNAM])
+    })
+    
+    test('should not create a directory if it already exists.', async function () {
+        const spies = setupMockADLSClient(true);
+        
+        const directoryPath = "someDir"
+        await uut.createDirectoryIfNotExists(directoryPath)
+        
+        expect(spies.file.create.called).toBeFalsy()
+        expect(spies.file.append.called).toBeFalsy()
+        expect(spies.file.flush.called).toBeFalsy()
+        expect(spies.getFileClient.called).toBeFalsy()
+        expect(spies.directory.create.called).toBeFalsy()
+
+        expect(spies.directory.exists.called).toBeTruthy()
+        expect(spies.directory.exists.callCount).toBe(1)
+        expect(spies.directory.exists.args[0]).toEqual([])
+
+        expect(spies.getDirectoryClient.called).toBeTruthy()
+        expect(spies.getDirectoryClient.callCount).toBe(1)
+        expect(spies.getDirectoryClient.args[0]).toEqual([directoryPath])
 
         expect(spies.getFileSystemClient.called).toBeTruthy()
         expect(spies.getFileSystemClient.callCount).toBe(1)
