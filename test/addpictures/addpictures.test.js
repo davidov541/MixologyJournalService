@@ -98,7 +98,7 @@ describe('Upload File Function Tests', function () {
                 .once()
                 .withExactArgs(fileContent, sinon.match.any),
         ]
-            
+           
         await uut(context, request);
 
         expectations.map((e) => e.verify());

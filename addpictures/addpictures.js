@@ -26,7 +26,8 @@ module.exports = async function (context, req) {
             const fileSAS = adls.getSASForFile(directory + imageId)
             context.res = {
                 body: {
-                    filePath: fileSAS
+                    filePath: directory + imageId,
+                    fileSAS: fileSAS
                 }
             }
         } catch (err) {
