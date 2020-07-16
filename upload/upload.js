@@ -1,6 +1,7 @@
 const security = require('../util/security')
 const multipart = require('parse-multipart')
 const adls = require('../util/adls')
+const { uuid } = require('uuidv4');
 
 module.exports = async function (context, req) {
     context.log('POST /secure/upload');
@@ -19,8 +20,9 @@ module.exports = async function (context, req) {
             const parts = multipart.Parse(bodyBuffer, boundary);
 
             const directory = 'creation-pics/' + securityResult.user.payload.sub
+            const imageId = "/" + uuid() + ".png"
             await adls.createDirectoryIfNotExists(directory)
-            await adls.uploadFile(parts[0].data, directory + '/foo.png')
+            await adls.uploadFile(parts[0].data, directory + imageId)
         } catch (err) {
             console.log(err)
             context.res = {

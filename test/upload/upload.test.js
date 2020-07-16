@@ -96,7 +96,7 @@ describe('Upload File Function Tests', function () {
                 .withExactArgs('creation-pics/User'),
                 mockADLS.expects("uploadFile")
                 .once()
-                .withExactArgs(fileContent, 'creation-pics/User/foo.png'),
+                .withExactArgs(fileContent, sinon.match.any),
         ]
             
         await uut(context, request);
