@@ -53,7 +53,7 @@ function getSASForFile(fileName) {
       expiresOn: tomorrow, // Optional. Date type
       protocol: SASProtocol.HttpsAndHttp, // Optional
     },
-    new DefaultAzureCredential() // StorageSharedKeyCredential - `new StorageSharedKeyCredential(account, accountKey)`
+    new StorageSharedKeyCredential(process.env.ADLS_ACCOUNTNAME, process.env.ADLS_PRIMARYKEY) // StorageSharedKeyCredential - `new StorageSharedKeyCredential(account, accountKey)`
   ).toString();
 }
 
