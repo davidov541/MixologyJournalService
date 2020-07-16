@@ -26,7 +26,7 @@ describe('Upload File Function Tests', function () {
 
         var context = {   
             res: {},
-            log: function (msg) {}        
+            log: function (msg) {console.log(msg)}        
         }
 
         const request = {}
@@ -50,7 +50,6 @@ describe('Upload File Function Tests', function () {
         mockSecurity.restore()
     });
 
-    /*
     test('should correctly upload the file if authentication succeeds.', async function () {
         const mockSecurity = setupMockSecurity()
         const mockADLS = setupMockADLS()
@@ -70,15 +69,20 @@ describe('Upload File Function Tests', function () {
 
         var context = {   
             res: {},
-            log: function (msg) {}        
+            log: function (msg) {console.log(msg)}        
         }
 
-        const fileContent = "Some Content"
-        const fullBody = multipart.DemoData()
+        const fileContent = new Buffer("Hello World", 'utf-8')
+        const fullBody = "----------------------------497983131095136311264163\r\n" +
+        'Content-Disposition: form-data; name="file"; filename="uploadtest.txt"' + "\r\n" +
+        "Content-Type: text/plain\r\n" +
+        "\r\n" +
+        "Hello World\r\n" +
+        "----------------------------497983131095136311264163--"
         const request = {
-            "body": fullBody,
+            "body": new Buffer(fullBody,'utf-8'),
             "headers": {
-                "content-type": "text/plain; boundary=------WebKitFormBoundaryvef1fLxmoUdYZWXp"
+                "content-type": "multipart/form-data; boundary=--------------------------497983131095136311264163"
             }
         }
 
@@ -90,15 +94,14 @@ describe('Upload File Function Tests', function () {
                 .returns(mockSecurityResult),
                 mockADLS.expects("uploadFile")
                 .once()
-                .withExactArgs(fileContent.length, 'foo.png'),
+                .withExactArgs(fileContent, 'foo.png'),
         ]
             
         await uut(context, request);
 
         expectations.map((e) => e.verify());
         
-        mockPersistence.restore()
+        mockADLS.restore()
         mockSecurity.restore()
     });
-    */
 });

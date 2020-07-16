@@ -3,7 +3,7 @@ const multipart = require('parse-multipart')
 const adls = require('../util/adls')
 
 module.exports = async function (context, req) {
-    context.log('GET /secure/upload');
+    context.log('POST /secure/upload');
 
     const securityResult = await security.checkToken(context, req);
     if (!securityResult.success)
