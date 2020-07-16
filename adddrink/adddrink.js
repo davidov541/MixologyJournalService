@@ -30,7 +30,6 @@ module.exports = async function (context, req) {
             var mutations = await createUser(securityResult.user.payload.sub, securityResult.user.payload.name)
 
             const body = versioning.migrateRequestToLatestVersion(req.body, req.headers["apiversion"]);
-
             const ingredients = body.ingredients
             var ingredientUsage = 1;
             const ingredientIDs = ingredients.map(i => {

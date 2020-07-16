@@ -18,6 +18,7 @@ module.exports = async function (context, req) {
             if (recipeInfo.user == rootId || 
                 (securityResult.success && recipeInfo.user == securityResult.user.payload.sub))
             {
+                recipeInfo.isBuiltIn = (recipeInfo.user == rootId);
                 recipes.push(recipeInfo);
             }
         }

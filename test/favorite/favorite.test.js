@@ -74,9 +74,13 @@ describe('Favorite Drink Function Tests', function () {
         const request = {
             "body": {
                 "recipeId": "Mock Recipe",
-                "drinkId": "Mock Drink"
+                "drinkId": "Mock Drink",
+                "isFavorited": true
             }
         }
+        
+        const createEdgeMock = {type: "Create Favorite"}
+        const mutations = [createEdgeMock]
 
         const expectations = [
             mockSecurity
@@ -88,9 +92,13 @@ describe('Favorite Drink Function Tests', function () {
                 .once()
                 .withExactArgs('Mock Recipe', 'favorite', [])
                 .returns([]),
-            mockPersistence.expects("createEdge")
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', []),
+                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', [])
+                .returns(createEdgeMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations),
         ]
             
         await uut(context, request);
@@ -128,11 +136,16 @@ describe('Favorite Drink Function Tests', function () {
         const request = {
             "body": {
                 "recipeId": "Mock Recipe",
-                "drinkId": "Mock Drink"
+                "drinkId": "Mock Drink",
+                "isFavorited": true
             }
         }
 
         const existingFavorite = {id: 'Existing Favorite Edge'}
+        
+        const deleteEdgeMock = {type: "Delete Favorite"}
+        const createEdgeMock = {type: "Create Favorite"}
+        const mutations = [deleteEdgeMock, createEdgeMock]
 
         const expectations = [
             mockSecurity
@@ -144,12 +157,136 @@ describe('Favorite Drink Function Tests', function () {
                 .once()
                 .withExactArgs('Mock Recipe', 'favorite', [])
                 .returns([existingFavorite]),
-            mockPersistence.expects("deleteEdge")
+            mockPersistence.expects("queueDeleteEdge")
                 .once()
-                .withExactArgs(existingFavorite.id),
-            mockPersistence.expects("createEdge")
+                .withExactArgs(existingFavorite.id)
+                .returns(deleteEdgeMock),
+            mockPersistence.expects("queueCreateEdge")
                 .once()
-                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', []),
+                .withExactArgs('Mock Drink', 'Mock Recipe', 'favorite', [])
+                .returns(createEdgeMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations),
+        ]
+            
+        await uut(context, request);
+
+        expect(context.res.body.name).toEqual(request.body.name);
+
+        expectations.map(e => e.verify())
+        
+        mockPersistence.restore()
+        mockSecurity.restore()
+    });
+
+    test('should do nothing if we ask to disable a favorite that doesnt exist.', async function () {
+        const mockSecurity = setupMockSecurity()
+        const mockPersistence = setupMockPersistence()
+
+        const mockSecurityResult = {
+            "success": true,
+            "error": {
+                "code": "Test Code",
+                "message": "Test Message"
+            },
+            "user": {
+                "payload": {
+                    "sub": "User"
+                }
+            }
+        }
+
+        var context = {   
+            res: {},
+            log: function (msg) {}        
+        }
+
+        const request = {
+            "body": {
+                "recipeId": "Mock Recipe",
+                "drinkId": "Mock Drink",
+                "isFavorited": false
+            }
+        }
+        
+        const createEdgeMock = {type: "Create Favorite"}
+        const mutations = [createEdgeMock]
+
+        const expectations = [
+            mockSecurity
+                .expects("checkToken")
+                .once()
+                .withArgs(context, request)
+                .returns(mockSecurityResult),
+            mockPersistence.expects("getAllIncomingEdgesOfKind")
+                .once()
+                .withExactArgs('Mock Recipe', 'favorite', [])
+                .returns([]),
+        ]
+            
+        await uut(context, request);
+
+        expect(context.res.body.name).toEqual(request.body.name);
+
+        expectations.map(e => e.verify())
+        
+        mockPersistence.restore()
+        mockSecurity.restore()
+    });
+
+    test('should correctly delete the existing favorite if favorite is disabled.', async function () {
+        const mockSecurity = setupMockSecurity()
+        const mockPersistence = setupMockPersistence()
+
+        const mockSecurityResult = {
+            "success": true,
+            "error": {
+                "code": "Test Code",
+                "message": "Test Message"
+            },
+            "user": {
+                "payload": {
+                    "sub": "User"
+                }
+            }
+        }
+
+        var context = {   
+            res: {},
+            log: function (msg) {}        
+        }
+
+        const request = {
+            "body": {
+                "recipeId": "Mock Recipe",
+                "drinkId": "Mock Drink",
+                "isFavorited": false
+            }
+        }
+
+        const existingFavorite = {id: 'Existing Favorite Edge'}
+        
+        const deleteEdgeMock = {type: "Delete Favorite"}
+        const mutations = [deleteEdgeMock]
+
+        const expectations = [
+            mockSecurity
+                .expects("checkToken")
+                .once()
+                .withArgs(context, request)
+                .returns(mockSecurityResult),
+            mockPersistence.expects("getAllIncomingEdgesOfKind")
+                .once()
+                .withExactArgs('Mock Recipe', 'favorite', [])
+                .returns([existingFavorite]),
+            mockPersistence.expects("queueDeleteEdge")
+                .once()
+                .withExactArgs(existingFavorite.id)
+                .returns(deleteEdgeMock),
+            mockPersistence.expects("submitMutations")
+                .once()
+                .withExactArgs(mutations),
         ]
             
         await uut(context, request);

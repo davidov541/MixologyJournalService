@@ -16,12 +16,21 @@ module.exports = async function (context, req) {
         try {
             const existingFavorite = await cosmos.getAllIncomingEdgesOfKind(req.body.recipeId, 'favorite', []);
 
+            var commands = [];
             if (existingFavorite.length)
             {
-                await cosmos.deleteEdge(existingFavorite[0].id)
+                commands.push(cosmos.queueDeleteEdge(existingFavorite[0].id));
             }
 
-            await cosmos.createEdge(req.body.drinkId, req.body.recipeId, 'favorite', []);
+            if (req.body.isFavorited)
+            {
+                commands.push(cosmos.queueCreateEdge(req.body.drinkId, req.body.recipeId, 'favorite', []));
+            }
+
+            if (commands.length)
+            {
+                await cosmos.submitMutations(commands);
+            }
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
