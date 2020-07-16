@@ -16,15 +16,13 @@ function createServiceClient() {
   );
 }
 
-function createFileSystemClient() {
-  const fileSystemName = process.env.ADLS_USERFSNAME
-
+function createFileSystemClient(fileSystemName) {
   const serviceClient = createServiceClient()
   return serviceClient.getFileSystemClient(fileSystemName);
 }
 
 async function createDirectoryIfNotExists(directoryPath) {
-  const fileSystemClient = createFileSystemClient()
+  const fileSystemClient = createFileSystemClient(process.env.ADLS_USERFSNAME)
 
   const directoryClient = fileSystemClient.getDirectoryClient(directoryPath)
   if (!directoryClient.exists())
@@ -34,7 +32,7 @@ async function createDirectoryIfNotExists(directoryPath) {
 }
 
 async function uploadFile(fileSource, fileName) {
-  const fileSystemClient = createFileSystemClient()
+  const fileSystemClient = createFileSystemClient(process.env.ADLS_USERFSNAME)
 
   const fileClient = fileSystemClient.getFileClient(fileName)
   await fileClient.create()
@@ -45,14 +43,7 @@ async function uploadFile(fileSource, fileName) {
 async function readFile(fileSystem, filePath) {
   config = {};
 
-  const account = process.env.ADLS_ACCOUNTNAME;
-  const defaultAzureCredential = new DefaultAzureCredential();
-  const serviceClient = new DataLakeServiceClient(
-    `https://${account}.dfs.core.windows.net`,
-    defaultAzureCredential
-  );
-
-  const fileSystemClient = getFileSystemClient(fileSystem)
+  const fileSystemClient = createFileSystemClient(fileSystem)
   const fileClient = fileSystemClient.getFileClient(filePath);
   const downloadResponse = await fileClient.read();
   return await streamToString(downloadResponse.readableStreamBody);
