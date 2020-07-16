@@ -16,7 +16,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("user/creation-pics/default.jpg")
+                .withExactArgs("creation-pics/default.jpg")
                 .returns("someSASToken"),
         ];
 
@@ -30,7 +30,7 @@ describe("Entity Conversion Tests", function () {
             basisRecipe: "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
             id: "8c956448-13e9-4191-a3d8-c4e68036e8bb",
             picture: {
-                path: "user/creation-pics/default.jpg",
+                path: "creation-pics/default.jpg",
                 url: "someSASToken",
             },
             ingredients: [
@@ -92,7 +92,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("user/creation-pics/default.jpg")
+                .withExactArgs("creation-pics/default.jpg")
                 .returns("someSASToken"),
         ];
 
@@ -106,7 +106,7 @@ describe("Entity Conversion Tests", function () {
             basisRecipe: "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
             id: "8c956448-13e9-4191-a3d8-c4e68036e8bb",
             picture: {
-                path: "user/creation-pics/default.jpg",
+                path: "creation-pics/default.jpg",
                 url: "someSASToken",
             },
             ingredients: [
@@ -169,7 +169,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("user/creation-pics/someUser/somePic.jpg")
+                .withExactArgs("creation-pics/someUser/somePic.jpg")
                 .returns("someSASToken"),
         ];
 
@@ -183,7 +183,7 @@ describe("Entity Conversion Tests", function () {
             basisRecipe: "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
             id: "8c956448-13e9-4191-a3d8-c4e68036e8bb",
             picture: {
-                path: "user/creation-pics/someUser/somePic.jpg",
+                path: "creation-pics/someUser/somePic.jpg",
                 url: "someSASToken",
             },
             ingredients: [
@@ -246,7 +246,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("user/creation-pics/default.jpg")
+                .withExactArgs("creation-pics/default.jpg")
                 .returns("someSASToken"),
         ];
 
@@ -259,7 +259,7 @@ describe("Entity Conversion Tests", function () {
         const expected = {
             id: "69dd79ac-1903-4c88-b7e4-b1314d6b149c",
             picture: {
-                path: "user/creation-pics/default.jpg",
+                path: "creation-pics/default.jpg",
                 url: "someSASToken",
             },
             ingredients: [
@@ -306,7 +306,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("user/creation-pics/someUser/somePic.jpg")
+                .withExactArgs("creation-pics/someUser/somePic.jpg")
                 .returns("someSASToken"),
         ];
 
@@ -319,7 +319,7 @@ describe("Entity Conversion Tests", function () {
         const expected = {
             id: "69dd79ac-1903-4c88-b7e4-b1314d6b149c",
             picture: {
-                path: "user/creation-pics/someUser/somePic.jpg",
+                path: "creation-pics/someUser/somePic.jpg",
                 url: "someSASToken",
             },
             ingredients: [

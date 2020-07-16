@@ -198,7 +198,7 @@ describe('Add Recipe Function Tests', function () {
                 .withExactArgs('recipe', sinon.match.any, {
                     "name": "Test Recipe",
                     "steps": "[\"Step 1\",\"Step 2\",\"Step 3\"]",
-                    "picPath": "user/creation-pics/default.jpg"
+                    "picPath": "creation-pics/default.jpg"
                 }, [
                     {
                         "id": sinon.match.any,
@@ -371,7 +371,7 @@ describe('Add Recipe Function Tests', function () {
                 .withExactArgs('recipe', sinon.match.any, {
                     "name": "Test Recipe",
                     "steps": "[\"Step 1\",\"Step 2\",\"Step 3\"]",
-                    "picPath": "user/creation-pics/default.jpg"
+                    "picPath": "creation-pics/default.jpg"
                 }, [
                     {
                         "id": sinon.match.any,
@@ -444,7 +444,7 @@ describe('Add Recipe Function Tests', function () {
         const request = {
             "body": {
                 "name": "Test Recipe",
-                "picture": "user/creation-pics/someUser/somePic.jpg",
+                "picture": "creation-pics/someUser/somePic.jpg",
                 "ingredients": [
                     {
                         "ingredient": {
@@ -545,7 +545,7 @@ describe('Add Recipe Function Tests', function () {
                 .withExactArgs('recipe', sinon.match.any, {
                     "name": "Test Recipe",
                     "steps": "[\"Step 1\",\"Step 2\",\"Step 3\"]",
-                    "picPath": "user/creation-pics/someUser/somePic.jpg"
+                    "picPath": "creation-pics/someUser/somePic.jpg"
                 }, [
                     {
                         "id": sinon.match.any,

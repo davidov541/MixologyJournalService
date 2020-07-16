@@ -6,7 +6,7 @@ function processDrink(drink) {
     result.id = drink.key.id;
     result.name = drink.key.properties.name[0].value
     result.steps = JSON.parse(decodeURIComponent(drink.key.properties.steps[0].value))
-    result.picture = {path: "user/creation-pics/default.jpg"}
+    result.picture = {path: "creation-pics/default.jpg"}
     result.isFavorite = false;
     result.ingredients = new Array();
     result.basisRecipe = "Not Found";
@@ -61,7 +61,7 @@ function processRecipe(recipe) {
     
     result.id = recipe.key.id;
     result.name = recipe.key.properties.name[0].value
-    result.picture = {path: "user/creation-pics/default.jpg"}
+    result.picture = {path: "creation-pics/default.jpg"}
     result.steps = JSON.parse(recipe.key.properties.steps[0].value)
 
     if ('picPath' in recipe.key.properties)
