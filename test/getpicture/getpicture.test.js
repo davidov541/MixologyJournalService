@@ -1,6 +1,8 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
+const util = require('../util/testutil')
+
 const uut = rewire('../../getpicture/getpicture')
 
 function setupMockSecurity() {
@@ -23,12 +25,9 @@ describe('Get Picture Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {console.log(msg)}        
-        }
+        var context = util.getBaseContext()
 
-        const request = {}
+        const request = util.getBaseRequest({})
 
         mockSecurity
             .expects("checkToken")
@@ -66,21 +65,11 @@ describe('Get Picture Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {console.log(msg)}        
-        }
+        var context = util.getBaseContext()
 
         const filePath = "Some File"
         const fileSAS = "SAS Token"
-        const request = {
-            "body": {
-                filePath: filePath
-            },
-            "headers": {
-                "content-type": "multipart/form-data; boundary=--------------------------497983131095136311264163"
-            }
-        }
+        const request = util.getBaseRequest({filePath: filePath})
 
         const expectations = [
             mockSecurity

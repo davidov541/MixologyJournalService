@@ -1,6 +1,8 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
+const util = require('../util/testutil')
+
 const uut = rewire('../../addpicture/addpicture')
 
 function setupMockSecurity() {
@@ -23,12 +25,9 @@ describe('Add Pictures Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {console.log(msg)}        
-        }
+        var context = util.getBaseContext()
 
-        const request = {}
+        const request = util.getBaseRequest({})
 
         mockSecurity
             .expects("checkToken")
@@ -66,10 +65,7 @@ describe('Add Pictures Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {console.log(msg)}        
-        }
+        var context = util.getBaseContext()
 
         const fileContent = new Buffer("Hello World", 'utf-8')
         const fullBody = "----------------------------497983131095136311264163\r\n" +
@@ -78,12 +74,11 @@ describe('Add Pictures Function Tests', function () {
         "\r\n" +
         "Hello World\r\n" +
         "----------------------------497983131095136311264163--"
-        const request = {
-            "body": new Buffer(fullBody,'utf-8'),
-            "headers": {
+        
+        const request = util.getBaseRequest(new Buffer(fullBody,'utf-8'))
+        request.headers = {
                 "content-type": "multipart/form-data; boundary=--------------------------497983131095136311264163"
             }
-        }
 
         const expectations = [
             mockSecurity
