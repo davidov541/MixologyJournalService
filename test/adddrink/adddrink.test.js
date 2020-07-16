@@ -184,7 +184,7 @@ describe('Add Drink Function Tests', function () {
                 .withExactArgs('drink', sinon.match.any, {
                     "name": "Test Recipe",
                     "steps": "%5B%22Step%201%22%2C%22Step%202%22%2C%22Step%203%22%5D",
-                    "picPath": "creation-pics/default.jpg"
+                    "picPath": "creation-pics/default.png"
                 }, [
                     {
                         "id": sinon.match.any,
@@ -374,7 +374,7 @@ describe('Add Drink Function Tests', function () {
                 .withExactArgs('drink', sinon.match.any, {
                     "name": "Test Recipe",
                     "steps": "%5B%22Step%201%22%2C%22Step%202%22%2C%22Step%203%22%5D",
-                    "picPath": "creation-pics/default.jpg"
+                    "picPath": "creation-pics/default.png"
                 }, [
                     {
                         "id": sinon.match.any,

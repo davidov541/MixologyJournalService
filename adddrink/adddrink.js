@@ -58,7 +58,7 @@ module.exports = async function (context, req) {
                 };
             })
         
-            var picPath = "creation-pics/default.jpg"
+            var picPath = "creation-pics/default.png"
             if ('picture' in body)
             {
                 picPath = body.picture

@@ -16,7 +16,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("creation-pics/default.jpg")
+                .withExactArgs("creation-pics/default.png")
                 .returns("someSASToken"),
         ];
 
@@ -30,7 +30,7 @@ describe("Entity Conversion Tests", function () {
             basisRecipe: "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
             id: "8c956448-13e9-4191-a3d8-c4e68036e8bb",
             picture: {
-                path: "creation-pics/default.jpg",
+                path: "creation-pics/default.png",
                 url: "someSASToken",
             },
             ingredients: [
@@ -92,7 +92,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("creation-pics/default.jpg")
+                .withExactArgs("creation-pics/default.png")
                 .returns("someSASToken"),
         ];
 
@@ -106,7 +106,7 @@ describe("Entity Conversion Tests", function () {
             basisRecipe: "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
             id: "8c956448-13e9-4191-a3d8-c4e68036e8bb",
             picture: {
-                path: "creation-pics/default.jpg",
+                path: "creation-pics/default.png",
                 url: "someSASToken",
             },
             ingredients: [
@@ -246,7 +246,7 @@ describe("Entity Conversion Tests", function () {
             mockADLS
                 .expects("getSASForFile")
                 .once()
-                .withExactArgs("creation-pics/default.jpg")
+                .withExactArgs("creation-pics/default.png")
                 .returns("someSASToken"),
         ];
 
@@ -259,7 +259,7 @@ describe("Entity Conversion Tests", function () {
         const expected = {
             id: "69dd79ac-1903-4c88-b7e4-b1314d6b149c",
             picture: {
-                path: "creation-pics/default.jpg",
+                path: "creation-pics/default.png",
                 url: "someSASToken",
             },
             ingredients: [
