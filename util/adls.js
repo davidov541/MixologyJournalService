@@ -42,6 +42,35 @@ async function uploadFile(fileSource, fileName) {
   await fileClient.flush(fileSource.length)
 }
 
+async function readFile(fileSystem, filePath) {
+  config = {};
+
+  const account = process.env.ADLS_ACCOUNTNAME;
+  const defaultAzureCredential = new DefaultAzureCredential();
+  const serviceClient = new DataLakeServiceClient(
+    `https://${account}.dfs.core.windows.net`,
+    defaultAzureCredential
+  );
+
+  const fileSystemClient = getFileSystemClient(fileSystem)
+  const fileClient = fileSystemClient.getFileClient(filePath);
+  const downloadResponse = await fileClient.read();
+  return await streamToString(downloadResponse.readableStreamBody);
+}
+
+async function streamToString(readableStream) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    readableStream.on("data", (data) => {
+      chunks.push(data.toString());
+    });
+    readableStream.on("end", () => {
+      resolve(chunks.join(""));
+    });
+    readableStream.on("error", reject);
+  });
+}
+
 function getSASForFile(fileName) {
   const tomorrow = new Date().addHours(24)
   const fileSystemName = process.env.ADLS_USERFSNAME
@@ -62,3 +91,4 @@ function getSASForFile(fileName) {
 exports.createDirectoryIfNotExists = createDirectoryIfNotExists;
 exports.uploadFile = uploadFile;
 exports.getSASForFile = getSASForFile;
+exports.readFile = readFile;

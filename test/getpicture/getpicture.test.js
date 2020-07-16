@@ -1,7 +1,9 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
-const uut = rewire('../../upload/upload')
+const util = require('../util/testutil')
+
+const uut = rewire('../../getpicture/getpicture')
 
 function setupMockSecurity() {
     return sinon.mock(uut.__get__("security"))
@@ -11,7 +13,7 @@ function setupMockADLS() {
     return sinon.mock(uut.__get__("adls"))
 }
 
-describe('Upload File Function Tests', function () {
+describe('Get Picture Function Tests', function () {
     test('should return an error if the authentication fails.', async function () {
         const mockSecurity = setupMockSecurity()
         
@@ -23,12 +25,9 @@ describe('Upload File Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {console.log(msg)}        
-        }
+        var context = util.getBaseContext()
 
-        const request = {}
+        const request = util.getBaseRequest({})
 
         mockSecurity
             .expects("checkToken")
@@ -49,7 +48,7 @@ describe('Upload File Function Tests', function () {
         mockSecurity.restore()
     });
 
-    test('should correctly upload the file if authentication succeeds.', async function () {
+    test('should correctly return a SAS for a file if authentication succeeds.', async function () {
         const mockSecurity = setupMockSecurity()
         const mockADLS = setupMockADLS()
 
@@ -66,24 +65,11 @@ describe('Upload File Function Tests', function () {
             }
         }
 
-        var context = {   
-            res: {},
-            log: function (msg) {console.log(msg)}        
-        }
+        var context = util.getBaseContext()
 
-        const fileContent = new Buffer("Hello World", 'utf-8')
-        const fullBody = "----------------------------497983131095136311264163\r\n" +
-        'Content-Disposition: form-data; name="file"; filename="uploadtest.txt"' + "\r\n" +
-        "Content-Type: text/plain\r\n" +
-        "\r\n" +
-        "Hello World\r\n" +
-        "----------------------------497983131095136311264163--"
-        const request = {
-            "body": new Buffer(fullBody,'utf-8'),
-            "headers": {
-                "content-type": "multipart/form-data; boundary=--------------------------497983131095136311264163"
-            }
-        }
+        const filePath = "Some File"
+        const fileSAS = "SAS Token"
+        const request = util.getBaseRequest({filePath: filePath})
 
         const expectations = [
             mockSecurity
@@ -91,14 +77,12 @@ describe('Upload File Function Tests', function () {
                 .once()
                 .withArgs(context, request)
                 .returns(mockSecurityResult),
-                mockADLS.expects("createDirectoryIfNotExists")
+            mockADLS.expects("getSASForFile")
                 .once()
-                .withExactArgs('creation-pics/User'),
-                mockADLS.expects("uploadFile")
-                .once()
-                .withExactArgs(fileContent, sinon.match.any),
+                .withExactArgs(filePath)
+                .returns(fileSAS),
         ]
-            
+           
         await uut(context, request);
 
         expectations.map((e) => e.verify());

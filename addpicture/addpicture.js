@@ -4,7 +4,7 @@ const adls = require('../util/adls')
 const { uuid } = require('uuidv4');
 
 module.exports = async function (context, req) {
-    context.log('POST /secure/upload');
+    context.log('POST /secure/addpicture');
 
     const securityResult = await security.checkToken(context, req);
     if (!securityResult.success)
@@ -26,7 +26,8 @@ module.exports = async function (context, req) {
             const fileSAS = adls.getSASForFile(directory + imageId)
             context.res = {
                 body: {
-                    filePath: fileSAS
+                    filePath: directory + imageId,
+                    fileSAS: fileSAS
                 }
             }
         } catch (err) {
