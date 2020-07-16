@@ -1,4 +1,4 @@
-var { DataLakeServiceClient, DataLakeSASPermissions, SASProtocol, generateDataLakeSASQueryParameters } = require("@azure/storage-file-datalake");
+var { DataLakeServiceClient, DataLakeSASPermissions, StorageSharedKeyCredential, SASProtocol, generateDataLakeSASQueryParameters } = require("@azure/storage-file-datalake");
 var { DefaultAzureCredential } = require("@azure/identity");
 
 Date.prototype.addHours = function(h) {

@@ -8,7 +8,9 @@ const uut = rewire('../../util/adls');
 uut.__set__({
     process: {
         env: {
-            "ADLS_USERFSNAME": process.env.ADLS_USERFSNAME
+            "ADLS_USERFSNAME": process.env.ADLS_USERFSNAME,
+            "ADLS_ACCOUNTNAME": process.env.ADLS_ACCOUNTNAME,
+            "ADLS_PRIMARYKEY": process.env.ADLS_PRIMARYKEY
         }
     }
 });
