@@ -39,7 +39,7 @@ async function uploadFile(fileSource, fileName) {
 
 function getSASForFile(fileName) {
   const tomorrow = Date.now()
-  tomorrow.setDate(tomorrow.getDate() + 1)
+  tomorrow.setTime(tomorrow.getTime() + (24 * 60* 60 * 1000))
   const sasValues = {
     expiresOn: tomorrow,
     permissions: {
