@@ -1,5 +1,5 @@
-const { DataLakeServiceClient, generateAccountSASQueryParameters } = require("@azure/storage-file-datalake");
-const { DefaultAzureCredential } = require("@azure/identity");
+var { DataLakeServiceClient, DataLakeSASPermissions, SASProtocol, generateDataLakeSASQueryParameters } = require("@azure/storage-file-datalake");
+var { DefaultAzureCredential } = require("@azure/identity");
 
 Date.prototype.addHours = function(h) {
   this.setTime(this.getTime() + (h*60*60*1000));
@@ -43,22 +43,18 @@ async function uploadFile(fileSource, fileName) {
 }
 
 function getSASForFile(fileName) {
-  const tomorrow = Date.now().addHours(24)
-  const sasValues = {
-    expiresOn: tomorrow,
-    permissions: {
-      list: true,
-      read: true
+  const tomorrow = new Date().addHours(24)
+  const fileSystemName = process.env.ADLS_USERFSNAME
+  return generateDataLakeSASQueryParameters({
+      fileSystemName, // Required
+      fileName, // Required
+      permissions: DataLakeSASPermissions.parse("r"), // Required
+      startsOn: new Date(), // Required
+      expiresOn: tomorrow, // Optional. Date type
+      protocol: SASProtocol.HttpsAndHttp, // Optional
     },
-    resourceTypes: {
-      object: true
-    },
-    services: {
-      file: true,
-      blob: true
-    }
-  }
-  generateAccountSASQueryParameters(sasValues, new DefaultAzureCredential())
+    new DefaultAzureCredential() // StorageSharedKeyCredential - `new StorageSharedKeyCredential(account, accountKey)`
+  ).toString();
 }
 
 exports.createDirectoryIfNotExists = createDirectoryIfNotExists;

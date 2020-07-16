@@ -1,7 +1,17 @@
+var { DataLakeSASPermissions, SASProtocol } = require("@azure/storage-file-datalake");
+
 const rewire = require('rewire');
 const sinon = require('sinon');
 
 const uut = rewire('../../util/adls');
+
+uut.__set__({
+    process: {
+        env: {
+            "ADLS_USERFSNAME": process.env.ADLS_USERFSNAME
+        }
+    }
+});
 
 function setupMockADLSClient(directoryExists) {
     const createSpy = sinon.spy();
@@ -52,8 +62,6 @@ function setupMockADLSClient(directoryExists) {
     }
 }
 
-process.env.ADLS_USERFSNAME = "Some FileSystem Name"
-
 describe('ADLSv2 Interface Tests', function () {
     test('should properly upload a single file.', async function () {
         const spies = setupMockADLSClient(true);
@@ -84,7 +92,7 @@ describe('ADLSv2 Interface Tests', function () {
 
         expect(spies.getFileSystemClient.called).toBeTruthy()
         expect(spies.getFileSystemClient.callCount).toBe(1)
-        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_CONFIGFSNAM])
+        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_USERFSNAME])
     })
     
     test('should properly create a directory if it doesnt exist.', async function () {
@@ -112,7 +120,7 @@ describe('ADLSv2 Interface Tests', function () {
 
         expect(spies.getFileSystemClient.called).toBeTruthy()
         expect(spies.getFileSystemClient.callCount).toBe(1)
-        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_CONFIGFSNAM])
+        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_USERFSNAME])
     })
     
     test('should not create a directory if it already exists.', async function () {
@@ -137,6 +145,20 @@ describe('ADLSv2 Interface Tests', function () {
 
         expect(spies.getFileSystemClient.called).toBeTruthy()
         expect(spies.getFileSystemClient.callCount).toBe(1)
-        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_CONFIGFSNAM])
+        expect(spies.getFileSystemClient.args[0]).toEqual([process.env.ADLS_USERFSNAME])
+    })
+    
+    test('should give a SAS path to a file that will last for 24 hours.', async function () {
+        const fakeSAS = "Some SAS"
+
+        const generateSASMock = sinon.mock();
+        generateSASMock.returns(fakeSAS)
+        uut.__set__("generateDataLakeSASQueryParameters", generateSASMock);
+        
+        const filePath = "foo.png"
+        expect(await uut.getSASForFile(filePath)).toEqual(fakeSAS)
+        
+        expect(generateSASMock.called).toBeTruthy()
+        expect(generateSASMock.callCount).toBe(1)
     })
 })
