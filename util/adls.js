@@ -45,16 +45,18 @@ async function uploadFile(fileSource, fileName) {
 function getSASForFile(fileName) {
   const tomorrow = new Date().addHours(24)
   const fileSystemName = process.env.ADLS_USERFSNAME
-  return generateDataLakeSASQueryParameters({
+  const sasKey = generateDataLakeSASQueryParameters({
       fileSystemName, // Required
       fileName, // Required
-      permissions: DataLakeSASPermissions.parse("r"), // Required
+      permissions: DataLakeSASPermissions.parse("rwdlacupx"), // Required
       startsOn: new Date(), // Required
       expiresOn: tomorrow, // Optional. Date type
       protocol: SASProtocol.HttpsAndHttp, // Optional
     },
     new StorageSharedKeyCredential(process.env.ADLS_ACCOUNTNAME, process.env.ADLS_PRIMARYKEY) // StorageSharedKeyCredential - `new StorageSharedKeyCredential(account, accountKey)`
   ).toString();
+  return "https://" + process.env.ADLS_ACCOUNTNAME + ".dfs.core.windows.net/" + 
+    fileSystemName + "/" + fileName + "?" + sasKey
 }
 
 exports.createDirectoryIfNotExists = createDirectoryIfNotExists;
