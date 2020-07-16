@@ -48,7 +48,7 @@ function getSASForFile(fileName) {
   const sasKey = generateDataLakeSASQueryParameters({
       fileSystemName, // Required
       fileName, // Required
-      permissions: DataLakeSASPermissions.parse("rwdlacupx"), // Required
+      permissions: DataLakeSASPermissions.parse("r"), // Required
       startsOn: new Date(), // Required
       expiresOn: tomorrow, // Optional. Date type
       protocol: SASProtocol.HttpsAndHttp, // Optional

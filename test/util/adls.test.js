@@ -152,13 +152,14 @@ describe('ADLSv2 Interface Tests', function () {
     
     test('should give a SAS path to a file that will last for 24 hours.', async function () {
         const fakeSAS = "Some SAS"
+        const fullSASLink = "https://Some Account.dfs.core.windows.net/Some FileSystem Name/foo.png?" + fakeSAS
 
         const generateSASMock = sinon.mock();
         generateSASMock.returns(fakeSAS)
         uut.__set__("generateDataLakeSASQueryParameters", generateSASMock);
         
         const filePath = "foo.png"
-        expect(await uut.getSASForFile(filePath)).toEqual(fakeSAS)
+        expect(await uut.getSASForFile(filePath)).toEqual(fullSASLink)
         
         expect(generateSASMock.called).toBeTruthy()
         expect(generateSASMock.callCount).toBe(1)
