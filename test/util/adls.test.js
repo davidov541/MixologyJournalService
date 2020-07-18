@@ -1,6 +1,8 @@
 const rewire = require('rewire');
 const sinon = require('sinon');
 
+const { Readable } = require("stream")
+
 const uut = rewire('../../util/adls');
 
 uut.__set__({
@@ -18,10 +20,15 @@ function setupMockADLSClient(directoryExists) {
     const appendSpy = sinon.spy();
     const flushSpy = sinon.spy();
 
+    const readData = Readable.from(["SomeData"])
+    const readStub = sinon.stub();
+    readStub.returns({readableStreamBody: readData});
+
     const fileMock = {
         create: createSpy,
         append: appendSpy,
-        flush: flushSpy
+        flush: flushSpy,
+        read: readStub
     }
 
     const existsStub = sinon.stub()
@@ -63,6 +70,32 @@ function setupMockADLSClient(directoryExists) {
 }
 
 describe('ADLSv2 Interface Tests', function () {
+    test('should properly read a single file.', async function () {
+        const spies = setupMockADLSClient(true);
+        
+        const fileSystemName = "SomeFS"
+        const filePath = "foo.txt"
+        expect(await uut.readFile(fileSystemName, filePath)).toEqual("SomeData")
+        
+        expect(spies.getDirectoryClient.called).toBeFalsy()
+        expect(spies.directory.create.called).toBeFalsy()
+        expect(spies.directory.exists.called).toBeFalsy()        
+        expect(spies.file.create.called).toBeFalsy()
+        expect(spies.file.append.called).toBeFalsy()
+        expect(spies.file.flush.called).toBeFalsy()
+
+        expect(spies.file.read.called).toBeTruthy()
+        expect(spies.file.read.callCount).toBe(1)
+
+        expect(spies.getFileClient.called).toBeTruthy()
+        expect(spies.getFileClient.callCount).toBe(1)
+        expect(spies.getFileClient.args[0]).toEqual([filePath])
+
+        expect(spies.getFileSystemClient.called).toBeTruthy()
+        expect(spies.getFileSystemClient.callCount).toBe(1)
+        expect(spies.getFileSystemClient.args[0]).toEqual([fileSystemName])
+    })
+
     test('should properly upload a single file.', async function () {
         const spies = setupMockADLSClient(true);
         

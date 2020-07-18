@@ -55,10 +55,16 @@ module.exports = async function (context, req) {
                     properties: {}
                 };
             })
-    
+
+            var picPath = "creation-pics/default.png"
+            if ('picture' in req.body)
+            {
+                picPath = req.body.picture
+            }
             const info = {
                 name: req.body.name,
-                steps: JSON.stringify(req.body.steps)
+                steps: JSON.stringify(req.body.steps),
+                picPath: picPath
             }
             const recipeID = uuid()
             mutations.push(cosmos.queueCreateEntry('recipe', recipeID, info, ingredientIDs))

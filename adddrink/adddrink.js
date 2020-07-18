@@ -58,10 +58,16 @@ module.exports = async function (context, req) {
                 };
             })
         
+            var picPath = "creation-pics/default.png"
+            if ('picture' in body)
+            {
+                picPath = body.picture
+            }
             const info = {
                 name: body.name,
                 // Need steps to be a string for the create entry call.
-                steps: encodeURIComponent(JSON.stringify(body.steps))
+                steps: encodeURIComponent(JSON.stringify(body.steps)),
+                picPath: picPath
             }
             const drinkID = uuid()
             mutations.push(cosmos.queueCreateEntry('drink', drinkID, info, ingredientIDs));
