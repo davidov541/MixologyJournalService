@@ -17,7 +17,7 @@ module.exports = async function (context, req) {
         try {
             const bodyBuffer = req.body;
             context.log("***Request Headers***: " + JSON.stringify(req.headers))
-            const parsedType = req.headers['content-type'].replace("[\\]?\"", "");
+            const parsedType = req.headers['content-type'].replace("\\\"", "").replace("\"", "");
             context.log("***Parsed Type***:" + parsedType);
             const boundary = multipart.getBoundary(parsedType);
             const parts = multipart.Parse(bodyBuffer, boundary);
