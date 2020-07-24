@@ -16,8 +16,10 @@ module.exports = async function (context, req) {
     } else {
         try {
             const bodyBuffer = req.body;
-            context.log("***Request***: " + JSON.stringify(req))
-            const boundary = multipart.getBoundary(req.headers['content-type']);
+            context.log("***Request Headers***: " + JSON.stringify(req.headers))
+            const parsedType = req.headers['content-type'].replace("[\\]?\"", "");
+            context.log("***Parsed Type***:" + parsedType);
+            const boundary = multipart.getBoundary(parsedType);
             const parts = multipart.Parse(bodyBuffer, boundary);
 
             const directory = 'creation-pics/' + securityResult.user.payload.sub
