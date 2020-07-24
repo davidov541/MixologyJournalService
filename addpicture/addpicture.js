@@ -20,7 +20,9 @@ module.exports = async function (context, req) {
             const parsedType = req.headers['content-type'].replace("\\\"", "").replace("\"", "");
             context.log("***Parsed Type***:" + parsedType);
             const boundary = multipart.getBoundary(parsedType);
+            context.log("***Boundary***: " + boundary);
             const parts = multipart.Parse(bodyBuffer, boundary);
+            context.log("***Parts***: " + JSON.stringify(parts));
 
             const directory = 'creation-pics/' + securityResult.user.payload.sub
             const imageId = "/" + uuid() + ".png"
