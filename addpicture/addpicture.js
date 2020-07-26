@@ -1,5 +1,5 @@
 const security = require('../util/security')
-const multipart = require('parse-multipart')
+const multipart = require('@davidov541/multipart-form-parser')
 const adls = require('../util/adls')
 const { uuid } = require('uuidv4');
 
@@ -16,13 +16,8 @@ module.exports = async function (context, req) {
     } else {
         try {
             const bodyBuffer = req.body;
-            context.log("***Request***: " + JSON.stringify(req))
-            const parsedType = req.headers['content-type'].replace("\\\"", "").replace("\"", "");
-            context.log("***Parsed Type***:" + parsedType);
-            const boundary = multipart.getBoundary(parsedType);
-            context.log("***Boundary***: " + boundary);
+            const boundary = multipart.getBoundary(req.headers['content-type']);
             const parts = multipart.Parse(bodyBuffer, boundary);
-            context.log("***Parts***: " + JSON.stringify(parts));
 
             const directory = 'creation-pics/' + securityResult.user.payload.sub
             const imageId = "/" + uuid() + ".png"

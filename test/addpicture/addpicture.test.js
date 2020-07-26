@@ -69,8 +69,8 @@ describe('Add Pictures Function Tests', function () {
 
         const fileContent = new Buffer("Hello World", 'utf-8')
         const fullBody = "----------------------------497983131095136311264163\r\n" +
-        'Content-Disposition: form-data; name="file"; filename="uploadtest.txt"' + "\r\n" +
         "Content-Type: text/plain\r\n" +
+        'Content-Disposition: form-data; name="file"; filename="uploadtest.txt"' + "\r\n" +
         "\r\n" +
         "Hello World\r\n" +
         "----------------------------497983131095136311264163--"
