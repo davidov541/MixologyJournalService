@@ -459,7 +459,10 @@ describe('Add Drink Function Tests', function () {
 
         const request = testUtil.getBaseRequest({
             "name": "Test Recipe",
-            "picture": "creation-pics/somesomePic.png",
+            "picture": {
+                "path": "creation-pics/somesomePic.png",
+                "url": "www.google.com"
+            },
             "ingredients": [
                 {
                     "ingredient": {

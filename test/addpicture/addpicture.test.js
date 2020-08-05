@@ -86,12 +86,15 @@ describe('Add Pictures Function Tests', function () {
                 .once()
                 .withArgs(context, request)
                 .returns(mockSecurityResult),
-                mockADLS.expects("createDirectoryIfNotExists")
+            mockADLS.expects("createDirectoryIfNotExists")
                 .once()
                 .withExactArgs('creation-pics/User'),
-                mockADLS.expects("uploadFile")
+            mockADLS.expects("uploadFile")
                 .once()
                 .withExactArgs(fileContent, sinon.match.any),
+            mockADLS.expects("getSASForFile")
+                .once()
+                .returns("")
         ]
            
         await uut(context, request);
