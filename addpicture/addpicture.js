@@ -1,5 +1,5 @@
 const security = require('../util/security')
-const multipart = require('parse-multipart')
+const multipart = require('@davidov541/multipart-form-parser')
 const adls = require('../util/adls')
 const { uuid } = require('uuidv4');
 

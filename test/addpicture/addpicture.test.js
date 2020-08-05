@@ -69,8 +69,8 @@ describe('Add Pictures Function Tests', function () {
 
         const fileContent = new Buffer("Hello World", 'utf-8')
         const fullBody = "----------------------------497983131095136311264163\r\n" +
-        'Content-Disposition: form-data; name="file"; filename="uploadtest.txt"' + "\r\n" +
         "Content-Type: text/plain\r\n" +
+        'Content-Disposition: form-data; name="file"; filename="uploadtest.txt"' + "\r\n" +
         "\r\n" +
         "Hello World\r\n" +
         "----------------------------497983131095136311264163--"
@@ -86,12 +86,15 @@ describe('Add Pictures Function Tests', function () {
                 .once()
                 .withArgs(context, request)
                 .returns(mockSecurityResult),
-                mockADLS.expects("createDirectoryIfNotExists")
+            mockADLS.expects("createDirectoryIfNotExists")
                 .once()
                 .withExactArgs('creation-pics/User'),
-                mockADLS.expects("uploadFile")
+            mockADLS.expects("uploadFile")
                 .once()
                 .withExactArgs(fileContent, sinon.match.any),
+            mockADLS.expects("getSASForFile")
+                .once()
+                .returns("")
         ]
            
         await uut(context, request);

@@ -444,7 +444,10 @@ describe('Add Recipe Function Tests', function () {
         const request = {
             "body": {
                 "name": "Test Recipe",
-                "picture": "creation-pics/someUser/somePic.jpg",
+                "picture": {
+                    "path": "creation-pics/someUser/somePic.jpg",
+                    "url": "www.google.com"
+                },
                 "ingredients": [
                     {
                         "ingredient": {

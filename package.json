@@ -21,10 +21,9 @@
     "@azure/identity": "^1.0.3",
     "@azure/service-bus": "^1.1.6",
     "@azure/storage-file-datalake": "^12.0.0",
-    "chardet": "^1.1.0",
+    "@davidov541/multipart-form-parser": "^1.1.1",
     "gremlin": "^3.4.6",
     "jsonwebtoken": "^8.5.1",
-    "parse-multipart": "^1.0.4",
     "uuidv4": "^6.0.7"
   },
   "devDependencies": {

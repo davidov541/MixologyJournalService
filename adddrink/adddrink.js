@@ -61,7 +61,7 @@ module.exports = async function (context, req) {
             var picPath = "creation-pics/default.png"
             if ('picture' in body)
             {
-                picPath = body.picture
+                picPath = body.picture.path
             }
             const info = {
                 name: body.name,
