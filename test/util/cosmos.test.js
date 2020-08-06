@@ -247,7 +247,7 @@ describe('Cosmos Interface Tests', function () {
         expect(gremlinSubmitFake.callCount).toBe(1);
 
         const args = gremlinSubmitFake.args[0]
-        expect(args[0]).toEqual("g.V().hasLabel(label)")
+        expect(args[0]).toEqual("g.V().hasLabel(label).project(\"requestedProp\")")
         expect(args[1]).toEqual({label: testKind})
     })
 
