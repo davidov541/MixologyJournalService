@@ -66,7 +66,7 @@ async function getPropertiesOfEntity(id, properties) {
 
 async function getEntriesOfKind(kind, properties) {
     const propertyList = properties.map(p => "\"" + p + "\"").join(',')
-    const command = "g.V().hasLabel(label).project(" + propertyList + ")"
+    const command = "g.V().hasLabel(label).valuemap(true, " + propertyList + ")"
     const client = createClient()
     await client.open();
     const result = await client.submit(command, {
@@ -78,7 +78,7 @@ async function getEntriesOfKind(kind, properties) {
         var result = {
             id: i.id
         }
-        properties.forEach(p => result[p] = i.properties[p][0].value)
+        properties.forEach(p => result[p] = i[p][0])
         return result;
     })
 }
