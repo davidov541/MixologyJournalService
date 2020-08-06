@@ -43,6 +43,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -54,6 +55,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -65,6 +67,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
             ],
@@ -119,6 +122,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -130,6 +134,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -141,6 +146,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
             ],
@@ -196,6 +202,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -207,6 +214,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -218,6 +226,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
             ],
@@ -272,6 +281,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -283,6 +293,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
             ],
@@ -332,6 +343,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
                 {
@@ -343,6 +355,7 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
+                        plural: "Ounces"
                     },
                 },
             ],

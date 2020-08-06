@@ -91,6 +91,12 @@
                                 "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
                                 "value": "Ounce"
                               }
+                            ],
+                            "plural": [
+                              {
+                                "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
+                                "value": "Ounces"
+                              }
                             ]
                           }
                         },
@@ -199,6 +205,12 @@
                               {
                                 "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
                                 "value": "Ounce"
+                              }
+                            ],
+                            "plural": [
+                              {
+                                "id": "ab9e7642-915a-4ffd-b284-71e46824a42f",
+                                "value": "Ounces"
                               }
                             ]
                           }

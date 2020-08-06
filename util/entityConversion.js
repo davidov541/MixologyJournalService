@@ -118,6 +118,7 @@ function processIngredientUsages(usage) {
 
     ingred.unit = {};
     ingred.unit.name = unit.key.properties.name[0].value;
+    ingred.unit.plural = unit.key.properties.plural[0].value;
     ingred.unit.id = unit.key.id;
     ingred.amount = unitAmount;
     
