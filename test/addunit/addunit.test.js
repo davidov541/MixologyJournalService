@@ -118,7 +118,8 @@ describe('Add Unit Function Tests', function () {
 
         const request = {
             "body": {
-                "name": "Test Unit"
+                "name": "Test Unit",
+                "plural": "Test Units"
             }
         }
 
@@ -136,7 +137,8 @@ describe('Add Unit Function Tests', function () {
             mockPersistence.expects("createEntryOfKind")
                 .once()
                 .withExactArgs('unit', sinon.match.any, {
-                    "name": request.body.name
+                    "name": request.body.name,
+                    "plural": request.body.plural
                 }, []),
         ]
             

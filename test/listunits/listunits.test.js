@@ -32,10 +32,12 @@ async function runSuccessfulListTest(securitySuccess) {
 
     const mockList = [
         {
-            "name": "Unit 1"
+            "name": "Unit 1",
+            "plural": "Units 1"
         },
         {
-            "name": "Unit 2"
+            "name": "Unit 2",
+            "plural": "Units 2"
         }
     ]
 
@@ -47,7 +49,7 @@ async function runSuccessfulListTest(securitySuccess) {
             .returns(mockSecurityResult),
         mockPersistence.expects("getEntriesOfKind")
             .once()
-            .withExactArgs('unit', ['name'])
+            .withExactArgs('unit', ['name', 'plural'])
             .returns(mockList),
     ]
         

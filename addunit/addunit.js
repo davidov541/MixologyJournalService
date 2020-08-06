@@ -21,7 +21,8 @@ module.exports = async function (context, req) {
         }
     } else {
         const info = {
-            name: req.body.name
+            name: req.body.name,
+            plural: req.body.plural
         }
         const id = uuid()
         
