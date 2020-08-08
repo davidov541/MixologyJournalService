@@ -116,11 +116,7 @@ function processIngredientUsages(usage) {
 
     const ingred = {};
 
-    ingred.unit = {};
-    ingred.unit.name = unit.key.properties.name[0].value;
-    ingred.unit.plural = unit.key.properties.plural[0].value;
-    ingred.unit.id = unit.key.id;
-    ingred.unit.format = unit.key.properties.format[0].value;
+    ingred.unit = processUnit(unit.key);
     ingred.amount = unitAmount;
     
     ingred.ingredient = {}
@@ -128,6 +124,15 @@ function processIngredientUsages(usage) {
     ingred.ingredient.id = ingredient.key.id;
 
     return ingred;
+}
+
+function processUnit(unit) {
+    const parsed = {}
+    parsed.id = unit.id;
+    parsed.name = unit.properties.name[0].value;
+    parsed.plural = unit.properties.plural[0].value;
+    parsed.format = unit.properties.format[0].value;
+    return parsed;
 }
 
 exports.processRecipe = processRecipe;
