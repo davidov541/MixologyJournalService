@@ -122,6 +122,14 @@ function processIngredientUsages(usage) {
     ingred.ingredient = {}
     ingred.ingredient.name = ingredient.key.properties.name[0].value;
     ingred.ingredient.id = ingredient.key.id;
+    if ('plural' in ingredient.key.properties)
+    {
+        ingred.ingredient.plural = ingredient.key.properties.plural[0].value;
+    }
+    else
+    {
+        ingred.ingredient.plural = ingred.ingredient.name;
+    }
 
     return ingred;
 }

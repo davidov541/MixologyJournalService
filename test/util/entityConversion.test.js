@@ -38,6 +38,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f",
                         name: "Lime Juice",
+                        plural: "Lime Juice"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -51,6 +52,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "ea5e55dc-c6c7-4671-aed7-8f697179abc0",
                         name: "Rum",
+                        plural: "Rum"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -64,6 +66,92 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "00d79a27-d012-4169-8d12-9b1db3e53546",
                         name: "Simple Syrup",
+                        plural: "Simple Syrup"
+                    },
+                    unit: {
+                        id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                        name: "Ounce",
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
+                    },
+                },
+            ],
+            isFavorite: false,
+            name: "Daiquiri",
+            rating: "4",
+            review: "",
+            steps: [
+                "Combine gin and vermouth in mixing glass",
+                "Stir",
+                "Strain into a martini glass",
+                "Garnish with three olives",
+            ],
+            user: "ef5375ad-6d92-4571-a999-999aa494ff13",
+        };
+        expect(actual).toEqual(expected);
+
+        expectations.map((e) => e.verify());
+        mockADLS.restore()
+    });
+
+    test("should parse a drink JSON that has a plural indicated.", async function () {
+        const mockADLS = setupMockADLS();
+        const expectations = [
+            mockADLS
+                .expects("getSASForFile")
+                .once()
+                .withExactArgs("creation-pics/default.png")
+                .returns("someSASToken"),
+        ];
+
+        const drinkJSON = JSON.parse(
+            fs.readFileSync("test/resources/pluralIngredient.json")
+        )._items[0]["8c956448-13e9-4191-a3d8-c4e68036e8bb"];
+
+        const actual = uut.processDrink(drinkJSON);
+
+        const expected = {
+            basisRecipe: "baaa07f5-4564-46ec-9733-1d89c0f85ebe",
+            id: "8c956448-13e9-4191-a3d8-c4e68036e8bb",
+            picture: {
+                path: "creation-pics/default.png",
+                url: "someSASToken",
+            },
+            ingredients: [
+                {
+                    amount: "0.75",
+                    ingredient: {
+                        id: "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f",
+                        name: "Lime Juice",
+                        plural: "Lime Juices"
+                    },
+                    unit: {
+                        id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                        name: "Ounce",
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
+                    },
+                },
+                {
+                    amount: "2",
+                    ingredient: {
+                        id: "ea5e55dc-c6c7-4671-aed7-8f697179abc0",
+                        name: "Rum",
+                        plural: "Rum"
+                    },
+                    unit: {
+                        id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                        name: "Ounce",
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
+                    },
+                },
+                {
+                    amount: "1",
+                    ingredient: {
+                        id: "00d79a27-d012-4169-8d12-9b1db3e53546",
+                        name: "Simple Syrup",
+                        plural: "Simple Syrup"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -120,6 +208,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f",
                         name: "Lime Juice",
+                        plural: "Lime Juice"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -133,6 +222,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "ea5e55dc-c6c7-4671-aed7-8f697179abc0",
                         name: "Rum",
+                        plural: "Rum"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -146,6 +236,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "00d79a27-d012-4169-8d12-9b1db3e53546",
                         name: "Simple Syrup",
+                        plural: "Simple Syrup"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -203,6 +294,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "c80cbd2c-9270-4a73-8d25-8f9ef9d70d4f",
                         name: "Lime Juice",
+                        plural: "Lime Juice"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -216,6 +308,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "ea5e55dc-c6c7-4671-aed7-8f697179abc0",
                         name: "Rum",
+                        plural: "Rum"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -229,6 +322,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "00d79a27-d012-4169-8d12-9b1db3e53546",
                         name: "Simple Syrup",
+                        plural: "Simple Syrup"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -285,6 +379,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "8730cecb-0b58-4033-9aa5-b127955639c1",
                         name: "Gin",
+                        plural: "Gin"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -298,6 +393,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "732e5f28-c2df-499f-b081-51831293dbc2",
                         name: "Tonic",
+                        plural: "Tonic"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -349,6 +445,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "8730cecb-0b58-4033-9aa5-b127955639c1",
                         name: "Gin",
+                        plural: "Gin"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
@@ -362,6 +459,7 @@ describe("Entity Conversion Tests", function () {
                     ingredient: {
                         id: "732e5f28-c2df-499f-b081-51831293dbc2",
                         name: "Tonic",
+                        plural: "Tonic"
                     },
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
