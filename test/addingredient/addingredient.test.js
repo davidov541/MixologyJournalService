@@ -128,6 +128,65 @@ describe('Add Ingredient Function Tests', function () {
 
         const request = {
             "body": {
+                "name": "Test Ingredient",
+                "plural": "Test Ingredients"
+            }
+        }
+
+        const expectations = [
+            mockSecurity
+                .expects("checkToken")
+                .once()
+                .withArgs(context, request)
+                .returns(mockSecurityResult),
+            mockSecurity
+                .expects("isAdmin")
+                .once()
+                .withArgs(mockSecurityResult.user)
+                .returns(true),
+            mockPersistence.expects("createEntryOfKind")
+                .once()
+                .withExactArgs('ingredient', sinon.match.any, {
+                    "name": request.body.name,
+                    "plural": request.body.plural
+                }, []),
+        ]
+            
+        await uut(context, request);
+
+        expect(context.res.body.name).toEqual(request.body.name);
+
+        expectations.map(e => e.verify())
+
+        mockPersistence.restore()
+        mockSecurity.restore()
+    });
+
+    
+    test('should correctly add the ingredient if no plural indicated.', async function () {
+        const mockSecurity = setupMockSecurity()
+        const mockPersistence = setupMockPersistence()
+
+        const mockSecurityResult = {
+            "success": true,
+            "error": {
+                "code": "Test Code",
+                "message": "Test Message"
+            },
+            "user": {
+                "payload": {
+                    "sub": "User"
+                }
+            }
+        }
+
+        var context = {   
+            res: {},
+            log: function (msg) {}        
+        }
+
+        const request = {
+            "body": {
                 "name": "Test Ingredient"
             }
         }
@@ -146,7 +205,8 @@ describe('Add Ingredient Function Tests', function () {
             mockPersistence.expects("createEntryOfKind")
                 .once()
                 .withExactArgs('ingredient', sinon.match.any, {
-                    "name": request.body.name
+                    "name": request.body.name,
+                    "plural": request.body.name
                 }, []),
         ]
             

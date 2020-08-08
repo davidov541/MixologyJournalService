@@ -23,6 +23,14 @@ module.exports = async function (context, req) {
         const info = {
             name: req.body.name
         }
+        if ('plural' in req.body)
+        {
+            info.plural = req.body.plural;
+        }
+        else
+        {
+            info.plural = info.name;
+        }
         const id = uuid()
         
         try {
