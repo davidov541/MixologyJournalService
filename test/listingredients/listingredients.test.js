@@ -70,7 +70,7 @@ async function runSuccessfulListTest(securitySuccess) {
 
     await uut(context, request);
 
-    expect(context.res.body).toEqual(mockList);
+    expect(context.res.body).toEqual(expected);
 
     expectations.map(e => e.verify())
 
