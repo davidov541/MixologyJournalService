@@ -2,7 +2,6 @@ const fs = require("fs");
 
 const rewire = require("rewire");
 const sinon = require("sinon");
-const { addListener } = require("process");
 const uut = rewire("../../util/entityConversion");
 
 function setupMockADLS() {
@@ -43,7 +42,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -55,7 +55,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -67,7 +68,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
             ],
@@ -122,7 +124,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -134,7 +137,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -146,7 +150,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
             ],
@@ -202,7 +207,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -214,7 +220,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -226,7 +233,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
             ],
@@ -281,7 +289,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -293,7 +302,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
             ],
@@ -343,7 +353,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
                 {
@@ -355,7 +366,8 @@ describe("Entity Conversion Tests", function () {
                     unit: {
                         id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
                         name: "Ounce",
-                        plural: "Ounces"
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
                     },
                 },
             ],

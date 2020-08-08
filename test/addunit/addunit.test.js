@@ -119,7 +119,8 @@ describe('Add Unit Function Tests', function () {
         const request = {
             "body": {
                 "name": "Test Unit",
-                "plural": "Test Units"
+                "plural": "Test Units",
+                "format": "Test Format"
             }
         }
 
@@ -138,7 +139,8 @@ describe('Add Unit Function Tests', function () {
                 .once()
                 .withExactArgs('unit', sinon.match.any, {
                     "name": request.body.name,
-                    "plural": request.body.plural
+                    "plural": request.body.plural,
+                    "format": request.body.format
                 }, []),
         ]
             
