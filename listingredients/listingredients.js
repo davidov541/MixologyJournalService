@@ -7,7 +7,15 @@ module.exports = async function (context, req) {
     const securityResult = await security.checkToken(context, req);
 
     try {
-        const info = await cosmos.getEntriesOfKind('ingredient', ['name'])
+        const info = await cosmos.getEntriesOfKind('ingredient', ['name', 'plural'])
+        
+        for (i in info) {
+            const ingred = info[i]
+            if (!('pural' in ingred))
+            {
+                info[i].plural = ingred.name;
+            }
+        }
         context.res = {
             status: 200,
             body: info

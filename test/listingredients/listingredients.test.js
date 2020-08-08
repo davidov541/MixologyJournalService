@@ -37,10 +37,22 @@ async function runSuccessfulListTest(securitySuccess) {
 
     const mockList = [
         {
-            "name": "Ingredient 1"
+            "name": "Ingredient 1",
+            "plural": "Plural Ingredient 1"
         },
         {
             "name": "Ingredient 2"
+        }
+    ]
+
+    const expected = [
+        {
+            "name": "Ingredient 1",
+            "plural": "Plural Ingredient 1"
+        },
+        {
+            "name": "Ingredient 2",
+            "plural": "Ingredient 2"
         }
     ]
 
@@ -52,10 +64,10 @@ async function runSuccessfulListTest(securitySuccess) {
             .returns(mockSecurityResult),
         mockPersistence.expects("getEntriesOfKind")
             .once()
-            .withExactArgs('ingredient', ['name'])
+            .withExactArgs('ingredient', ['name', 'plural'])
             .returns(mockList),
     ]
-        
+
     await uut(context, request);
 
     expect(context.res.body).toEqual(mockList);
