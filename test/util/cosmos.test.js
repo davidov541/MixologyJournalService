@@ -199,7 +199,8 @@ describe('Cosmos Interface Tests', function () {
                 },
                 {
                     "id": "Result2",
-                    "requestedProp": ["requestedPropValue2"]
+                    "requestedProp": ["requestedPropValue2"],
+                    "spottyProp": ["spottyPropValue2"]
                 }
             ],
             attributes: {
@@ -211,7 +212,7 @@ describe('Cosmos Interface Tests', function () {
 
         const testKind = "testKind";
 
-        const actual = await uut.getEntriesOfKind(testKind, ["requestedProp"])
+        const actual = await uut.getEntriesOfKind(testKind, ["requestedProp", "spottyProp"])
         const expected = [
             {
                 "id": "Result1",
@@ -219,7 +220,8 @@ describe('Cosmos Interface Tests', function () {
             },
             {
                 "id": "Result2",
-                "requestedProp": "requestedPropValue2"
+                "requestedProp": "requestedPropValue2",
+                "spottyProp": "spottyPropValue2"
             }
         ]
 
@@ -231,7 +233,7 @@ describe('Cosmos Interface Tests', function () {
         expect(gremlinSubmitFake.callCount).toBe(1);
 
         const args = gremlinSubmitFake.args[0]
-        expect(args[0]).toEqual("g.V().hasLabel(label).valuemap(true, \"requestedProp\")")
+        expect(args[0]).toEqual("g.V().hasLabel(label).valuemap(true, \"requestedProp\",\"spottyProp\")")
         expect(args[1]).toEqual({label: testKind})
     })
 
