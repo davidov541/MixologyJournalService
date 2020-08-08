@@ -117,20 +117,25 @@ function processIngredientUsages(usage) {
     const ingred = {};
 
     ingred.unit = processUnit(unit.key);
+    ingred.ingredient = processIngredient(ingredient.key);
     ingred.amount = unitAmount;
-    
-    ingred.ingredient = {}
-    ingred.ingredient.name = ingredient.key.properties.name[0].value;
-    ingred.ingredient.id = ingredient.key.id;
-    if ('plural' in ingredient.key.properties)
+
+    return ingred;
+}
+
+function processIngredient(ingredient)
+{
+    const ingred = {}
+    ingred.name = ingredient.properties.name[0].value;
+    ingred.id = ingredient.id;
+    if ('plural' in ingredient.properties)
     {
-        ingred.ingredient.plural = ingredient.key.properties.plural[0].value;
+        ingred.plural = ingredient.properties.plural[0].value;
     }
     else
     {
-        ingred.ingredient.plural = ingred.ingredient.name;
+        ingred.plural = ingred.name;
     }
-
     return ingred;
 }
 
