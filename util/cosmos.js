@@ -78,7 +78,12 @@ async function getEntriesOfKind(kind, properties) {
         var result = {
             id: i.id
         }
-        properties.forEach(p => result[p] = i[p][0])
+        properties.forEach(p => {
+            if (p in i)
+            {
+                result[p] = i[p][0];
+            }
+        })
         return result;
     })
 }
