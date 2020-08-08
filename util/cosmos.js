@@ -74,13 +74,16 @@ async function getEntriesOfKind(kind, properties) {
     })
     console.log("GetEntriesOfKind; kind = " + kind + ";properties = " + JSON.stringify(properties) + ";RUs used: " + result.attributes["x-ms-request-charge"])
     await client.close();
+    console.log("Raw data from Cosmos: " + JSON.stringify(result._items));
     return result._items.map(i => {
         var result = {
             id: i.id
         }
         properties.forEach(p => {
+            console.log("Property being parsed: " + JSON.stringify(p))
             if (p in i)
             {
+                console.log("Found property " + p + " in " + JSON.stringify(i))
                 result[p] = i[p][0];
             }
         })
