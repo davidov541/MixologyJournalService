@@ -1,5 +1,6 @@
 const { uuid } = require('uuidv4');
 
+const versioning = require('./versioning');
 const cosmos = require('../util/persistence')
 const security = require('../util/security')
 
@@ -20,10 +21,11 @@ module.exports = async function (context, req) {
             body: "User cannot add units."
         }
     } else {
+        const body = versioning.migrateRequestToLatestVersion(req.body, req.headers["apiversion"]);
         const info = {
-            name: req.body.name,
-            plural: req.body.plural,
-            format: req.body.format
+            name: body.name,
+            plural: body.plural,
+            format: body.format
         }
         const id = uuid()
         

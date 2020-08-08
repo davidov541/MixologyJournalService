@@ -121,6 +121,9 @@ describe('Add Unit Function Tests', function () {
                 "name": "Test Unit",
                 "plural": "Test Units",
                 "format": "Test Format"
+            },
+            "headers": {
+                "apiversion": 2
             }
         }
 
@@ -141,6 +144,67 @@ describe('Add Unit Function Tests', function () {
                     "name": request.body.name,
                     "plural": request.body.plural,
                     "format": request.body.format
+                }, []),
+        ]
+            
+        await uut(context, request);
+
+        expect(context.res.body.name).toEqual(request.body.name);
+
+        expectations.map(e => e.verify())
+        
+        mockPersistence.restore()
+        mockSecurity.restore()
+    });
+
+    test('should correctly add the unit using an older version.', async function () {
+        const mockSecurity = setupMockSecurity()
+        const mockPersistence = setupMockPersistence()
+
+        const mockSecurityResult = {
+            "success": true,
+            "error": {
+                "code": "Test Code",
+                "message": "Test Message"
+            },
+            "user": {
+                "payload": {
+                    "sub": "User"
+                }
+            }
+        }
+
+        var context = {   
+            res: {},
+            log: function (msg) {}        
+        }
+
+        const request = {
+            "body": {
+                "name": "Test Unit"
+            },
+            "headers": {
+                "apiversion": 1
+            }
+        }
+
+        const expectations = [
+            mockSecurity
+                .expects("checkToken")
+                .once()
+                .withArgs(context, request)
+                .returns(mockSecurityResult),
+            mockSecurity
+                .expects("isAdmin")
+                .once()
+                .withArgs(mockSecurityResult.user)
+                .returns(true),
+            mockPersistence.expects("createEntryOfKind")
+                .once()
+                .withExactArgs('unit', sinon.match.any, {
+                    "name": request.body.name,
+                    "plural": request.body.name,
+                    "format": "{0} {1} of {2}"
                 }, []),
         ]
             
