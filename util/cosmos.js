@@ -93,7 +93,7 @@ async function getEntriesAndRelated(kind, edgeLabel, parentProperties, childProp
     const childPropList = childProperties.map(p => "\"" + p + "\"").join(',')
     const command = "g.V().hasLabel(kind).as('parent', 'children').select('parent', 'children')" 
         + ".by(__.valueMap(true, " + parentPropList + "))"
-        + ".by(__.outE().hasLabel('subcategory').inV().valueMap(true, " + childPropList + ").fold())"
+        + ".by(__.outE().hasLabel(edgeKind).inV().valueMap(true, " + childPropList + ").fold())"
     const client = createClient()
     await client.open();
     const result = await client.submit(command, {
@@ -162,3 +162,4 @@ exports.getPropertiesOfEntity = getPropertiesOfEntity;
 exports.getEntriesOfKind = getEntriesOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
 exports.getAllIncomingEdgesOfKind = getAllIncomingEdgesOfKind;
+exports.getEntriesAndRelated = getEntriesAndRelated;

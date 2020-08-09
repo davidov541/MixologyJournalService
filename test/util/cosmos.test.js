@@ -69,6 +69,79 @@ describe('Cosmos Interface Tests', function () {
         expect(args[1]).toEqual({label: testKind})
     })
 
+    test('should properly return all verticies with a label and children by an edge label', async function () {
+        const returnValue = {
+            "_items": [
+            {
+              "parent": {
+                "id": "1",
+                "label": "category",
+                "name": [
+                  "Category 1"
+                ]
+              },
+              "child": [
+                {
+                  "id": "1a",
+                  "label": "subcategory",
+                  "name": [
+                    "Subcategory 1"
+                  ]
+                },
+                {
+                  "id": "1b",
+                  "label": "subcategory",
+                  "name": [
+                    "Subcategory 2"
+                  ]
+                }
+              ]
+            },
+            {
+              "parent": {
+                "id": "2",
+                "label": "category",
+                "name": [
+                  "Category 2"
+                ]
+              },
+              "child": [
+                {
+                  "id": "2a",
+                  "label": "subcategory",
+                  "name": [
+                    "Subcategory 3"
+                  ]
+                }
+              ]
+            }
+          ],
+          attributes: {
+              "x-ms-request-charge": 10
+          }
+        }
+        const gremlinSubmitFake = sinon.fake.returns(returnValue)
+        const spies = setupMockGremlin(gremlinSubmitFake);
+
+        const testKind = "testKind";
+        const edgeKind = "edgeKind";
+        const parentProps = ["parentProperty"]
+        const childProps = ["childProperty1", "childProperty2"]
+
+        const actual = await uut.getEntriesAndRelated(testKind, edgeKind, parentProps, childProps)
+
+        expect(actual).toEqual(returnValue._items)
+        
+        checkOpenAndCloseOfGremlin(spies)
+
+        expect(gremlinSubmitFake.called).toBeTruthy();
+        expect(gremlinSubmitFake.callCount).toBe(1);
+
+        const args = gremlinSubmitFake.args[0]
+        expect(args[0]).toEqual("g.V().hasLabel(kind).as('parent', 'children').select('parent', 'children').by(__.valueMap(true, \"parentProperty\")).by(__.outE().hasLabel(edgeKind).inV().valueMap(true, \"childProperty1\",\"childProperty2\").fold())")
+        expect(args[1]).toEqual({label: testKind, edgeKind: edgeKind})
+    })
+
     test('should properly return requested properties for a specific vertex.', async function () {
         const requestedId = "ef5375ad-6d92-4571-a999-999aa494ff13"
         const returnValue = {

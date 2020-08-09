@@ -145,6 +145,30 @@ describe('Persistence Facade Tests', function () {
         mockCosmos.restore()
     })
 
+    test('should properly return all verticies and their children based on labels', async function () {
+        const mockCosmos = setupMockCosmos();
+
+        const testLabel = "Test Label";
+        const testEdge = "Test Edge";
+        const testVertexProperties = ["Test Vertex Properties"];
+        const testEdgeProperties = ["Test Edge Properties"];
+        const expectedReturnValue = "Test Result";
+
+        mockCosmos
+            .expects("getEntriesAndRelated")
+            .once()
+            .withArgs(testLabel, testEdge, testVertexProperties, testEdgeProperties)
+            .returns(expectedReturnValue)
+
+        const actual = await uut.getEntriesAndRelated(testLabel, testEdge, testVertexProperties, testEdgeProperties)
+
+        expect(actual).toEqual(expectedReturnValue)
+
+        mockCosmos.verify()
+
+        mockCosmos.restore()
+    })
+
     test('should properly create an entry', async function () {
         const mockCosmos = setupMockServiceBus();
 
