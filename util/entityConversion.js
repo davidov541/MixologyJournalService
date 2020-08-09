@@ -116,6 +116,11 @@ function processIngredientUsages(usage) {
 
     const ingred = {};
 
+    if ('brand' in usage.key.properties)
+    {
+        ingred.brand = usage.key.properties.brand[0].value;
+    }
+
     ingred.unit = processUnit(unit.key);
     ingred.ingredient = processIngredient(ingredient.key);
     ingred.amount = unitAmount;
