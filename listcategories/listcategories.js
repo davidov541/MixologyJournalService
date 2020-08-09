@@ -10,7 +10,7 @@ module.exports = async function (context, req) {
         const info = await cosmos.getEntriesAndRelated('category', 'subcategory', ['name'], ['name'])
         const parsedInfo = info.map(i => 
             {
-                const parsedSubcategories = i.child.map(c => {
+                const parsedSubcategories = i.children.map(c => {
                     return {
                         id: c.id,
                         name: c.name[0]

@@ -39,7 +39,7 @@ async function runSuccessfulListTest(securitySuccess) {
               "Category 1"
             ]
           },
-          "child": [
+          "children": [
             {
               "id": "1a",
               "label": "subcategory",
@@ -64,7 +64,7 @@ async function runSuccessfulListTest(securitySuccess) {
               "Category 2"
             ]
           },
-          "child": [
+          "children": [
             {
               "id": "2a",
               "label": "subcategory",
