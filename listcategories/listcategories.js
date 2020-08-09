@@ -7,10 +7,24 @@ module.exports = async function (context, req) {
     const securityResult = await security.checkToken(context, req);
 
     try {
-        const info = await cosmos.getEntriesOfKind('category', ['name'])
+        const info = await cosmos.getEntriesAndRelated('category', 'subcategory', ['name'], ['name'])
+        const parsedInfo = info.map(i => 
+            {
+                const parsedSubcategories = i.child.map(c => {
+                    return {
+                        id: c.id,
+                        name: c.name[0]
+                    }
+                })
+                return {
+                    id: i.parent.id,
+                    name: i.parent.name[0],
+                    subcategories: parsedSubcategories
+                }
+            })
         context.res = {
             status: 200,
-            body: info
+            body: parsedInfo
         };
     } catch (err) {
         console.log(err)

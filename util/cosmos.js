@@ -88,6 +88,27 @@ async function getEntriesOfKind(kind, properties) {
     })
 }
 
+async function getEntriesAndRelated(kind, edgeLabel, parentProperties, childProperties) {
+    const parentPropList = parentProperties.map(p => "\"" + p + "\"").join(',')
+    const childPropList = childProperties.map(p => "\"" + p + "\"").join(',')
+    const command = "g.V().hasLabel(kind).as('parent', 'children').select('parent', 'children')" 
+        + ".by(__.valueMap(true, " + parentPropList + "))"
+        + ".by(__.outE().hasLabel('subcategory').inV().valueMap(true, " + childPropList + ").fold())"
+    const client = createClient()
+    await client.open();
+    const result = await client.submit(command, {
+        label: kind,
+        edgeKind: edgeLabel
+    })
+    console.log("getEntriesAndRelated; kind = " + kind + 
+    ";edgeLabel = " + edgeLabel +
+    ";parentProperties = " + JSON.stringify(parentProperties) +
+    ";childProperties = " + JSON.stringify(childProperties) + 
+    ";RUs used: " + result.attributes["x-ms-request-charge"])
+    await client.close();
+    return result._items;
+}
+
 async function getConnectedEntriesOfKind(id, label, vertexProperties, edgeProperties = []) {
     const command = "g.V(id).outE().inV().hasLabel(label).path()"
     const client = createClient()
