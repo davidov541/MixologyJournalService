@@ -138,7 +138,7 @@ describe('Cosmos Interface Tests', function () {
         expect(gremlinSubmitFake.callCount).toBe(1);
 
         const args = gremlinSubmitFake.args[0]
-        expect(args[0]).toEqual("g.V().hasLabel(kind).as('parent', 'children').select('parent', 'children').by(__.valueMap(true, \"parentProperty\")).by(__.outE().hasLabel(edgeKind).inV().valueMap(true, \"childProperty1\",\"childProperty2\").fold())")
+        expect(args[0]).toEqual("g.V().hasLabel(label).as('parent', 'children').select('parent', 'children').by(__.valueMap(true, \"parentProperty\")).by(__.outE().hasLabel(edgeKind).inV().valueMap(true, \"childProperty1\",\"childProperty2\").fold())")
         expect(args[1]).toEqual({label: testKind, edgeKind: edgeKind})
     })
 

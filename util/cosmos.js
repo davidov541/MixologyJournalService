@@ -91,7 +91,7 @@ async function getEntriesOfKind(kind, properties) {
 async function getEntriesAndRelated(kind, edgeLabel, parentProperties, childProperties) {
     const parentPropList = parentProperties.map(p => "\"" + p + "\"").join(',')
     const childPropList = childProperties.map(p => "\"" + p + "\"").join(',')
-    const command = "g.V().hasLabel(kind).as('parent', 'children').select('parent', 'children')" 
+    const command = "g.V().hasLabel(label).as('parent', 'children').select('parent', 'children')" 
         + ".by(__.valueMap(true, " + parentPropList + "))"
         + ".by(__.outE().hasLabel(edgeKind).inV().valueMap(true, " + childPropList + ").fold())"
     const client = createClient()
