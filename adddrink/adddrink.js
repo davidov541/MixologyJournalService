@@ -36,6 +36,10 @@ module.exports = async function (context, req) {
                 const info = {
                     name: `${body.name} Instance Ingredient Usage #${ingredientUsage++}`
                 };
+                if ('brand' in i)
+                {
+                    info.brand = i.brand;
+                }
                 const id = uuid();
                 const ingredientEdge = {
                     id: i.ingredient.id,
