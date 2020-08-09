@@ -569,4 +569,71 @@ describe("Entity Conversion Tests", function () {
         expectations.map((e) => e.verify());
         mockADLS.restore()
     });
+
+    test("should parse a recipe JSON with a brand on an ingredient successfully.", async function () {
+        const mockADLS = setupMockADLS();
+        const expectations = [
+            mockADLS
+                .expects("getSASForFile")
+                .once()
+                .withExactArgs("creation-pics/someUser/somePic.jpg")
+                .returns("someSASToken"),
+        ];
+
+        const recipeJSON = JSON.parse(
+            fs.readFileSync("test/resources/ingredientWithBrandRecipe.json")
+        )._items[0]["69dd79ac-1903-4c88-b7e4-b1314d6b149c"];
+
+        const actual = uut.processRecipe(recipeJSON);
+
+        const expected = {
+            id: "69dd79ac-1903-4c88-b7e4-b1314d6b149c",
+            picture: {
+                path: "creation-pics/someUser/somePic.jpg",
+                url: "someSASToken",
+            },
+            ingredients: [
+                {
+                    brand: "Tanqueray",
+                    amount: "2.0",
+                    ingredient: {
+                        id: "8730cecb-0b58-4033-9aa5-b127955639c1",
+                        name: "Gin",
+                        plural: "Gin"
+                    },
+                    unit: {
+                        id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                        name: "Ounce",
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
+                    },
+                },
+                {
+                    amount: "4.0",
+                    ingredient: {
+                        id: "732e5f28-c2df-499f-b081-51831293dbc2",
+                        name: "Tonic",
+                        plural: "Tonic"
+                    },
+                    unit: {
+                        id: "d29eabba-bf3b-4d1a-8431-8cdf2f2106bd",
+                        name: "Ounce",
+                        plural: "Ounces",
+                        format: "{0} {1} of {2}"
+                    },
+                },
+            ],
+            name: "Gin & Tonic",
+            steps: [
+                "Build in a Tom Collins glass",
+                "Stir",
+                "Garnish with a lime wedge",
+            ],
+            user: "ef5375ad-6d92-4571-a999-999aa494ff13",
+        };
+        expect(actual).toEqual(expected);
+
+        expectations.map((e) => e.verify());
+        mockADLS.restore()
+    });
 });
