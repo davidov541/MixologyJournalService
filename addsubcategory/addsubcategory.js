@@ -25,12 +25,8 @@ module.exports = async function (context, req) {
                 name: req.body.name
             }
             const id = uuid()
-            const subEdge = {
-                id: req.body.category,
-                relationship: 'subcategory',
-                properties: {}
-            }
-            await cosmos.createEntryOfKind('subcategory', id, info, [subEdge])
+            await cosmos.createEntryOfKind('subcategory', id, info, [])
+            await cosmos.createEdge(req.body.category, id, 'subcategory', []);
             info.id = id
             context.res = {
                 // status: 200, /* Defaults to 200 */

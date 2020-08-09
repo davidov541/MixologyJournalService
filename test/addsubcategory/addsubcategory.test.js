@@ -148,13 +148,10 @@ describe('Add Subcategory Function Tests', function () {
                 .once()
                 .withExactArgs('subcategory', sinon.match.any, {
                     "name": request.body.name
-                }, [
-                    {
-                        id: request.body.category,
-                        relationship: "subcategory",
-                        properties: {}
-                    }
-                ]),
+                }, []),
+            mockPersistence.expects("createEdge")
+                .once()
+                .withExactArgs(request.body.category, sinon.match.any, 'subcategory', []),
         ]
             
         await uut(context, request);
