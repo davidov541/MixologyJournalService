@@ -169,6 +169,27 @@ describe('Persistence Facade Tests', function () {
         mockCosmos.restore()
     })
 
+    test('should properly run a custom query', async function () {
+        const mockCosmos = setupMockCosmos();
+
+        const testQuery = "Test Query";
+        const expectedReturnValue = "Test Result";
+
+        mockCosmos
+            .expects("runCustomQuery")
+            .once()
+            .withArgs(testQuery)
+            .returns(expectedReturnValue)
+
+        const actual = await uut.runCustomQuery(testQuery)
+
+        expect(actual).toEqual(expectedReturnValue)
+
+        mockCosmos.verify()
+
+        mockCosmos.restore()
+    })
+
     test('should properly create an entry', async function () {
         const mockCosmos = setupMockServiceBus();
 

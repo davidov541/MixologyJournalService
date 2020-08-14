@@ -156,6 +156,15 @@ async function getAllIncomingEdgesOfKind(id, kind, properties) {
     })
 }
 
+async function runCustomQuery(query) {
+    const client = createClient()
+    await client.open();
+    const result = await client.submit(query)
+    console.log("runCustomQuery; query = " + query + ";RUs used: " + result.attributes["x-ms-request-charge"])
+    await client.close();
+    return result._items;
+}
+
 exports.getAllDescendentsOfKind = getAllDescendentsOfKind;
 exports.getAllDescendentsOfEntity = getAllDescendentsOfEntity;
 exports.getPropertiesOfEntity = getPropertiesOfEntity;
@@ -163,3 +172,4 @@ exports.getEntriesOfKind = getEntriesOfKind;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
 exports.getAllIncomingEdgesOfKind = getAllIncomingEdgesOfKind;
 exports.getEntriesAndRelated = getEntriesAndRelated;
+exports.runCustomQuery = runCustomQuery;

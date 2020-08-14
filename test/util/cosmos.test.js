@@ -412,7 +412,7 @@ describe('Cosmos Interface Tests', function () {
         expect(args[1]).toEqual({label: testKind, id: testID})
     })
 
-    test('should properly return all incoming edges to a vertex of a given kind', async function () {
+    test('should properly run a custom query if given one', async function () {
         const returnValue = {
             "_items": [
                 {
@@ -447,21 +447,10 @@ describe('Cosmos Interface Tests', function () {
         const gremlinSubmitFake = sinon.fake.returns(returnValue)
         const spies = setupMockGremlin(gremlinSubmitFake);
 
-        const testKind = "expectedKind";
-        const testID = "testID"
-        const properties = ["unitAmount"]
+        const testQuery = "expectedQuery";
 
-        const actual = await uut.getAllIncomingEdgesOfKind(testID, testKind, properties)
-        const expected = [
-            {
-                "id": "edgeID1",
-                "unitAmount": "2.0"
-            },
-            {
-                "id": "edgeID2",
-                "unitAmount": "5.0"
-            }
-        ]
+        const actual = await uut.runCustomQuery(testQuery)
+        const expected = returnValue._items;
 
         expect(actual).toEqual(expected)
         
@@ -471,7 +460,6 @@ describe('Cosmos Interface Tests', function () {
         expect(gremlinSubmitFake.callCount).toBe(1);
 
         const args = gremlinSubmitFake.args[0]
-        expect(args[0]).toEqual("g.V(id).inE().hasLabel(label)")
-        expect(args[1]).toEqual({label: testKind, id: testID})
+        expect(args[0]).toEqual(testQuery)
     })
 })

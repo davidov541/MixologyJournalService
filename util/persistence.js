@@ -29,6 +29,10 @@ async function getEntriesAndRelated(kind, edgeLabel, parentProperties, childProp
     return await cosmos.getEntriesAndRelated(kind, edgeLabel, parentProperties, childProperties)
 }
 
+async function runCustomQuery(query) {
+    return await cosmos.runCustomQuery(query)
+}
+
 function queueCreateEntry(kind, id, properties, edges) {
     return {
         command: "add-vertex",
@@ -99,6 +103,7 @@ exports.getPropertiesOfEntity = getPropertiesOfEntity;
 exports.getConnectedEntriesOfKind = getConnectedEntriesOfKind;
 exports.getAllIncomingEdgesOfKind = getAllIncomingEdgesOfKind;
 exports.getEntriesAndRelated = getEntriesAndRelated;
+exports.runCustomQuery = runCustomQuery;
 
 exports.queueCreateEntry = queueCreateEntry;
 exports.queueCreateEdge = queueCreateEdge;

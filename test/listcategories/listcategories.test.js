@@ -76,32 +76,7 @@ async function runSuccessfulListTest(securitySuccess) {
         }
       ]
 
-    const expected = [
-        {
-            id: "1",
-            name: "Category 1",
-            subcategories: [
-                {
-                    id: "1a",
-                    name: "Subcategory 1"
-                },
-                {
-                    id: "1b",
-                    name: "Subcategory 2"
-                }
-            ]
-        },
-        {
-            id: "2",
-            name: "Category 2",
-            subcategories: [
-                {
-                    id: "2a",
-                    name: "Subcategory 3"
-                }
-            ]
-        }
-    ]
+    const expected = mockRawResults;
 
     const expectations = [
         mockSecurity
@@ -109,9 +84,9 @@ async function runSuccessfulListTest(securitySuccess) {
             .once()
             .withArgs(context, request)
             .returns(mockSecurityResult),
-        mockPersistence.expects("getEntriesAndRelated")
+        mockPersistence.expects("runCustomQuery")
             .once()
-            .withExactArgs('category', 'subcategory', ["name"], ["name"])
+            .withExactArgs(sinon.match.any)
             .returns(mockRawResults),
     ]
         
