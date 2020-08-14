@@ -8,7 +8,7 @@ module.exports = async function (context, req) {
 
     try {
         const info = await cosmos.getEntriesOfKind('ingredient', ['name', 'plural'])
-       for (i in info) {
+        for (i in info) {
             const ingred = info[i]
             if (!('plural' in ingred))
             {
