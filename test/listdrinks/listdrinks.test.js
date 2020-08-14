@@ -69,15 +69,15 @@ async function runSuccessfulListTest(securitySuccess) {
             .returns(mockList),
         mockConversion.expects("processDrink")
             .once()
-            .withExactArgs(mockList[0], mockSecurityResult.user)
+            .withExactArgs(mockList[0])
             .returns(mockList[0]),
         mockConversion.expects("processDrink")
             .once()
-            .withExactArgs(mockList[1], mockSecurityResult.user)
+            .withExactArgs(mockList[1])
             .returns(mockList[1]),
         mockConversion.expects("processDrink")
             .once()
-            .withExactArgs(mockList[2], mockSecurityResult.user)
+            .withExactArgs(mockList[2])
             .returns(mockList[2])
     ]
         
