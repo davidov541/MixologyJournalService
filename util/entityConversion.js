@@ -93,6 +93,7 @@ function processRecipe(recipe) {
 }
 
 function processIngredientUsages(usage) {
+    console.log("Processing ingredient usage: " + JSON.stringify(usage));
     var ingredient = {};
     var unit = {};
     var unitAmount = "";
