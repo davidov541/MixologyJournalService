@@ -15,7 +15,7 @@ module.exports = async function (context, req) {
         var recipes = new Array();
         for(recipe in info) {
             const recipeInfo = entityConversion.processRecipe(info[recipe], securityResult.user);
-            if (recipeInfo.user == rootId || 
+            if (/*recipeInfo.user == rootId || */
                 (securityResult.success && recipeInfo.user == securityResult.user.payload.sub))
             {
                 recipeInfo.isBuiltIn = (recipeInfo.user == rootId);
